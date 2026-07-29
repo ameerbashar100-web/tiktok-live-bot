@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ACCE — تسجيل</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg1:#dfe9f6;--bg2:#eef5fb;--card:#ffffff;--accent:#0b63c5;--muted:#6b7280}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:'Cairo',sans-serif;background:linear-gradient(180deg,var(--bg1),var(--bg2));color:#07102a}
+    .container{max-width:420px;margin:18px auto;padding:12px}
+
+    /* Header like image */
+    .brand{display:flex;align-items:center;gap:10px}
+    .logo{font-weight:900;color:var(--accent);font-size:34px;letter-spacing:2px}
+    .header-top{height:56px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.65),rgba(255,255,255,0.9));display:flex;align-items:center;padding:12px;margin-top:8px;box-shadow:0 8px 24px rgba(11,32,64,0.06)}
+
+    h1{font-size:34px;margin:18px 0 6px;text-shadow:0 10px 22px rgba(0,0,0,0.12)}
+    .subtitle{color:var(--muted);margin-bottom:8px}
+
+    .card{background:linear-gradient(180deg,#ffffff, #fbfdff);border-radius:14px;padding:16px;box-shadow:0 10px 30px rgba(2,6,23,0.06)}
+    label{display:block;font-weight:700;margin-bottom:6px;color:#0b3a66}
+    .input{width:100%;padding:12px;border-radius:8px;border:1px solid rgba(10,20,40,0.04);margin-bottom:12px;background:transparent}
+
+    .invite-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+    .invite-code{background:#0b1320;color:#fff;padding:10px 14px;border-radius:8px;font-weight:800;letter-spacing:2px}
+
+    .actions{display:flex;gap:12px;margin-top:8px}
+    .btn{flex:1;padding:12px;border-radius:10px;border:0;font-weight:900;cursor:pointer}
+    .btn-login{background:#fff;border:1px solid rgba(10,20,40,0.06);color:#0b1320}
+    .btn-create{background:linear-gradient(90deg,var(--accent),#2b82f6);color:#fff}
+
+    .message{display:none;margin-top:12px;padding:10px;border-radius:8px;background:#ffecec;color:#8a0b0b;font-weight:700}
+
+    footer{position:fixed;left:50%;transform:translateX(-50%);bottom:12px;width:94%;max-width:420px;display:flex;gap:12px}
+
+    @media (max-width:420px){.container{padding:8px}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="brand">
+      <div class="logo">ACCE</div>
+      <div style="margin-left:auto;color:var(--muted);font-size:13px">🇦🇪 24</div>
+    </div>
+
+    <div class="header-top">
+      <div style="width:100%">
+        <h1>تسجيل المستخدم</h1>
+        <div class="subtitle">للتسجيل تواصل خاص</div>
+      </div>
+    </div>
+
+    <div style="height:12px"></div>
+
+    <div class="card" role="region" aria-label="نموذج التسجيل">
+      <label>رقم الهاتف</label>
+      <input class="input" type="tel" placeholder="+964 ..." id="phone">
+
+      <label>كلمة المرور</label>
+      <input class="input" type="password" placeholder="أدخل كلمة السر" id="pass">
+
+      <label>تأكيد كلمة المرور</label>
+      <input class="input" type="password" placeholder="الرجاء تأكيد كلمة المرور" id="pass2">
+
+      <label>الكابتشا</label>
+      <input class="input" type="text" placeholder="أدخل رمز التحقق" id="captcha">
+
+      <div class="invite-row">
+        <label style="margin:0">رمز الدعوة</label>
+        <div class="invite-code" id="inviteCode">kvmrt</div>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:8px;margin-top:6px;margin-bottom:6px">
+        <input type="checkbox" id="agree"> <label for="agree" style="margin:0;font-weight:500;color:var(--muted)">لقد قرأت وأوافق على اتفاقية التسجيل</label>
+      </div>
+
+      <div class="message" id="msg">عذراً، ليس لديك حساب مسبقاً.</div>
+
+    </div>
+  </div>
+
+  <footer>
+    <button class="btn btn-login" id="loginBtn">تسجيل دخول</button>
+    <button class="btn btn-create" id="createBtn">انشاء الحساب</button>
+  </footer>
+
+  <script>
+    // generate a 5-letter random English code (lowercase)
+    function rand5(){
+      const letters = 'abcdefghijklmnopqrstuvwxyz';
+      let s='';
+      for(let i=0;i<5;i++) s += letters[Math.floor(Math.random()*letters.length)];
+      return s;
+    }
+    document.getElementById('inviteCode').textContent = rand5();
+
+    const msg = document.getElementById('msg');
+    const loginBtn = document.getElementById('loginBtn');
+    const createBtn = document.getElementById('createBtn');
+
+    loginBtn.addEventListener('click', ()=>{
+      // when user presses login always show account not found message
+      msg.textContent = 'عذراً، ليس لديك حساب مسبقاً.';
+      msg.style.display = 'block';
+      // optionally offer create action inside message (not required)
+    });
+
+    createBtn.addEventListener('click', ()=>{
+      // simple client-side validation for demo
+      const phone = document.getElementById('phone').value.trim();
+      const a = document.getElementById('pass').value;
+      const b = document.getElementById('pass2').value;
+      const agree = document.getElementById('agree').checked;
+      if(!phone || !a || !b){
+        msg.textContent = 'الرجاء تعبئة كل الحقول.'; msg.style.display='block'; return;
+      }
+      if(a !== b){ msg.textContent='كلمتا المرور غير متطابقتين.'; msg.style.display='block'; return; }
+      if(!agree){ msg.textContent='يجب الموافقة على اتفاقية التسجيل.'; msg.style.display='block'; return; }
+      // simulate account creation then redirect to main (same page shows packages/ tasks)
+      msg.style.display='none';
+      // For demo, show a quick success then change content to main page view
+      alert('تم إنشاء الحساب (محاكاة). سيتم عرض الصفحة الرئيسية الآن.');
+      // Replace page content with a simple main view (packages/tasks)
+      document.body.innerHTML = `
+        <div style="font-family:'Cairo',sans-serif;padding:18px;max-width:920px;margin:0 auto;">
+          <h2 style="color:#0b3a66">الصفحة الرئيسية — الباقات والمهام</h2>
+          <div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:12px">
+            <div style="flex:1;min-width:200px;background:#fff;padding:14px;border-radius:10px;box-shadow:0 6px 18px rgba(11,32,64,0.06)">
+              <h3>C1 — 15 USDT</h3><p>مهام يومية: 5 · صلاحية: 365 يوم</p>
+            </div>
+            <div style="flex:1;min-width:200px;background:#fff;padding:14px;border-radius:10px;box-shadow:0 6px 18px rgba(11,32,64,0.06)">
+              <h3>C2 — 30 USDT</h3><p>مهام يومية: 10 · صلاحية: 365 يوم</p>
+            </div>
+            <div style="flex:1;min-width:200px;background:#fff;padding:14px;border-radius:10px;box-shadow:0 6px 18px rgba(11,32,64,0.06)">
+              <h3>C3 — 60 USDT</h3><p>مهام يومية: 11 · صلاحية: 365 يوم</p>
+            </div>
+          </div>
+          <div style="margin-top:18px;color:var(--muted)">محتوى تجريبي — عدّل حسب الحاجة.</div>
+        </div>
+      `;
+    });
+  </script>
+</body>
+</html>
