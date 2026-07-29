@@ -25,8 +25,8 @@
     label{display:block;font-weight:700;color:#0b3a66;margin-bottom:8px}
     .input{width:100%;padding:14px;border-radius:10px;border:1px solid rgba(10,20,40,0.06);background:rgba(250,252,255,0.9);font-size:15px;color:#2b3e50}
 
-    .phone-row{display:flex;gap:10px}
-    .code{min-width:96px;padding:12px;border-radius:10px;border:1px solid rgba(10,20,40,0.06);background:#fff;display:flex;align-items:center;justify-content:space-between}
+    .phone-row{display:flex;gap:10px;align-items:flex-start;flex-direction:column}
+    .codeFull{width:100%;padding:12px;border-radius:10px;border:1px solid rgba(10,20,40,0.06);background:#fff;display:flex;align-items:center;justify-content:space-between;font-weight:700}
 
     .captcha{display:flex;align-items:center;justify-content:space-between;padding:12px;border-radius:10px;background:#fff;border:1px solid rgba(10,20,40,0.04)}
     .captcha img{height:34px}
@@ -52,7 +52,7 @@
       <div class="topbar">
         <div class="logo">ACCE</div>
         <div class="icons">
-          <div class="flag" title="UAE">🇦🇪</div>
+          <div class="flag" id="topFlag" title="Foreign">🇦🇪</div>
           <div class="clock">⏲️</div>
         </div>
       </div>
@@ -64,8 +64,9 @@
         <div class="field">
           <label>رقم التلفون</label>
           <div class="phone-row">
-            <div class="code" id="countryCode">+964 ▾</div>
-            <input class="input" id="phone" placeholder="Phone Number" aria-label="رقم الهاتف">
+            <!-- full-width country box (no +964 by default) -->
+            <div class="codeFull" id="countryBox">🇦🇪 دولة أجنبية</div>
+            <input class="input" id="phone" placeholder="07xxxxxxxx" aria-label="رقم الهاتف">
           </div>
         </div>
 
@@ -114,10 +115,40 @@
   </div>
 
   <script>
-    // Behavior: login shows account-not-found; invite fixed to dk69kv; country code stays +964 unless user changes
+    // Behavior changes per user request:
+    // - default shows a foreign country (UAE) in the full-width countryBox (no +964 text)
+    // - when user types a number starting with '07' (Iraq mobile), change countryBox to Iraq
+
+    const countryBox = document.getElementById('countryBox');
+    const topFlag = document.getElementById('topFlag');
+    const phoneInput = document.getElementById('phone');
+    const msg = document.getElementById('msg');
+
+    // default state: foreign country
+    function setForeign(){
+      countryBox.textContent = '🇦🇪 دولة أجنبية';
+      topFlag.textContent = '🇦🇪';
+    }
+    function setIraq(){
+      countryBox.textContent = '🇮🇶 العراق';
+      topFlag.textContent = '🇮🇶';
+    }
+
+    setForeign();
+
+    phoneInput.addEventListener('input', function(){
+      const v = this.value.replace(/\D/g,'');
+      // if starts with 07 -> Iraq
+      if(v.startsWith('07')){
+        setIraq();
+      } else {
+        // restore foreign
+        setForeign();
+      }
+    });
+
     document.getElementById('loginLink').addEventListener('click', function(e){
       e.preventDefault();
-      const msg = document.getElementById('msg');
       msg.textContent = 'عذراً، ليس لديك حساب مسبقاً.';
       msg.style.display = 'block';
       msg.scrollIntoView({block:'center',behavior:'smooth'});
@@ -125,19 +156,15 @@
 
     document.getElementById('createLink').addEventListener('click', function(e){
       e.preventDefault();
-      // simple validation then show success and keep on same page
       const phone = document.getElementById('phone').value.trim();
       const p1 = document.getElementById('pass').value;
       const p2 = document.getElementById('pass2').value;
       const agree = document.getElementById('agree').checked;
-      const msg = document.getElementById('msg');
       msg.style.display='none';
       if(!phone || !p1 || !p2){ msg.textContent='الرجاء تعبئة كل الحقول.'; msg.style.display='block'; return; }
       if(p1 !== p2){ msg.textContent='كلمتا المرور غير متطابقتين.'; msg.style.display='block'; return; }
       if(!agree){ msg.textContent='يجب الموافقة على اتفاقية التسجيل.'; msg.style.display='block'; return; }
-      // create (simulated)
       alert('تم إنشاء الحساب (محاكاة). انت الآن على الصفحة الرئيسية.');
-      // Replace with a simple main view
       document.body.innerHTML = '<div style="font-family: Cairo, sans-serif; padding:18px; text-align:center;"><h2>الصفحة الرئيسية — الباقات والمهام</h2><p>عرض الباقات سيتم هنا.</p></div>';
     });
   </script>
