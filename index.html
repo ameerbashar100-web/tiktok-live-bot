@@ -14,6 +14,8 @@
     /* Header like image */
     .brand{display:flex;align-items:center;gap:10px}
     .logo{font-weight:900;color:var(--accent);font-size:34px;letter-spacing:2px}
+    .country-btn{margin-left:auto;display:flex;align-items:center;gap:8px;cursor:pointer}
+    .flag{font-size:22px}
     .header-top{height:56px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.65),rgba(255,255,255,0.9));display:flex;align-items:center;padding:12px;margin-top:8px;box-shadow:0 8px 24px rgba(11,32,64,0.06)}
 
     h1{font-size:34px;margin:18px 0 6px;text-shadow:0 10px 22px rgba(0,0,0,0.12)}
@@ -23,6 +25,8 @@
     label{display:block;font-weight:700;margin-bottom:6px;color:#0b3a66}
     .input{width:100%;padding:12px;border-radius:8px;border:1px solid rgba(10,20,40,0.04);margin-bottom:12px;background:transparent}
 
+    .phone-row{display:flex;gap:8px;align-items:center}
+    .code-select{min-width:92px;padding:10px;border-radius:8px;border:1px solid rgba(10,20,40,0.04);background:#fff;display:flex;align-items:center;justify-content:space-between}
     .invite-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
     .invite-code{background:#0b1320;color:#fff;padding:10px 14px;border-radius:8px;font-weight:800;letter-spacing:2px}
 
@@ -35,6 +39,11 @@
 
     footer{position:fixed;left:50%;transform:translateX(-50%);bottom:12px;width:94%;max-width:420px;display:flex;gap:12px}
 
+    /* country dropdown */
+    .country-dropdown{position:fixed;top:70px;right:10px;background:#fff;border-radius:10px;box-shadow:0 10px 30px rgba(2,6,23,0.2);display:none;z-index:200;width:220px;padding:8px}
+    .country-option{display:flex;align-items:center;gap:10px;padding:8px;border-radius:8px;cursor:pointer}
+    .country-option:hover{background:#f3f6fb}
+
     @media (max-width:420px){.container{padding:8px}}
   </style>
 </head>
@@ -42,7 +51,10 @@
   <div class="container">
     <div class="brand">
       <div class="logo">ACCE</div>
-      <div style="margin-left:auto;color:var(--muted);font-size:13px">🇦🇪 24</div>
+      <div class="country-btn" id="countryBtn" aria-haspopup="true" aria-expanded="false">
+        <div class="flag" id="currentFlag">🇦🇪</div>
+        <div style="font-size:13px;color:var(--muted)">24</div>
+      </div>
     </div>
 
     <div class="header-top">
@@ -56,7 +68,13 @@
 
     <div class="card" role="region" aria-label="نموذج التسجيل">
       <label>رقم الهاتف</label>
-      <input class="input" type="tel" placeholder="+964 ..." id="phone">
+      <div class="phone-row">
+        <div class="code-select" id="codeSelect">
+          <span id="countryCode">+964</span>
+          <span style="opacity:0.6">▾</span>
+        </div>
+        <input class="input" type="tel" placeholder="رقم الهاتف" id="phone">
+      </div>
 
       <label>كلمة المرور</label>
       <input class="input" type="password" placeholder="أدخل كلمة السر" id="pass">
@@ -81,6 +99,15 @@
     </div>
   </div>
 
+  <div class="country-dropdown" id="countryDropdown" role="menu" aria-label="اختيار الدولة">
+    <!-- list of nearby countries as requested -->
+    <div class="country-option" data-code="+964" data-flag="🇮🇶"><div style="font-size:20px">🇮🇶</div><div>العراق (+964)</div></div>
+    <div class="country-option" data-code="+971" data-flag="🇦🇪"><div style="font-size:20px">🇦🇪</div><div>الإمارات (+971)</div></div>
+    <div class="country-option" data-code="+966" data-flag="🇸🇦"><div style="font-size:20px">🇸🇦</div><div>السعودية (+966)</div></div>
+    <div class="country-option" data-code="+965" data-flag="🇰🇼"><div style="font-size:20px">🇰🇼</div><div>الكويت (+965)</div></div>
+    <div class="country-option" data-code="+973" data-flag="🇧🇭"><div style="font-size:20px">🇧🇭</div><div>البحرين (+973)</div></div>
+  </div>
+
   <footer>
     <button class="btn btn-login" id="loginBtn">تسجيل دخول</button>
     <button class="btn btn-create" id="createBtn">انشاء الحساب</button>
@@ -100,11 +127,68 @@
     const loginBtn = document.getElementById('loginBtn');
     const createBtn = document.getElementById('createBtn');
 
+    const countryBtn = document.getElementById('countryBtn');
+    const dropdown = document.getElementById('countryDropdown');
+    const currentFlag = document.getElementById('currentFlag');
+    const countryCode = document.getElementById('countryCode');
+    const phoneInput = document.getElementById('phone');
+    const codeSelect = document.getElementById('codeSelect');
+
+    // toggle dropdown when clicking flag
+    countryBtn.addEventListener('click', (e)=>{
+      const open = dropdown.style.display === 'block';
+      dropdown.style.display = open ? 'none' : 'block';
+      countryBtn.setAttribute('aria-expanded', (!open).toString());
+    });
+
+    // Also open dropdown when clicking codeSelect
+    codeSelect.addEventListener('click', ()=>{ dropdown.style.display = 'block'; countryBtn.setAttribute('aria-expanded','true'); });
+
+    // select country from dropdown
+    dropdown.querySelectorAll('.country-option').forEach(opt=>{
+      opt.addEventListener('click', ()=>{
+        const code = opt.getAttribute('data-code');
+        const flag = opt.getAttribute('data-flag');
+        countryCode.textContent = code;
+        currentFlag.textContent = flag;
+        dropdown.style.display = 'none';
+        countryBtn.setAttribute('aria-expanded','false');
+      });
+    });
+
+    // auto-detect country by phone prefix
+    phoneInput.addEventListener('input', ()=>{
+      const v = phoneInput.value.replace(/\D/g,''); // digits only
+      // if user types starting with 0770 or 770 (Iraq mobile ranges), set Iraq
+      if(v.startsWith('0770') || v.startsWith('770') || v.startsWith('77')){
+        countryCode.textContent = '+964';
+        currentFlag.textContent = '🇮🇶';
+      }
+      // example: if starts with 00971 or 971 or 05 (UAE mobile often starts with 05)
+      else if(v.startsWith('00971') || v.startsWith('971') || v.startsWith('5')){
+        countryCode.textContent = '+971';
+        currentFlag.textContent = '🇦🇪';
+      }
+      // Saudi
+      else if(v.startsWith('00966') || v.startsWith('966') || v.startsWith('5')){
+        // keep as example — don’t override UAE too aggressively
+        // no action here to avoid conflict
+      }
+    });
+
+    // close dropdown clicking outside
+    document.addEventListener('click', (e)=>{
+      if(!dropdown.contains(e.target) && !countryBtn.contains(e.target) && !codeSelect.contains(e.target)){
+        dropdown.style.display='none';
+        countryBtn.setAttribute('aria-expanded','false');
+      }
+    });
+
     loginBtn.addEventListener('click', ()=>{
       // when user presses login always show account not found message
       msg.textContent = 'عذراً، ليس لديك حساب مسبقاً.';
       msg.style.display = 'block';
-      // optionally offer create action inside message (not required)
+      msg.scrollIntoView({behavior:'smooth',block:'center'});
     });
 
     createBtn.addEventListener('click', ()=>{
@@ -120,9 +204,7 @@
       if(!agree){ msg.textContent='يجب الموافقة على اتفاقية التسجيل.'; msg.style.display='block'; return; }
       // simulate account creation then redirect to main (same page shows packages/ tasks)
       msg.style.display='none';
-      // For demo, show a quick success then change content to main page view
       alert('تم إنشاء الحساب (محاكاة). سيتم عرض الصفحة الرئيسية الآن.');
-      // Replace page content with a simple main view (packages/tasks)
       document.body.innerHTML = `
         <div style="font-family:'Cairo',sans-serif;padding:18px;max-width:920px;margin:0 auto;">
           <h2 style="color:#0b3a66">الصفحة الرئيسية — الباقات والمهام</h2>
