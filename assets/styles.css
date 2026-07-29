@@ -1,0 +1,42 @@
+/* Shared styles for ACCE - moved from inline pages
+   Contains base variables, resets, emoji/font fixes, overlay, and bottom nav styles */
+:root{--bg:#eef6fb;--card:#ffffff;--muted:#6b7280;--accent:#0b63c5;--green:#16a34a}
+*{box-sizing:border-box}
+body{margin:0;font-family:'Cairo',sans-serif;background:linear-gradient(180deg,#f4f8fb,#eef6fb);color:#07102a}
+
+/* Ensure emoji/icons render using system emoji fonts */
+.flag, .clock, .avatar, #inviteClear, .check { font-family: "Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji",sans-serif; font-size:22px; line-height:1; }
+
+/* Loading overlay (shared) */
+.overlay{position:fixed;inset:0;background:rgba(255,255,255,0.6);display:flex;align-items:center;justify-content:center;z-index:1200;backdrop-filter:blur(4px)}
+.loader-box{width:260px;height:160px;border-radius:12px;background:linear-gradient(180deg,#fff,#f3f8ff);box-shadow:0 12px 40px rgba(2,6,23,0.12);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:12px}
+.spinner{width:64px;height:64px;border-radius:50%;border:6px solid rgba(11,99,197,0.14);border-top-color:var(--accent);animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.check{width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:36px;color:#fff;background:var(--green);opacity:0;transform:scale(0.6);transition:all .28s ease}
+.check.show{opacity:1;transform:scale(1)}
+
+/* Bottom navigation styling (shared) - safe-area aware container */
+.nav-bottom{position:fixed;left:0;right:0;bottom:env(safe-area-inset-bottom,12px);display:flex;justify-content:center;pointer-events:auto;z-index:999}
+.nav-bar{width:420px;max-width:96%;background:linear-gradient(180deg,#0b1220,#243246);color:#fff;border-radius:14px;padding:12px 14px;display:flex;gap:6px;align-items:center;justify-content:space-between;box-shadow:0 12px 30px rgba(2,6,23,0.4)}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;padding:6px 4px;text-decoration:none;color:inherit;font-weight:700;font-size:14px}
+.nav-item .label{font-size:13px}
+
+/* SVG icons use currentColor so they follow .nav-item color */
+.nav-item svg{width:28px;height:28px;color:inherit}
+.nav-item svg path, .nav-item svg circle, .nav-item svg rect{fill:currentColor}
+
+.center-btn{background:linear-gradient(90deg,#2b82f6,#0b63c5);width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-top:-28px;box-shadow:0 10px 30px rgba(11,32,64,0.45);border:4px solid rgba(255,255,255,0.06)}
+.center-btn svg{width:30px;height:30px}
+.center-btn svg path{fill:#fff}
+
+/* active state for nav items */
+.nav-item[aria-current="page"]{color:#fff}
+.nav-item[aria-current="page"] .label{font-weight:900}
+.nav-item[aria-current="page"]::after{content:"";display:block;width:36px;height:4px;background:rgba(255,255,255,0.12);border-radius:4px;margin-top:4px}
+
+@media (max-width:440px){
+  .nav-bar{width:96%;padding:10px}
+  .center-btn{width:56px;height:56px;margin-top:-22px}
+  .nav-item .label{font-size:12px}
+  .nav-item svg{width:24px;height:24px}
+}
