@@ -1,191 +1,294 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>ACCE — تسجيل المستخدم</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
-  <style>
-    :root{--bg:#eef6fb;--card:#ffffff;--muted:#6b7280;--accent:#0b63c5;--green:#16a34a}
-    *{box-sizing:border-box}
-    body{margin:0;font-family:'Cairo',sans-serif;background:linear-gradient(180deg,#f4f8fb,#eef6fb);color:#07102a}
-    .page{min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:28px}
-    .panel{width:420px;max-width:96%.}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ACCE — تسجيل المستخدم</title>
 
-    .topbar{display:flex;align-items:center;gap:12px;margin-bottom:6px}
-    .logo{font-size:42px;font-weight:900;color:#3b6fbf;letter-spacing:2px}
-    .icons{margin-left:auto;display:flex;gap:10px;align-items:center}
-    .flag{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#fff;box-shadow:0 6px 18px rgba(11,32,64,0.06)}
-    .clock{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:transparent;color:#374151}
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
 
-    /* ensure emoji/icons render using system color emoji fonts (fixes missing emoji on some platforms when a webfont is used) */
-    .flag, .clock, .avatar, #inviteClear, .check { font-family: "Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji",sans-serif; font-size:22px; line-height:1; }
-
-    .title{font-size:34px;text-align:center;font-weight:800;margin:6px 0 12px}
-
-    .card{background:linear-gradient(180deg,#ffffff,#f7fbff);border-radius:16px;padding:18px;box-shadow:0 12px 40px rgba(2,6,23,0.06);border:1px solid rgba(11,32,64,0.03)}
-    .field{margin-bottom:16px}
-    label{display:block;font-weight:700;color:#0b3a66;margin-bottom:8px}
-    .input{width:100%;padding:14px;border-radius:10px;border:1px solid rgba(10,20,40,0.06);background:rgba(250,252,255,0.9);font-size:15px;color:#2b3e50}
-
-    .phone-row{display:flex;gap:10px;align-items:flex-start;flex-direction:column}
-    .codeFull{width:100%;padding:12px;border-radius:10px;border:1px solid rgba(10,20,40,0.06);background:#fff;display:flex;align-items:center;justify-content:center;font-weight:700}
-
-    .captcha{display:flex;align-items:center;gap:8px;padding:8px;border-radius:10px;background:#fff;border:1px solid rgba(10,20,40,0.04)}
-    .captcha .text{font-weight:800;color:#8b5cf6;padding:8px 12px;border-radius:8px;background:linear-gradient(90deg,#fff,#f3f6ff)}
-    .captcha input{flex:1;padding:10px;border-radius:8px;border:1px solid rgba(10,20,40,0.04)}
-
-    .invite{display:flex;align-items:center;gap:8px}
-    .invite input{width:100%;padding:12px;border-radius:10px;border:1px solid rgba(10,20,40,0.06);font-weight:800;letter-spacing:2px;text-transform:lowercase}
-
-    .checkbox{display:flex;align-items:center;gap:8px;margin-top:6px}
-
-    .bottom-links{display:flex;justify-content:center;gap:12px;margin-top:14px}
-    .link{color:#2b63b8;font-weight:700;text-decoration:none;font-size:18px}
-
-    .message{display:none;padding:12px;border-radius:8px;margin-top:10px;background:#ffecec;color:#8a0b0b;font-weight:700}
-
-    /* loading overlay */
-    .overlay{position:fixed;inset:0;background:rgba(255,255,255,0.6);display:flex;align-items:center;justify-content:center;z-index:1200;backdrop-filter:blur(4px)}
-    .loader-box{width:260px;height:160px;border-radius:12px;background:linear-gradient(180deg,#fff,#f3f8ff);box-shadow:0 12px 40px rgba(2,6,23,0.12);display:flex;flex-direction:column;align-items:[...]
-    .spinner{width:64px;height:64px;border-radius:50%;border:6px solid rgba(11,99,197,0.14);border-top-color:var(--accent);animation:spin 1s linear infinite}
-    @keyframes spin{to{transform:rotate(360deg)}}
-    .check{width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:36px;color:#fff;background:var(--green);opacity:0;transform:scale(0.6);transiti[...]
-    .check.show{opacity:1;transform:scale(1)}
-
-    @media (max-width:440px){.card{padding:14px}.title{font-size:28px}}
-  </style>
+<style>
+:root{
+--bg:#eef6fb;
+--card:#fff;
+--accent:#0b63c5;
+--green:#16a34a;
+--muted:#6b7280;
+}
+*{box-sizing:border-box}
+body{
+margin:0;
+font-family:'Cairo',sans-serif;
+background:linear-gradient(180deg,#f4f8fb,#eef6fb);
+}
+.page{
+min-height:100vh;
+display:flex;
+justify-content:center;
+padding:28px;
+}
+.panel{
+width:420px;
+max-width:96%;
+}
+.logo{
+font-size:42px;
+font-weight:900;
+color:#3b6fbf;
+text-align:center;
+margin-bottom:20px;
+}
+.card{
+background:#fff;
+padding:20px;
+border-radius:16px;
+box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+.field{
+margin-bottom:15px;
+}
+label{
+display:block;
+font-weight:bold;
+margin-bottom:8px;
+}
+.input{
+width:100%;
+padding:14px;
+border:1px solid #ddd;
+border-radius:10px;
+font-size:15px;
+}
+.captcha{
+display:flex;
+gap:10px;
+align-items:center;
+}
+.captcha .text{
+background:#f4f4ff;
+padding:10px;
+border-radius:8px;
+font-weight:bold;
+color:#7c3aed;
+}
+.invite{
+display:flex;
+gap:10px;
+align-items:center;
+}
+.invite input{
+flex:1;
+padding:12px;
+border:1px solid #ddd;
+border-radius:10px;
+}
+#inviteClear{
+cursor:pointer;
+}
+.message{
+display:none;
+padding:12px;
+background:#ffecec;
+color:#b91c1c;
+border-radius:8px;
+margin-top:10px;
+font-weight:bold;
+}
+.bottom-links{
+display:flex;
+justify-content:center;
+gap:15px;
+margin-top:20px;
+}
+.link{
+text-decoration:none;
+color:#0b63c5;
+font-weight:bold;
+}
+.overlay{
+display:none;
+position:fixed;
+inset:0;
+background:rgba(255,255,255,.7);
+justify-content:center;
+align-items:center;
+}
+.loader-box{
+width:260px;
+height:170px;
+background:#fff;
+border-radius:12px;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+}
+.spinner{
+width:60px;
+height:60px;
+border:6px solid #ddd;
+border-top-color:#0b63c5;
+border-radius:50%;
+animation:spin 1s linear infinite;
+}
+@keyframes spin{
+to{transform:rotate(360deg)}
+}
+.check{
+display:none;
+font-size:45px;
+color:#16a34a;
+}
+</style>
 </head>
+
 <body>
-  <div class="page" id="page">
-    <div class="panel">
-      <div class="topbar">
-        <div class="logo">ACCE</div>
-        <div class="icons">
-          <div class="flag" id="topFlag">🇦🇺</div>
-          <div class="clock">⏲️</div>
-        </div>
-      </div>
 
-      <div class="title">تسجيل المستخدم</div>
+<div class="page">
+<div class="panel">
 
-      <div class="card" role="main" aria-label="نموذج التسجيل">
+<div class="logo">ACCE</div>
 
-        <div class="field">
-          <label>G M A I L ✦ هاتــــــف</label>
-          <div class="phone-row">
-            <div class="codeFull" id="countryBox">🇦🇺</div>
-            <input class="input" id="phone" placeholder="07xxxxxxxx" aria-label="رقم الهاتف">
-          </div>
-        </div>
+<div class="card">
+  <div class="field">
+<label>GMAIL ✦ هاتف</label>
+<input class="input" id="phone" placeholder="07xxxxxxxx">
+</div>
 
-        <div class="field">
-          <label>كلمة المرور</label>
-          <input class="input" id="pass" type="password" placeholder="Password">
-        </div>
+<div class="field">
+<label>كلمة المرور</label>
+<input class="input" type="password" id="pass" placeholder="Password">
+</div>
 
-        <div class="field">
-          <label>تأكيد كلمة المرور</label>
-          <input class="input" id="pass2" type="password" placeholder="Confirm Password">
-        </div>
+<div class="field">
+<label>تأكيد كلمة المرور</label>
+<input class="input" type="password" id="pass2" placeholder="Confirm Password">
+</div>
 
-        <div class="field">
-          <label>الكابتشا الرسومية</label>
-          <div class="captcha">
-            <div class="text" id="captchaText">hyv6</div>
-            <input id="captchaInput" placeholder="" aria-label="كابتشا" />
-          </div>
-        </div>
+<div class="field">
+<label>الكابتشا</label>
+<div class="captcha">
+<div class="text" id="captchaText">hyv6</div>
+<input class="input" id="captchaInput">
+</div>
+</div>
 
-        <div class="field">
-          <label>رمز الدعوة</label>
-          <div class="invite">
-            <input id="inviteInput" maxlength="5" value="" aria-label="رمز الدعوة" />
-            <div style="opacity:0.6;cursor:pointer" id="inviteClear">✖</div>
-          </div>
-        </div>
+<div class="field">
+<label>رمز الدعوة</label>
+<div class="invite">
+<input id="inviteInput" maxlength="5">
+<div id="inviteClear">✖</div>
+</div>
+</div>
 
-        <div class="checkbox">
-          <input type="checkbox" id="agree"><label for="agree">لقد قرأت وأوافق على اتفاقية التسجيل</label>
-        </div>
+<div class="field">
+<input type="checkbox" id="agree">
+<label for="agree">لقد قرأت وأوافق على اتفاقية التسجيل</label>
+</div>
 
-        <div class="message" id="msg">عذراً، ليس لديك حساب مسبقاً.</div>
+<div id="msg" class="message"></div>
 
-        <div class="bottom-links">
-          <a class="link" href="#" id="createLink">إنشاء حساب</a>
-          <span style="color:#9aa7c9">·</span>
-          <a class="link" href="#" id="loginLink">تسجيل دخول</a>
-        </div>
+<div class="bottom-links">
+<a href="#" id="createLink" class="link">إنشاء حساب</a>
+<span>·</span>
+<a href="#" id="loginLink" class="link">تسجيل دخول</a>
+</div>
 
-      </div>
+</div>
+</div>
+</div>
 
-      <footer></footer>
-    </div>
-  </div>
+<div class="overlay" id="overlay">
+<div class="loader-box">
+<div class="spinner" id="spinner"></div>
+<div class="check" id="check">✓</div>
+</div>
+</div>
 
-  <!-- loading overlay (hidden by default) -->
-  <div class="overlay" id="overlay" style="display:none">
-    <div class="loader-box">
-      <div class="spinner" id="spinner"></div>
-      <div style="font-weight:800;color:#0b3a66">جارٍ إنشاء الحساب...</div>
-      <div class="check" id="check">✓</div>
-    </div>
-  </div>
+<script>
+function rand5(){
+const letters="abcdefghijklmnopqrstuvwxyz";
+let s="";
+for(let i=0;i<5;i++){
+s+=letters[Math.floor(Math.random()*letters.length)];
+}
+return s;
+}
 
-  <script>
-    // utilities
-    function rand5(){const letters='abcdefghijklmnopqrstuvwxyz';let s='';for(let i=0;i<5;i++) s+=letters[Math.floor(Math.random()*letters.length)];return s;}
+inviteInput.value=rand5();
 
-    const countryBox = document.getElementById('countryBox');
-    const topFlag = document.getElementById('topFlag');
-    const phoneInput = document.getElementById('phone');
-    const msg = document.getElementById('msg');
-    const captchaText = document.getElementById('captchaText');
-    const captchaInput = document.getElementById('captchaInput');
-    const inviteInput = document.getElementById('inviteInput');
-    const inviteClear = document.getElementById('inviteClear');
+inviteClear.onclick=function(){
+inviteInput.value="";
+};
 
-    // defaults
-    countryBox.textContent = '🇦🇺'; topFlag.textContent = '🇦🇺'; inviteInput.value = rand5();
+function showMsg(t){
+msg.innerText=t;
+msg.style.display="block";
+}
 
-    inviteClear.addEventListener('click', ()=>{inviteInput.value=''; inviteInput.focus();});
-    inviteInput.addEventListener('input', function(){ this.value=this.value.replace(/[^a-zA-Z]/g,'').toLowerCase().slice(0,5); });
+function showLoader(){
+overlay.style.display="flex";
+setTimeout(()=>{
+spinner.style.display="none";
+check.style.display="block";
+},1200);
 
-    phoneInput.addEventListener('input', function(){ const v=this.value.replace(/\D/g,''); if(v.startsWith('077')){ countryBox.textContent='🇮🇶'; topFlag.textContent='🇮🇶'; } else { cou[...]
+setTimeout(()=>{
+location.href="pages/home.html";
+},2000);
+}
 
-    // show overlay loader then redirect to pages/home.html
-    function showLoaderThenRedirect(){
-      const overlay = document.getElementById('overlay');
-      const spinner = document.getElementById('spinner');
-      const check = document.getElementById('check');
-      overlay.style.display='flex';
-      spinner.style.display='block'; check.classList.remove('show');
-      setTimeout(()=>{ spinner.style.display='none'; check.classList.add('show'); },1200);
-      setTimeout(()=>{ overlay.style.display='none'; window.location.href = '/pages/home.html'; },2000);
-    }
+createLink.onclick=function(e){
+e.preventDefault();
+  const phone = phoneInput.value.trim();
+const pass = document.getElementById("pass").value;
+const pass2 = document.getElementById("pass2").value;
+const captcha = captchaInput.value.trim();
+const invite = inviteInput.value.trim();
+const agree = document.getElementById("agree").checked;
 
-    // create behavior: validations then loader then redirect to pages/home.html
-    document.getElementById('createLink').addEventListener('click', function(e){
-      e.preventDefault();
-      const phone = phoneInput.value.trim();
-      const p1 = document.getElementById('pass').value;
-      const p2 = document.getElementById('pass2').value;
-      const agree = document.getElementById('agree').checked;
-      const inviteVal = inviteInput.value.trim();
-      msg.style.display='none';
-      if(!phone || !p1 || !p2){ msg.textContent='الرجاء تعبئة كل الحقول.'; msg.style.display='block'; return; }
-      if(p1 !== p2){ msg.textContent='كلمتا المرور غير متطابقتين.'; msg.style.display='block'; return; }
-      if(!agree){ msg.textContent='يجب الموافقة على اتفاقية التسجيل.'; msg.style.display='block'; return; }
-      if((captchaInput.value || '').trim() !== captchaText.textContent.trim()){ msg.textContent='كود الكابتشا غير مطابق.'; msg.style.display='block'; return; }
-      if(inviteVal.length !== 5){ msg.textContent='رمز الدعوة يجب أن يكون 5 أحرف إنجليزية.'; msg.style.display='block'; return; }
+msg.style.display = "none";
 
-      // save user and redirect to pages/home.html after loader
-      localStorage.setItem('acce_user', phone || inviteVal);
-      showLoaderThenRedirect();
-    });
+if(phone===""){
+    showMsg("الرجاء إدخال رقم الهاتف");
+    return;
+}
 
-    // login behavior
-    document.getElementById('loginLink').addEventListener('click', function(e){ e.preventDefault(); msg.textContent='عذراً، ليس لديك حساب مسبقاً.'; msg.style.display='block[...]
-  </script>
+if(pass===""){
+    showMsg("الرجاء إدخال كلمة المرور");
+    return;
+}
+
+if(pass!==pass2){
+    showMsg("كلمتا المرور غير متطابقتين");
+    return;
+}
+
+if(captcha!==captchaText.textContent){
+    showMsg("كود الكابتشا غير صحيح");
+    return;
+}
+
+if(invite.length!==5){
+    showMsg("رمز الدعوة يجب أن يكون 5 أحرف");
+    return;
+}
+
+if(!agree){
+    showMsg("يجب الموافقة على اتفاقية التسجيل");
+    return;
+}
+
+localStorage.setItem("acce_user",phone);
+
+showLoader();
+};
+
+loginLink.onclick=function(e){
+e.preventDefault();
+showMsg("عذراً، ليس لديك حساب مسبقاً.");
+};
+</script>
+
 </body>
 </html>
