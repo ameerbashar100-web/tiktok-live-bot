@@ -50,22 +50,7 @@
     .check{width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:36px;color:#fff;background:var(--green);opacity:0;transform:scale(0.6);transition:all .35s ease}
     .check.show{opacity:1;transform:scale(1)}
 
-    /* home page */
-    .home{padding:18px;font-family:'Cairo',sans-serif}
-    .user-card{display:flex;align-items:center;gap:12px;background:#fff;padding:12px;border-radius:12px;box-shadow:0 8px 24px rgba(2,6,23,0.06)}
-    .avatar{width:56px;height:56px;border-radius:50%;background:linear-gradient(180deg,#fff,#f0f6ff);display:flex;align-items:center;justify-content:center;font-size:26px}
-    .user-info{display:flex;flex-direction:column}
-    .user-name{font-weight:800;font-size:18px}
-    .user-sub{color:var(--muted);font-size:13px}
-
-    .nav-bottom{position:fixed;left:50%;transform:translateX(-50%);bottom:12px;width:420px;max-width:96%;background:linear-gradient(180deg,#0b1220,#243246);color:#fff;border-radius:14px;padding:12px 18px;display:flex;justify-content:space-between;align-items:center;gap:6px;box-shadow:0 12px 40px rgba(2,6,23,0.28)}
-    .nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;padding:8px}
-    .nav-item svg{width:28px;height:28px;opacity:0.95;filter:drop-shadow(0 2px 8px rgba(0,0,0,0.25))}
-    .nav-item .label{font-size:12px}
-
-    .active-center{background:linear-gradient(90deg,#2b82f6,#0b63c5);width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-top:-24px;box-shadow:0 8px 30px rgba(11,99,197,0.28)}
-
-    @media (max-width:440px){.nav-bottom{width:94%}}
+    @media (max-width:440px){.card{padding:14px}.title{font-size:28px}}
   </style>
 </head>
 <body>
@@ -165,65 +150,18 @@
 
     phoneInput.addEventListener('input', function(){ const v=this.value.replace(/\D/g,''); if(v.startsWith('077')){ countryBox.textContent='🇮🇶'; topFlag.textContent='🇮🇶'; } else { countryBox.textContent='🇦🇺'; topFlag.textContent='🇦🇺'; } });
 
-    // show overlay loader then success then go to homepage
-    function showLoaderThenHome(userLabel){
+    // show overlay loader then redirect to pages/home.html
+    function showLoaderThenRedirect(){
       const overlay = document.getElementById('overlay');
       const spinner = document.getElementById('spinner');
       const check = document.getElementById('check');
       overlay.style.display='flex';
-      // start with spinner visible
       spinner.style.display='block'; check.classList.remove('show');
-      // simulate progress: 1.2s spinner (blue), then show green check and go
-      setTimeout(()=>{
-        // hide spinner, show check
-        spinner.style.display='none'; check.classList.add('show');
-      },1200);
-      setTimeout(()=>{
-        overlay.style.display='none';
-        renderHome(userLabel);
-      },2000);
+      setTimeout(()=>{ spinner.style.display='none'; check.classList.add('show'); },1200);
+      setTimeout(()=>{ overlay.style.display='none'; window.location.href = '/pages/home.html'; },2000);
     }
 
-    // render homepage with nav and user info
-    function renderHome(userLabel){
-      // store current user to localStorage
-      localStorage.setItem('acce_user', userLabel);
-      document.body.innerHTML = `
-        <div class="home">
-          <div style="max-width:960px;margin:18px auto;padding:18px">
-            <div class="user-card">
-              <div class="avatar">👤</div>
-              <div class="user-info">
-                <div class="user-name">${escapeHtml(userLabel)}</div>
-                <div class="user-sub">مرحباً بك في ACCE</div>
-              </div>
-            </div>
-            <div style="margin-top:18px;font-weight:700;color:#0b3a66">لوحة التحكم</div>
-          </div>
-
-          <nav class="nav-bottom" role="navigation">
-            <div class="nav-item"><svg viewBox="0 0 24 24" fill="none"><path d="M3 11.5L12 4l9 7.5" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="label">الرئيسية</div></div>
-            <div class="nav-item"><svg viewBox="0 0 24 24" fill="none"><path d="M4 4h16v6H4zM4 14h10v6H4z" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="label">التوظيف</div></div>
-            <div class="nav-item" style="text-align:center;"><div class="active-center"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2v20" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="label">المنصب</div></div>
-            <div class="nav-item"><svg viewBox="0 0 24 24" fill="none"><path d="M3 7h18M3 12h18M3 17h18" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="label">السجل</div></div>
-            <div class="nav-item"><svg viewBox="0 0 24 24" fill="none"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10zM3 20a9 9 0 0 1 18 0" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="label">المركز الشخصي</div></div>
-          </nav>
-        </div>
-      `;
-    }
-
-    function escapeHtml(s){ return String(s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[c]; }); }
-
-    // on load, if user exists in localStorage, go to home directly
-    window.addEventListener('DOMContentLoaded', ()=>{
-      const u = localStorage.getItem('acce_user');
-      if(u){ renderHome(u); }
-    });
-
-    // login behavior
-    document.getElementById('loginLink').addEventListener('click', function(e){ e.preventDefault(); msg.textContent='عذراً، ليس لديك حساب مسبقاً.'; msg.style.display='block'; msg.scrollIntoView({block:'center',behavior:'smooth'}); });
-
-    // create behavior: validations then loader then home
+    // create behavior: validations then loader then redirect to pages/home.html
     document.getElementById('createLink').addEventListener('click', function(e){
       e.preventDefault();
       const phone = phoneInput.value.trim();
@@ -238,12 +176,13 @@
       if((captchaInput.value || '').trim() !== captchaText.textContent.trim()){ msg.textContent='كود الكابتشا غير مطابق.'; msg.style.display='block'; return; }
       if(inviteVal.length !== 5){ msg.textContent='رمز الدعوة يجب أن يكون 5 أحرف إنجليزية.'; msg.style.display='block'; return; }
 
-      // show loader then home; use phone/email as label
-      const userLabel = phone || inviteVal;
-      document.getElementById('overlay').style.display='flex';
-      setTimeout(()=>{ showLoaderThenHome(userLabel); }, 100);
+      // save user and redirect to pages/home.html after loader
+      localStorage.setItem('acce_user', phone || inviteVal);
+      showLoaderThenRedirect();
     });
 
+    // login behavior
+    document.getElementById('loginLink').addEventListener('click', function(e){ e.preventDefault(); msg.textContent='عذراً، ليس لديك حساب مسبقاً.'; msg.style.display='block'; msg.scrollIntoView({block:'center',behavior:'smooth'}); });
   </script>
 </body>
 </html>
