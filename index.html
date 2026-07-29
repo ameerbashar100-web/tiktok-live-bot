@@ -26,13 +26,15 @@
     .input{width:100%;padding:14px;border-radius:10px;border:1px solid rgba(10,20,40,0.06);background:rgba(250,252,255,0.9);font-size:15px;color:#2b3e50}
 
     .phone-row{display:flex;gap:10px;align-items:flex-start;flex-direction:column}
-    .codeFull{width:100%;padding:12px;border-radius:10px;border:1px solid rgba(10,20,40,0.06);background:#fff;display:flex;align-items:center;justify-content:space-between;font-weight:700}
+    .codeFull{width:100%;padding:12px;border-radius:10px;border:1px solid rgba(10,20,40,0.06);background:#fff;display:flex;align-items:center;justify-content:center;font-weight:700}
 
-    .captcha{display:flex;align-items:center;justify-content:space-between;padding:12px;border-radius:10px;background:#fff;border:1px solid rgba(10,20,40,0.04)}
-    .captcha img{height:34px}
+    .captcha{display:flex;align-items:center;gap:8px;padding:8px;border-radius:10px;background:#fff;border:1px solid rgba(10,20,40,0.04)}
+    .captcha .text{font-weight:800;color:#8b5cf6;padding:8px 12px;border-radius:8px;background:linear-gradient(90deg,#fff,#f3f6ff)}
+    .captcha input{flex:1;padding:10px;border-radius:8px;border:1px solid rgba(10,20,40,0.04)}
 
     .invite{display:flex;align-items:center;gap:8px}
     .invite .box{flex:1;padding:12px;border-radius:10px;background:#fff;border:1px solid rgba(10,20,40,0.04);}
+    .invite input{width:100%;padding:12px;border-radius:10px;border:1px solid rgba(10,20,40,0.06);font-weight:800;letter-spacing:2px;text-transform:lowercase}
 
     .checkbox{display:flex;align-items:center;gap:8px;margin-top:6px}
 
@@ -52,7 +54,7 @@
       <div class="topbar">
         <div class="logo">ACCE</div>
         <div class="icons">
-          <div class="flag" id="topFlag" title="Foreign">🇦🇪</div>
+          <div class="flag" id="topFlag" title="Foreign">🇦🇺</div>
           <div class="clock">⏲️</div>
         </div>
       </div>
@@ -64,8 +66,8 @@
         <div class="field">
           <label>رقم التلفون</label>
           <div class="phone-row">
-            <!-- full-width country box (no +964 by default) -->
-            <div class="codeFull" id="countryBox">🇦🇪 دولة أجنبية</div>
+            <!-- full-width country box showing only a flag/text (Australia by default) -->
+            <div class="codeFull" id="countryBox">🇦🇺</div>
             <input class="input" id="phone" placeholder="07xxxxxxxx" aria-label="رقم الهاتف">
           </div>
         </div>
@@ -83,16 +85,16 @@
         <div class="field">
           <label>الكابتشا الرسومية</label>
           <div class="captcha">
-            <div>الرجاء إدخال رمز التحقق من الرسوم البيانية</div>
-            <div style="font-weight:800;color:#8b5cf6;">hyv6</div>
+            <div class="text" id="captchaText">hyv6</div>
+            <input id="captchaInput" placeholder="" aria-label="كابتشا" />
           </div>
         </div>
 
         <div class="field">
           <label>رمز الدعوة</label>
           <div class="invite">
-            <div class="box" id="inviteBox">dk69kv</div>
-            <div style="opacity:0.6;cursor:pointer">✖</div>
+            <input id="inviteInput" maxlength="5" value="" aria-label="رمز الدعوة" />
+            <div style="opacity:0.6;cursor:pointer" id="inviteClear">✖</div>
           </div>
         </div>
 
@@ -115,38 +117,57 @@
   </div>
 
   <script>
-    // Behavior changes per user request:
-    // - default shows a foreign country (UAE) in the full-width countryBox (no +964 text)
-    // - when user types a number starting with '07' (Iraq mobile), change countryBox to Iraq
+    // Behavior updates per your request:
+    // - default shows Australian flag in the full-width countryBox (no text)
+    // - when user types a phone starting with '077' -> show Iraq flag
+    // - captcha: remove instruction text and show captcha string 'hyv6' visually; user types in input
+    // - invite: editable input limited to 5 letters; prefilled with random 5-letter code; clear button
+
+    function rand5(){
+      const letters = 'abcdefghijklmnopqrstuvwxyz';
+      let s='';
+      for(let i=0;i<5;i++) s += letters[Math.floor(Math.random()*letters.length)];
+      return s;
+    }
 
     const countryBox = document.getElementById('countryBox');
     const topFlag = document.getElementById('topFlag');
     const phoneInput = document.getElementById('phone');
     const msg = document.getElementById('msg');
+    const captchaText = document.getElementById('captchaText');
+    const captchaInput = document.getElementById('captchaInput');
+    const inviteInput = document.getElementById('inviteInput');
+    const inviteClear = document.getElementById('inviteClear');
 
-    // default state: foreign country
-    function setForeign(){
-      countryBox.textContent = '🇦🇪 دولة أجنبية';
-      topFlag.textContent = '🇦🇪';
-    }
-    function setIraq(){
-      countryBox.textContent = '🇮🇶 العراق';
-      topFlag.textContent = '🇮🇶';
-    }
+    // set defaults
+    countryBox.textContent = '🇦🇺';
+    topFlag.textContent = '🇦🇺';
 
-    setForeign();
+    // prefill invite with 5 random letters
+    inviteInput.value = rand5();
 
+    // clear invite
+    inviteClear.addEventListener('click', ()=>{ inviteInput.value = ''; inviteInput.focus(); });
+
+    // restrict invite input to letters only and lowercase, max 5
+    inviteInput.addEventListener('input', function(){
+      this.value = this.value.replace(/[^a-zA-Z]/g,'').toLowerCase().slice(0,5);
+      if(this.value.length === 0){ /* keep generated? user asked editable so keep empty */ }
+    });
+
+    // phone detection: if starts with '077' show Iraq; otherwise Australia
     phoneInput.addEventListener('input', function(){
       const v = this.value.replace(/\D/g,'');
-      // if starts with 07 -> Iraq
-      if(v.startsWith('07')){
-        setIraq();
+      if(v.startsWith('077')){
+        countryBox.textContent = '🇮🇶';
+        topFlag.textContent = '🇮🇶';
       } else {
-        // restore foreign
-        setForeign();
+        countryBox.textContent = '🇦🇺';
+        topFlag.textContent = '🇦🇺';
       }
     });
 
+    // login behavior
     document.getElementById('loginLink').addEventListener('click', function(e){
       e.preventDefault();
       msg.textContent = 'عذراً، ليس لديك حساب مسبقاً.';
@@ -154,19 +175,24 @@
       msg.scrollIntoView({block:'center',behavior:'smooth'});
     });
 
+    // create behavior: check captcha matches displayed text; invite length 5 letters
     document.getElementById('createLink').addEventListener('click', function(e){
       e.preventDefault();
-      const phone = document.getElementById('phone').value.trim();
+      const phone = phoneInput.value.trim();
       const p1 = document.getElementById('pass').value;
       const p2 = document.getElementById('pass2').value;
       const agree = document.getElementById('agree').checked;
+      const inviteVal = inviteInput.value.trim();
       msg.style.display='none';
       if(!phone || !p1 || !p2){ msg.textContent='الرجاء تعبئة كل الحقول.'; msg.style.display='block'; return; }
       if(p1 !== p2){ msg.textContent='كلمتا المرور غير متطابقتين.'; msg.style.display='block'; return; }
       if(!agree){ msg.textContent='يجب الموافقة على اتفاقية التسجيل.'; msg.style.display='block'; return; }
+      if((captchaInput.value || '').trim() !== captchaText.textContent.trim()){ msg.textContent='كود الكابتشا غير مطابق.'; msg.style.display='block'; return; }
+      if(inviteVal.length !== 5){ msg.textContent='رمز الدعوة يجب أن يكون 5 أحرف إنجليزية.'; msg.style.display='block'; return; }
       alert('تم إنشاء الحساب (محاكاة). انت الآن على الصفحة الرئيسية.');
       document.body.innerHTML = '<div style="font-family: Cairo, sans-serif; padding:18px; text-align:center;"><h2>الصفحة الرئيسية — الباقات والمهام</h2><p>عرض الباقات سيتم هنا.</p></div>';
     });
+
   </script>
 </body>
 </html>
