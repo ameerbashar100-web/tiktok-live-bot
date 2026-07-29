@@ -35,10 +35,14 @@
     .invite{display:flex;align-items:center;gap:8px}
     .invite input{flex:1}
 
-    .btn{display:block;margin-top:10px;background:var(--accent);color:#fff;padding:12px;border-radius:10px;text-align:center;font-weight:800;text-decoration:none}
+    .btn{display:block;margin-top:10px;background:var(--accent);color:#fff;padding:12px;border-radius:10px;text-align:center;font-weight:800;text-decoration:none;border:none}
 
     .small{font-size:13px;color:var(--muted);margin-top:10px}
     .small a{color:var(--accent);text-decoration:none}
+
+    .msg{padding:10px;border-radius:8px;margin-top:8px;display:none}
+    .msg.error{background:#ffecec;color:#990000}
+    .msg.success{background:#e6ffed;color:#086f25}
 
     @media (max-width:420px){.wrap{padding:8px}}
   </style>
@@ -59,18 +63,18 @@
       <label>رقم الهاتف</label>
       <div class="field">
         <div class="select-flag">+964 ▾</div>
-        <input type="tel" placeholder="رقم الهاتف" aria-label="phone" />
+        <input type="tel" id="phone" placeholder="رقم الهاتف" aria-label="phone" />
       </div>
 
       <label>كلمة المرور</label>
       <div class="field">
-        <input type="password" placeholder="أدخل كلمة السر" aria-label="password" />
+        <input type="password" id="pass" placeholder="أدخل كلمة السر" aria-label="password" />
         <div class="eye">👁️</div>
       </div>
 
       <label>تأكيد كلمة المرور</label>
       <div class="field">
-        <input type="password" placeholder="الرجاء تأكيد كلمة المرور" aria-label="confirm-password" />
+        <input type="password" id="pass2" placeholder="الرجاء تأكيد كلمة المرور" aria-label="confirm-password" />
         <div class="eye">👁️</div>
       </div>
 
@@ -82,18 +86,57 @@
 
       <label>رمز الدعوة</label>
       <div class="field invite">
-        <input type="text" placeholder="dk69kv" value="dk69kv" aria-label="invite" />
+        <input type="text" id="invite" placeholder="dk69kv" value="dk69kv" aria-label="invite" />
         <div style="opacity:0.6">✖</div>
       </div>
 
       <div style="margin-top:6px">
-        <label style="font-weight:500;display:flex;align-items:center;gap:8px"><input type="checkbox" /> لقد قرأت وأوافق <a href="#">اتفاقية التسجيل</a></label>
+        <label style="font-weight:500;display:flex;align-items:center;gap:8px"><input type="checkbox" id="agree" /> لقد قرأت وأوافق <a href="#">اتفاقية التسجيل</a></label>
       </div>
 
-      <a class="btn" href="#">تسجيل</a>
+      <button class="btn" id="createBtn">انشاء حساب</button>
+
+      <div class="msg error" id="errMsg">الرجاء تعبئة الحقول بشكل صحيح.</div>
+      <div class="msg success" id="succMsg">تم إنشاء الحساب! جارٍ التحويل للصفحة الرئيسية...</div>
 
       <div class="small">ملاحظة: رمز الدعوة الظاهر هو من المثال المرفق. يمكنك تغييره أو تركه فارغاً.</div>
     </div>
   </div>
+
+  <script>
+    document.getElementById('createBtn').addEventListener('click', function(){
+      const phone = document.getElementById('phone').value.trim();
+      const p1 = document.getElementById('pass').value;
+      const p2 = document.getElementById('pass2').value;
+      const agree = document.getElementById('agree').checked;
+      const err = document.getElementById('errMsg');
+      const succ = document.getElementById('succMsg');
+      err.style.display='none';
+      succ.style.display='none';
+
+      if(!phone || !p1 || !p2){
+        err.textContent = 'الرجاء تعبئة كل الحقول.';
+        err.style.display='block';
+        return;
+      }
+      if(p1 !== p2){
+        err.textContent = 'كلمتا المرور غير متطابقتين.';
+        err.style.display='block';
+        return;
+      }
+      if(!agree){
+        err.textContent = 'يجب الموافقة على اتفاقية التسجيل.';
+        err.style.display='block';
+        return;
+      }
+
+      // محاكاة إنشاء حساب محليًا ثم الانتقال للصفحة الرئيسية
+      succ.style.display='block';
+      // بعد ثانيتين ننتقل للصفحة الرئيسية (index.html)
+      setTimeout(function(){
+        window.location.href = 'index.html';
+      }, 1500);
+    });
+  </script>
 </body>
 </html>
