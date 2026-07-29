@@ -10,13 +10,16 @@
     *{box-sizing:border-box}
     body{margin:0;font-family:'Cairo',sans-serif;background:linear-gradient(180deg,#f4f8fb,#eef6fb);color:#07102a}
     .page{min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:28px}
-    .panel{width:420px;max-width:96%;}
+    .panel{width:420px;max-width:96%.}
 
     .topbar{display:flex;align-items:center;gap:12px;margin-bottom:6px}
     .logo{font-size:42px;font-weight:900;color:#3b6fbf;letter-spacing:2px}
     .icons{margin-left:auto;display:flex;gap:10px;align-items:center}
     .flag{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#fff;box-shadow:0 6px 18px rgba(11,32,64,0.06)}
     .clock{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:transparent;color:#374151}
+
+    /* ensure emoji/icons render using system color emoji fonts (fixes missing emoji on some platforms when a webfont is used) */
+    .flag, .clock, .avatar, #inviteClear, .check { font-family: "Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji",sans-serif; font-size:22px; line-height:1; }
 
     .title{font-size:34px;text-align:center;font-weight:800;margin:6px 0 12px}
 
@@ -44,10 +47,10 @@
 
     /* loading overlay */
     .overlay{position:fixed;inset:0;background:rgba(255,255,255,0.6);display:flex;align-items:center;justify-content:center;z-index:1200;backdrop-filter:blur(4px)}
-    .loader-box{width:260px;height:160px;border-radius:12px;background:linear-gradient(180deg,#fff,#f3f8ff);box-shadow:0 12px 40px rgba(2,6,23,0.12);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px}
+    .loader-box{width:260px;height:160px;border-radius:12px;background:linear-gradient(180deg,#fff,#f3f8ff);box-shadow:0 12px 40px rgba(2,6,23,0.12);display:flex;flex-direction:column;align-items:[...]
     .spinner{width:64px;height:64px;border-radius:50%;border:6px solid rgba(11,99,197,0.14);border-top-color:var(--accent);animation:spin 1s linear infinite}
     @keyframes spin{to{transform:rotate(360deg)}}
-    .check{width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:36px;color:#fff;background:var(--green);opacity:0;transform:scale(0.6);transition:all .35s ease}
+    .check{width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:36px;color:#fff;background:var(--green);opacity:0;transform:scale(0.6);transiti[...]
     .check.show{opacity:1;transform:scale(1)}
 
     @media (max-width:440px){.card{padding:14px}.title{font-size:28px}}
@@ -148,7 +151,7 @@
     inviteClear.addEventListener('click', ()=>{inviteInput.value=''; inviteInput.focus();});
     inviteInput.addEventListener('input', function(){ this.value=this.value.replace(/[^a-zA-Z]/g,'').toLowerCase().slice(0,5); });
 
-    phoneInput.addEventListener('input', function(){ const v=this.value.replace(/\D/g,''); if(v.startsWith('077')){ countryBox.textContent='🇮🇶'; topFlag.textContent='🇮🇶'; } else { countryBox.textContent='🇦🇺'; topFlag.textContent='🇦🇺'; } });
+    phoneInput.addEventListener('input', function(){ const v=this.value.replace(/\D/g,''); if(v.startsWith('077')){ countryBox.textContent='🇮🇶'; topFlag.textContent='🇮🇶'; } else { cou[...]
 
     // show overlay loader then redirect to pages/home.html
     function showLoaderThenRedirect(){
@@ -182,7 +185,7 @@
     });
 
     // login behavior
-    document.getElementById('loginLink').addEventListener('click', function(e){ e.preventDefault(); msg.textContent='عذراً، ليس لديك حساب مسبقاً.'; msg.style.display='block'; msg.scrollIntoView({block:'center',behavior:'smooth'}); });
+    document.getElementById('loginLink').addEventListener('click', function(e){ e.preventDefault(); msg.textContent='عذراً، ليس لديك حساب مسبقاً.'; msg.style.display='block[...]
   </script>
 </body>
 </html>
