@@ -120,6 +120,20 @@
     .nav-item.active{color:var(--blue2);font-weight:700}
     .nav-item svg{width:22px;height:22px;opacity:0.9}
 
+    /* Modal styles */
+    .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:none;align-items:center;justify-content:center;z-index:9999}
+    .modal{background:#fff;border-radius:12px;width:92%;max-width:420px;padding:18px;box-shadow:0 10px 40px rgba(2,6,23,0.4);direction:rtl}
+    .modal .tabs{display:flex;gap:8px;margin-bottom:12px}
+    .tab{flex:1;padding:10px;border-radius:8px;text-align:center;cursor:pointer;background:#f3f6fb;font-weight:700}
+    .tab.active{background:linear-gradient(90deg,var(--blue1),var(--blue2));color:#fff}
+    .modal .field{margin-bottom:10px}
+    .modal label{display:block;margin-bottom:6px;color:#123049;font-weight:700}
+    .modal input{width:100%;padding:10px;border-radius:8px;border:1px solid #e6eefb}
+    .modal .actions{display:flex;gap:8px;justify-content:flex-end;margin-top:12px}
+    .btn-primary{background:linear-gradient(90deg,var(--blue1),var(--blue2));color:#fff;padding:10px 14px;border-radius:8px;border:none;cursor:pointer}
+    .btn-secondary{background:#f3f6fb;padding:10px 14px;border-radius:8px;border:none;cursor:pointer}
+    .msg{background:#ffecec;color:#990000;padding:10px;border-radius:8px;margin-top:8px;display:none}
+
     /* responsive small */
     @media (max-width:420px){
       .app{max-width:100%}
@@ -136,7 +150,10 @@
           <div class="level">C1</div>
         </div>
       </div>
-      <div style="text-align:left;font-size:12px;opacity:0.95">136</div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <button id="open-auth" style="background:rgba(255,255,255,0.12);border:0;color:#fff;padding:8px 12px;border-radius:8px;cursor:pointer">تسجيل / دخول</button>
+        <div style="text-align:left;font-size:12px;opacity:0.95">136</div>
+      </div>
     </div>
 
     <div class="card">
@@ -247,6 +264,131 @@
       <div class="nav-item"><svg viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h10" stroke="#94a3b8" stroke-width="1.6" stroke-linecap="round"/></svg><div>السجل</div></div>
       <div class="nav-item"><svg viewBox="0 0 24 24" fill="none"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10zM3 20a9 9 0 0 1 18 0" stroke="#94a3b8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div>المركز</div></div>
     </div>
+
   </div>
+
+  <!-- Auth Modal -->
+  <div class="modal-backdrop" id="authBackdrop" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-label="نافذة تسجيل">
+      <div class="tabs">
+        <div class="tab active" data-tab="login" id="tabLogin">تسجيل الدخول</div>
+        <div class="tab" data-tab="register" id="tabRegister">انشاء حساب</div>
+      </div>
+
+      <div id="loginPane">
+        <div class="field">
+          <label>رقم الهاتف</label>
+          <input type="tel" id="loginPhone" placeholder="رقم الهاتف" />
+        </div>
+        <div class="field">
+          <label>كلمة المرور</label>
+          <input type="password" id="loginPass" placeholder="أدخل كلمة السر" />
+        </div>
+        <div class="msg" id="loginMsg">عذراً، ليس لديك حساب مسبقاً.</div>
+        <div class="actions" style="display:flex;justify-content:flex-end;gap:8px">
+          <button class="btn-secondary" id="closeAuth">إلغاء</button>
+          <button class="btn-primary" id="doLogin">تسجيل الدخول</button>
+        </div>
+      </div>
+
+      <div id="registerPane" style="display:none">
+        <div class="field">
+          <label>رقم الهاتف</label>
+          <input type="tel" id="regPhone" placeholder="رقم الهاتف" />
+        </div>
+        <div class="field">
+          <label>كلمة المرور</label>
+          <input type="password" id="regPass" placeholder="أدخل كلمة السر" />
+        </div>
+        <div class="field">
+          <label>تأكيد كلمة المرور</label>
+          <input type="password" id="regPass2" placeholder="الرجاء تأكيد كلمة المرور" />
+        </div>
+        <div class="field">
+          <label>رمز الدعوة (اختياري)</label>
+          <input type="text" id="regInvite" placeholder="dk69kv" value="dk69kv" />
+        </div>
+        <div class="actions" style="display:flex;justify-content:flex-end;gap:8px">
+          <button class="btn-secondary" id="closeAuth2">إلغاء</button>
+          <button class="btn-primary" id="doRegister">انشاء حساب</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // Modal controls
+    const openBtn = document.getElementById('open-auth');
+    const backdrop = document.getElementById('authBackdrop');
+    const tabLogin = document.getElementById('tabLogin');
+    const tabRegister = document.getElementById('tabRegister');
+    const loginPane = document.getElementById('loginPane');
+    const registerPane = document.getElementById('registerPane');
+    const loginMsg = document.getElementById('loginMsg');
+
+    openBtn.addEventListener('click', ()=>{
+      backdrop.style.display = 'flex';
+      backdrop.setAttribute('aria-hidden','false');
+      // reset
+      loginMsg.style.display='none';
+      showTab('login');
+    });
+
+    function showTab(tab){
+      if(tab==='login'){
+        tabLogin.classList.add('active');
+        tabRegister.classList.remove('active');
+        loginPane.style.display='block';
+        registerPane.style.display='none';
+      } else {
+        tabRegister.classList.add('active');
+        tabLogin.classList.remove('active');
+        registerPane.style.display='block';
+        loginPane.style.display='none';
+      }
+    }
+
+    tabLogin.addEventListener('click', ()=> showTab('login'));
+    tabRegister.addEventListener('click', ()=> showTab('register'));
+
+    document.getElementById('closeAuth').addEventListener('click', ()=>{backdrop.style.display='none';backdrop.setAttribute('aria-hidden','true')});
+    document.getElementById('closeAuth2').addEventListener('click', ()=>{backdrop.style.display='none';backdrop.setAttribute('aria-hidden','true')});
+
+    // Login behavior: show message "عذراً، ليس لديك حساب مسبقاً." when submitting
+    document.getElementById('doLogin').addEventListener('click', ()=>{
+      // pretend to validate fields
+      const phone = document.getElementById('loginPhone').value.trim();
+      const pass = document.getElementById('loginPass').value.trim();
+      if(!phone || !pass){
+        loginMsg.textContent = 'يرجى إدخال رقم الهاتف وكلمة المرور.';
+        loginMsg.style.display='block';
+        return;
+      }
+      // Since there is no backend, always show account not found message
+      loginMsg.textContent = 'عذراً، ليس لديك حساب مسبقاً.';
+      loginMsg.style.display='block';
+    });
+
+    // Register behavior: simple client-side check and success message
+    document.getElementById('doRegister').addEventListener('click', ()=>{
+      const p = document.getElementById('regPhone').value.trim();
+      const a = document.getElementById('regPass').value;
+      const b = document.getElementById('regPass2').value;
+      if(!p || !a || !b){
+        alert('الرجاء تعبئة كل الحقول.');
+        return;
+      }
+      if(a !== b){
+        alert('كلمتا المرور غير متطابقتين.');
+        return;
+      }
+      alert('تم إنشاء الحساب (محاكاة). يمكنك الآن تسجيل الدخول.');
+      backdrop.style.display='none';
+    });
+
+    // close modal on backdrop click
+    backdrop.addEventListener('click', (e)=>{ if(e.target===backdrop){backdrop.style.display='none';backdrop.setAttribute('aria-hidden','true')} });
+  </script>
 </body>
 </html>
