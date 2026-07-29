@@ -16,8 +16,10 @@
     .user-name{font-weight:800;font-size:18px}
     .user-sub{color:var(--muted);font-size:13px}
 
-    /* Bottom navigation styling (icons like the provided image) */
-    .nav-bottom{position:fixed;left:50%;transform:translateX(-50%);bottom:16px;width:420px;max-width:96%;background:linear-gradient(180deg,#0b1220,#243246);color:#fff;border-radius:14px;padding:12px 14px;display:flex;gap:6px;align-items:center;justify-content:space-between;box-shadow:0 12px 30px rgba(2,6,23,0.4)}
+    /* Bottom navigation styling (icons like the provided image)
+       Now pinned to the very bottom (safe-area aware) and centered. */
+    .nav-bottom{position:fixed;left:0;right:0;bottom:env(safe-area-inset-bottom,12px);display:flex;justify-content:center;pointer-events:auto;z-index:999}
+    .nav-bar{width:420px;max-width:96%;background:linear-gradient(180deg,#0b1220,#243246);color:#fff;border-radius:14px;padding:12px 14px;display:flex;gap:6px;align-items:center;justify-content:space-between;box-shadow:0 12px 30px rgba(2,6,23,0.4)}
     .nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;padding:6px 4px;text-decoration:none;color:inherit;font-weight:700;font-size:14px}
     .nav-item .label{font-size:13px}
     .nav-item svg{width:28px;height:28px}
@@ -30,7 +32,7 @@
 
     /* make labels and icons centered and compact on small screens */
     @media (max-width:440px){
-      .nav-bottom{width:96%;padding:10px}
+      .nav-bar{width:96%;padding:10px}
       .center-btn{width:56px;height:56px;margin-top:-22px}
       .nav-item .label{font-size:12px}
       .nav-item svg{width:24px;height:24px}
@@ -44,39 +46,42 @@
     <p style="color:var(--muted)">محتوى الصفحة الرئيسية — هنا يمكنك إضافة البطاقات والمحتوى الذي تريده.</p>
   </div>
 
-  <nav class="nav-bottom" role="navigation">
-    <!-- order left-to-right in markup, RTL page will visually place them right-to-left -->
-    <a class="nav-item" href="/pages/profile.html" aria-label="المركز الشخصي">
-      <!-- user icon -->
-      <svg viewBox="0 0 24 24" width="28" height="28" fill="none" aria-hidden="true"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10z"/><path d="M3 20a9 9 0 0 1 18 0"/></svg>
-      <div class="label">المركز الشخصي</div>
-    </a>
+  <!-- pinned bottom navigation (safe-area aware) -->
+  <nav class="nav-bottom" role="navigation" aria-label="شريط التنقل السفلي">
+    <div class="nav-bar">
+      <!-- order left-to-right in markup, RTL page will visually place them right-to-left -->
+      <a class="nav-item" href="/pages/profile.html" aria-label="المركز الشخصي">
+        <!-- user icon -->
+        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" aria-hidden="true"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10z"/><path d="M3 20a9 9 0 0 1 18 0"/></svg>
+        <div class="label">المركز الشخصي</div>
+      </a>
 
-    <a class="nav-item" href="/pages/records.html" aria-label="السجل">
-      <!-- list / records icon -->
-      <svg viewBox="0 0 24 24" width="28" height="28" fill="none" aria-hidden="true"><path d="M3 7h18"/><path d="M3 12h18"/><path d="M3 17h18"/></svg>
-      <div class="label">السجل</div>
-    </a>
+      <a class="nav-item" href="/pages/records.html" aria-label="السجل">
+        <!-- list / records icon -->
+        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" aria-hidden="true"><path d="M3 7h18"/><path d="M3 12h18"/><path d="M3 17h18"/></svg>
+        <div class="label">السجل</div>
+      </a>
 
-    <a class="nav-item" href="/pages/position.html" aria-label="المنصب" style="flex:0 0 auto">
-      <div class="center-btn" aria-hidden="true">
-        <!-- lightning icon -->
-        <svg viewBox="0 0 24 24" width="30" height="30" fill="none"><path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z"/></svg>
-      </div>
-      <div class="label">المنصب</div>
-    </a>
+      <a class="nav-item" href="/pages/position.html" aria-label="المنصب" style="flex:0 0 auto">
+        <div class="center-btn" aria-hidden="true">
+          <!-- lightning icon -->
+          <svg viewBox="0 0 24 24" width="30" height="30" fill="none"><path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z"/></svg>
+        </div>
+        <div class="label">المنصب</div>
+      </a>
 
-    <a class="nav-item" href="/pages/hiring.html" aria-label="التوظيف">
-      <!-- envelope / hiring icon -->
-      <svg viewBox="0 0 24 24" width="28" height="28" fill="none" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
-      <div class="label">التوظيف</div>
-    </a>
+      <a class="nav-item" href="/pages/hiring.html" aria-label="التوظيف">
+        <!-- envelope / hiring icon -->
+        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+        <div class="label">التوظيف</div>
+      </a>
 
-    <a class="nav-item" href="/pages/home.html" aria-label="الرئيسية">
-      <!-- home icon -->
-      <svg viewBox="0 0 24 24" width="28" height="28" fill="none" aria-hidden="true"><path d="M3 11.5L12 4l9 7.5"/><path d="M5 21V12h14v9"/></svg>
-      <div class="label">الرئيسية</div>
-    </a>
+      <a class="nav-item" href="/pages/home.html" aria-label="الرئيسية">
+        <!-- home icon -->
+        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" aria-hidden="true"><path d="M3 11.5L12 4l9 7.5"/><path d="M5 21V12h14v9"/></svg>
+        <div class="label">الرئيسية</div>
+      </a>
+    </div>
   </nav>
 
   <script>
