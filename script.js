@@ -90,4 +90,4 @@ function startProfitSimulation() {
             document.getElementById('profitCounter').textContent = "00.00";
         }
     }, 1000);
-}
+                            }
