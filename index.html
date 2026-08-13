@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>بوابة الحسابات والاستثمار</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -62,7 +62,7 @@
                         </span>
                         <p class="stat-title-text">الأرباح المتراكمة</p>
                         <p class="stat-percent">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1792 1792" fill="currentColor" height="16" width="16"><path d="M1408 1216q0 26-19 45t-45 19h-896q-26 0-45-19t-19-45 19-45l448-44[...]"></path>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1792 1792" fill="currentColor" height="16" width="16"><path d="M1408 1216q0 26-19 45t-45 19h-896q-26 0-45-19t-19-45 19-45l448-44[...]"></path></svg>
                             20%
                         </p>
                     </div>
@@ -104,7 +104,7 @@
     </div>
 
     <script>
-        // small helpers for forms and demo behavior (simplified)
+        // Improved sign-up / sign-in handling with normalized emails and session storage
         function toggleForms(){
             const signIn = document.getElementById('signInContainer');
             const signUp = document.getElementById('signUpContainer');
@@ -113,35 +113,73 @@
             } else { signIn.style.display='none'; signUp.style.display='flex'; }
         }
 
+        function getUsers(){
+            try{ return JSON.parse(localStorage.getItem('gat_users')||'[]'); }catch(e){ return []; }
+        }
+        function saveUsers(users){ localStorage.setItem('gat_users', JSON.stringify(users)); }
+
+        function setSession(email){
+            localStorage.setItem('gat_session', JSON.stringify({email: email}));
+        }
+        function clearSession(){ localStorage.removeItem('gat_session'); }
+        function getSession(){ try{ return JSON.parse(localStorage.getItem('gat_session')||'null'); }catch(e){ return null; } }
+
         function handleSignUp(e){
             e.preventDefault();
-            const email = document.getElementById('regEmail').value.trim();
-            const pass = document.getElementById('regPassword').value;
-            const code = document.getElementById('inviteCode').value.trim();
-            const users = JSON.parse(localStorage.getItem('gat_users')||'[]');
-            users.push({email,pass}); localStorage.setItem('gat_users', JSON.stringify(users));
-            alert('تم إنشاء الحساب');
-            document.getElementById('signUpContainer').style.display='none';
-            document.getElementById('mainAppContainer').style.display='block';
-            document.getElementById('authContainer').style.display='none';
-            document.getElementById('profileEmail').textContent = email;
+            const emailEl = document.getElementById('regEmail');
+            const passEl = document.getElementById('regPassword');
+            const codeEl = document.getElementById('inviteCode');
+            const email = (emailEl.value||'').trim().toLowerCase();
+            const pass = (passEl.value||'');
+            const code = (codeEl.value||'').trim();
+            if(!email || !pass || !code){ alert('الرجاء تعبئة كل الحقول'); return; }
+
+            const users = getUsers();
+            if(users.find(u=>u.email===email)){
+                alert('هذا الحساب موجود مسبقاً، حاول تسجيل الدخول');
+                // switch to login form and prefill email
+                document.getElementById('signUpContainer').style.display='none';
+                document.getElementById('signInContainer').style.display='flex';
+                document.getElementById('loginEmail').value = email;
+                return;
+            }
+
+            users.push({email: email, pass: pass, invite: code, created: Date.now()});
+            saveUsers(users);
+
+            // create session and show main app
+            setSession(email);
+            showMainApp(email);
+            console.log('User created:', email);
         }
 
         function handleSignIn(e){
             e.preventDefault();
-            const email = document.getElementById('loginEmail').value.trim();
-            const pass = document.getElementById('loginPassword').value;
-            const users = JSON.parse(localStorage.getItem('gat_users')||'[]');
+            const email = (document.getElementById('loginEmail').value||'').trim().toLowerCase();
+            const pass = (document.getElementById('loginPassword').value||'');
+            if(!email || !pass){ alert('الرجاء تعبئة البريد وكلمة المرور'); return; }
+            const users = getUsers();
             const found = users.find(u=>u.email===email && u.pass===pass);
-            if(!found){ alert('بيانات غير صحيحة'); return; }
+            if(!found){ alert('بيانات الدخول غير صحيحة'); return; }
+            setSession(email);
+            showMainApp(email);
+        }
+
+        function showMainApp(email){
             document.getElementById('mainAppContainer').style.display='block';
             document.getElementById('authContainer').style.display='none';
             document.getElementById('profileEmail').textContent = email;
+            // ensure pages default
+            switchPage(1);
         }
 
         function handleLogOut(){
+            clearSession();
             document.getElementById('mainAppContainer').style.display='none';
             document.getElementById('authContainer').style.display='flex';
+            // clear login fields
+            document.getElementById('loginEmail').value='';
+            document.getElementById('loginPassword').value='';
         }
 
         function switchPage(n){
@@ -155,13 +193,27 @@
             document.getElementById('btnPage'+n).classList.add('active');
         }
 
-        // avoid bottom nav overlap: hide bottom nav when any input focused (mobile keyboard)
+        // Hide bottom nav when input focused (mobile keyboard)
         (function(){
             const inputs = Array.from(document.querySelectorAll('input, select, textarea'));
-            function onFocus(){ document.body.classList.add('keyboard-open'); }
-            function onBlur(){ document.body.classList.remove('keyboard-open'); }
+            let blurTimeout = null;
+            function onFocus(){ if(blurTimeout){ clearTimeout(blurTimeout); blurTimeout = null; } document.body.classList.add('keyboard-open'); }
+            function onBlur(){ blurTimeout = setTimeout(()=>{ document.body.classList.remove('keyboard-open'); }, 200); }
             inputs.forEach(i=>{ i.addEventListener('focus', onFocus); i.addEventListener('blur', onBlur); });
         })();
+
+        // initialize on load: if session exists, open main
+        document.addEventListener('DOMContentLoaded', function(){
+            const s = getSession();
+            if(s && s.email){
+                // session exists
+                showMainApp(s.email);
+            } else {
+                // show sign in by default
+                document.getElementById('signInContainer').style.display = 'flex';
+                document.getElementById('signUpContainer').style.display = 'none';
+            }
+        });
     </script>
 </body>
 </html>
