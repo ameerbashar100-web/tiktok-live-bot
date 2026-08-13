@@ -73,21 +73,3 @@ function switchPage(pageNumber) {
     document.getElementById('btnPage3').classList.toggle('active', pageNumber === 3);
 }
 
-function buyPackage(id, dailyProfit) {
-    activeProfitRate = dailyProfit;
-    showToast(`تم تفعيل الباقة بنجاح! ربحك اليومي: $${dailyProfit}`, true);
-    switchPage(1);
-}
-
-function startProfitSimulation() {
-    if(profitInterval) clearInterval(profitInterval);
-    profitInterval = setInterval(() => {
-        if (activeProfitRate > 0) {
-            let profitPerSecond = activeProfitRate / 86400; 
-            currentTotalProfit += profitPerSecond * 100; 
-            document.getElementById('profitCounter').textContent = currentTotalProfit.toFixed(2);
-        } else {
-            document.getElementById('profitCounter').textContent = "00.00";
-        }
-    }, 1000);
-                            }
