@@ -52,38 +52,40 @@
     <div id="mainAppContainer" class="app-wrapper" style="display: none;">
         <div class="app-content">
             
-            <!-- الصفحة الأولى: صفحة العداد الإحصائي المالي -->
+            <!-- الصفحة الأولى: بطاقة الأداء (مطابقة التصميم المطلوب) -->
             <div id="page1" class="page-view">
-                <div class="stat-card">
-                    <div class="stat-title">
-                        <span class="stat-icon">
-                            <svg width="18" fill="currentColor" height="18" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M1362 1185q0 153-99.5 263.5t-258.5 136.5v175q0 14-9 23t-23 9h-135q-13 0-22.5-9.5t-9.5-22.5v-175q-66-9-127.5-31t-101.5-44.5-74-48-46.5-37.5-17.5-18q-17-21-2[...]"></path>
-                            </svg>
-                        </span>
-                        <p class="stat-title-text">الأرباح المتراكمة</p>
-                        <p class="stat-percent">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1792 1792" fill="currentColor" height="16" width="16"><path d="M1408 1216q0 26-19 45t-45 19h-896q-26 0-45-19t-19-45 19-45l448-44[...]"></path></svg>
-                            20%
-                        </p>
+                <div class="perf-container">
+                  <div class="perf-glow"></div>
+                  <div class="perf-card" role="region" aria-label="بطاقة الأداء">
+                    <div class="perf-left">
+                      <div class="perf-icon" aria-hidden="true">📈</div>
+                      <div class="perf-number">00.0</div>
+                      <div class="perf-sub">Performance</div>
                     </div>
-                    <div class="stat-data">
-                        <p id="profitCounter">00.00</p>
-                        <div class="stat-range"><div class="stat-fill"></div></div>
+
+                    <div class="perf-middle">
+                      <div class="bar"><span></span></div>
+                      <div class="bar"><span></span></div>
+                      <div class="labels"><div>CPU</div><div>MEM</div></div>
                     </div>
+
+                    <div class="perf-right">
+                      <div class="online-dot" aria-hidden="true"></div>
+                      <div class="online-text">ONLINE</div>
+                    </div>
+                  </div>
                 </div>
             </div>
 
-            <!-- الصفحة الثانية: صفحة الـ 5 باقات البنفسجية المتتالية -->
+            <!-- الصفحة الثانية: صفحة الباقات -->
             <div id="page2" class="page-view" style="display: none;">
                 <div class="packages-list">
                     <!-- بطاقات -->
                 </div>
             </div>
 
-            <!-- الصفحة الثالثة: صفحة الحساب الشخصي -->
+            <!-- الصفحة الثالثة: صفحة الحساب الشخصي (محفظة/سحب) -->
             <div id="page3" class="page-view" style="display: none;">
-                <!-- Deposit / Wallet card (replaces previous profile-card) -->
                 <div class="deposit-wrapper">
                   <div id="balanceCard" class="balance-card" role="button" tabindex="0" aria-pressed="false">
                     <div class="balance-left">
@@ -188,7 +190,7 @@
             e.preventDefault();
             const email = (document.getElementById('loginEmail').value||'').trim().toLowerCase();
             const pass = (document.getElementById('loginPassword').value||'');
-            if(!email || !pass){ alert('الرجاء تعبئة البريد وكلمة ��لمرور'); return; }
+            if(!email || !pass){ alert('الرجاء تعبئة البريد وكلمة المرور'); return; }
             const users = getUsers();
             const found = users.find(u=>u.email===email && u.pass===pass);
             if(!found){ alert('بيانات الدخول غير صحيحة'); return; }
@@ -234,6 +236,12 @@
                 balanceCard.classList.toggle('active');
                 balanceCard.setAttribute('aria-pressed', balanceCard.classList.contains('active'));
               });
+            }
+
+            // perf-card interactive: toggle green on click
+            const perfCard = document.querySelector('.perf-card');
+            if(perfCard){
+              perfCard.addEventListener('click', function(){ perfCard.classList.toggle('active'); });
             }
 
             // Nix button behavior
