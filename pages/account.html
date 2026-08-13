@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>GAYM — الحساب</title>
+  <link href="/assets/styles.css" rel="stylesheet">
+</head>
+<body class="dark">
+  <div class="page">
+    <h2>الحساب وإدارة السحب</h2>
+    <div>المستخدم المتصل: <strong id="accIdent">ـ</strong></div>
+    <div class="withdraw-form">
+      <input id="wdCompany" placeholder="اسم الشركة" />
+      <input id="wdPass" type="password" placeholder="كلمة السر" />
+      <div style="text-align:right;margin-top:8px"><button id="wdBtn" class="withdraw-btn">سحب الرصيد</button></div>
+    </div>
+  </div>
+  <script>
+    var s = JSON.parse(localStorage.getItem('gaym_session')||'null'); if(s) document.getElementById('accIdent').textContent = s.ident;
+    document.getElementById('wdBtn').addEventListener('click', function(){ alert('عذراً، ليس لديك رصيد كافٍ، يرجى إكمال المهمات أولاً'); });
+  </script>
+</body>
+</html>

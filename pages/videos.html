@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>GAYM — الفيديوهات</title>
+  <link href="/assets/styles.css" rel="stylesheet">
+</head>
+<body class="dark">
+  <div class="page">
+    <h2>مقاطع الفيديو</h2>
+    <div class="vlist">
+      <!-- 14 locked videos -->
+      <script>
+        for(var i=1;i<=14;i++){ document.write('<div class="vcard"><div class="thumb">مقطع '+i+'</div><div class="lock">🔒</div></div>'); }
+      </script>
+    </div>
+  </div>
+  <script>
+    document.addEventListener('click',function(e){ if(e.target.closest('.vcard')){ alert('عذراً، حسابك غير فعال'); } });
+  </script>
+</body>
+</html>

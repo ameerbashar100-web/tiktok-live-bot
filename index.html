@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>GAYM — التسجيل</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body class="dark">
+  <main id="app">
+    <header class="brand">
+      <div class="logo-wrap">
+        <div class="logo-anim" aria-hidden="true">
+          <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="32" class="lg-c"/></svg>
+        </div>
+        <div class="brand-name">GAYM</div>
+      </div>
+      <nav class="top-actions">
+        <button id="showLogin" class="btn ghost">تسجيل الدخول</button>
+        <button id="showRegister" class="btn primary">إنشاء حساب</button>
+      </nav>
+    </header>
+
+    <section class="panel" id="registerPanel" aria-hidden="true">
+      <h1>إنشاء حساب</h1>
+      <form id="registerForm" autocomplete="off">
+        <label>البريد الإلكتروني أو رقم الهاتف
+          <input id="regIdent" inputmode="email" placeholder="example@gmail.com أو 07xxxxxxx" required>
+        </label>
+
+        <label>كلمة المرور (إنجليزية فقط)
+          <input id="regPass" type="password" placeholder="Password" required>
+        </label>
+
+        <label>رمز الحالة
+          <select id="regCode" required>
+            <option value="">اختر رمز الحالة</option>
+            <option value="3826">3826</option>
+            <option value="3838">3838</option>
+            <option value="9274">9274</option>
+          </select>
+        </label>
+
+        <div class="actions-row">
+          <button type="submit" class="btn primary">إنشاء الحساب</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="panel" id="loginPanel" aria-hidden="true">
+      <h1>تسجيل الدخول</h1>
+      <form id="loginForm" autocomplete="off">
+        <label>البريد الإلكتروني أو رقم الهاتف
+          <input id="logIdent" inputmode="email" placeholder="example@gmail.com أو 07xxxxxxx" required>
+        </label>
+        <label>كلمة المرور
+          <input id="logPass" type="password" placeholder="Password" required>
+        </label>
+        <div class="actions-row">
+          <button type="submit" class="btn primary">دخول</button>
+        </div>
+      </form>
+    </section>
+
+    <section id="appShell" class="app-shell" aria-hidden="true">
+      <div id="pageContent"></div>
+
+      <nav class="bottom-nav" role="navigation" aria-label="شريط التنقل">
+        <button class="nav-icon" data-target="home"><svg viewBox="0 0 24 24"><path d="M3 11.5L12 4l9 7.5"/></svg></button>
+        <button class="nav-icon" data-target="videos"><svg viewBox="0 0 24 24"><path d="M3 7h18"/></svg></button>
+        <button class="nav-icon" data-target="wallet"><svg viewBox="0 0 24 24"><path d="M3 6h18v12H3z"/></svg></button>
+      </nav>
+    </section>
+
+  </main>
+
+  <script src="/assets/app.js"></script>
+</body>
+</html>

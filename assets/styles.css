@@ -1,0 +1,39 @@
+/* Dark modern styles inspired by OKX (RTL) */
+:root{--bg:#000;--panel:#071021;--muted:#9aa3b2;--accent:#00d1b2;--accent2:#2b82f6;--danger:#ff6b6b}
+*{box-sizing:border-box}
+body.dark{background:var(--bg);color:#e6eef8;font-family:'Cairo',sans-serif;margin:0}
+#app{min-height:100vh;display:flex;flex-direction:column;gap:18px;padding:18px}
+.brand{display:flex;align-items:center;justify-content:space-between;padding:8px 12px}
+.logo-wrap{display:flex;align-items:center;gap:12px}
+.logo-anim{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;box-shadow:0 6px 26px rgba(43,130,246,0.12)}
+.logo-anim svg{width:44px;height:44px}
+.logo-anim .lg-c{fill:rgba(255,255,255,0.12);stroke:rgba(255,255,255,0.18);stroke-width:2;transform-origin:50% 50%;animation:spin 6s linear infinite}
+@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+.brand-name{font-weight:900;font-size:20px;letter-spacing:2px}
+.top-actions{display:flex;gap:8px}
+.btn{padding:10px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit;font-weight:700;cursor:pointer}
+.btn.primary{background:linear-gradient(90deg,var(--accent2),var(--accent));color:#001;box-shadow:0 8px 30px rgba(11,99,197,0.14)}
+.btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06)}
+.panel{max-width:520px;margin:6px auto;padding:18px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03)}
+.panel h1{margin:0 0 12px;font-size:20px}
+label{display:block;font-weight:700;color:var(--muted);margin-bottom:8px}
+input,select{width:100%;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit}
+.actions-row{display:flex;justify-content:flex-end;margin-top:12px}
+.app-shell{flex:1;display:flex;flex-direction:column}
+.bottom-nav{position:fixed;left:0;right:0;bottom:12px;display:flex;justify-content:center}
+.bottom-nav .nav-icon{width:72px;height:56px;border-radius:14px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));margin:0 6px;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 12px 40px rgba(2,6,23,0.6)}
+.bottom-nav svg{width:28px;height:28px;fill:transparent;stroke:rgba(255,255,255,0.88);stroke-width:1.6}
+.page{padding:18px}
+.carousel{display:flex;gap:12px;overflow:hidden}
+.slide{min-width:100%;height:180px;border-radius:12px;background-size:cover;background-position:center;box-shadow:inset 0 0 80px rgba(0,0,0,0.3)}
+.vlist{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.vcard{position:relative;border-radius:12px;overflow:hidden;height:120px;background:#07121b;display:flex;align-items:center;justify-content:center}
+.vcard .lock{position:absolute;top:8px;left:8px;background:rgba(0,0,0,0.4);padding:6px;border-radius:6px}
+.wallet-card{padding:14px;border-radius:12px;background:linear-gradient(90deg,var(--accent2),var(--accent));color:#001;font-weight:800}
+.trade-box{height:140px;border-radius:10px;background:linear-gradient(180deg,rgba(0,0,0,0.2),rgba(255,255,255,0.02));margin-top:12px;padding:8px}
+.copy-btn{background:#001;color:#fff;padding:8px 10px;border-radius:8px;border:none;cursor:pointer}
+.account-footer{position:fixed;left:0;right:0;bottom:84px;padding:12px;text-align:center;background:linear-gradient(180deg,transparent,rgba(0,0,0,0.4))}
+.withdraw-form{max-width:520px;margin:12px auto;padding:12px;border-radius:10px;background:rgba(255,255,255,0.02)}
+.withdraw-form input{margin-bottom:8px}
+.withdraw-btn{background:linear-gradient(90deg,#16a34a,#10b981);color:#001;padding:10px 12px;border-radius:10px;border:none;font-weight:800}
+@media (max-width:600px){.panel{margin:10px;padding:14px}.logo-anim{width:48px;height:48px}.brand-name{font-size:18px}}
