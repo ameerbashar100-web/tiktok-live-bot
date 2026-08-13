@@ -1,7 +1,16 @@
-/* === Modal styles === */
-.modal { display:none; position:fixed; inset:0; z-index:99999; }
-.modal-backdrop { position:absolute; inset:0; background:rgba(0,0,0,0.35); }
-.modal-panel { position:relative; width:90%; max-width:380px; margin:12% auto 0 auto; background:#fff; border-radius:12px; padding:18px; box-shadow:0 20px 60px rgba(2,6,23,0.3); text-align:center; direction:rtl; }
-.modal-panel h3{ margin:0 0 8px 0; color:#111827; }
-.modal-panel p{ margin:0; color:#374151; }
-.btn-disabled{ opacity:0.7; filter:grayscale(.2); }
+/* === Emergency fixes: force LTR layout for perf-card and global guard for Nix button === */
+
+/* Ensure internal card layout is LTR so icon/number align correctly even on RTL page */
+.perf-card { direction: ltr !important; }
+.perf-left { text-align: left !important; align-items: flex-start !important; }
+
+/* Visual hint when Nix is disabled */
+.btn-disabled { opacity: 0.6 !important; pointer-events: none !important; }
+
+/* Keep SVG sizing stable */
+.perf-icon { width: 26px !important; height: 26px !important; }
+
+/* small screen adjustments to keep card centered */
+@media (max-width:480px){
+  .perf-card { padding: 12px 14px !important; }
+}

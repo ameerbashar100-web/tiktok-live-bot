@@ -52,6 +52,8 @@
     </nav>
   </main>
 
+  <script src="emergency-guard.js"></script>
+
   <!-- Modal to show insufficient balance -->
   <div id="insufficientModal" class="modal" aria-hidden="true">
     <div class="modal-backdrop"></div>
@@ -70,7 +72,6 @@
       const modal = document.getElementById('insufficientModal');
       const modalClose = document.getElementById('modalClose');
 
-      // helper to parse balance (expects format 00.00)
       function getBalance(){
         const v = (balanceEl && balanceEl.textContent) ? balanceEl.textContent.trim() : '0';
         const n = parseFloat(v.replace(/[^0-9.]/g,'')) || 0;
@@ -88,7 +89,6 @@
         modal.style.display = 'none';
       }
 
-      // initialize: if balance is zero, disable Nix (visual + aria)
       function refreshState(){
         const bal = getBalance();
         if(nixBtn){
@@ -103,20 +103,17 @@
 
       if(nixBtn){
         nixBtn.addEventListener('click', function(e){
-          // Always show modal to confirm; if balance > 0 you can implement actual charging logic here
           const bal = getBalance();
           if(bal <= 0){
             showModal('عذراً، رصيدك غير متاح');
             return;
           }
-          // placeholder for real charge flow (not implemented)
           showModal('جاري الشحن... (وضع تجريبي)');
         });
       }
 
-      if(modalClose){ modalClose.addEventListener('click', hideModal); }
+      if(modalClose) modalClose.addEventListener('click', hideModal);
 
-      // init
       refreshState();
     })();
   </script>
