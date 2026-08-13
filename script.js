@@ -1,4 +1,7 @@
-// التبديل السلس بين واجهة تسجيل الدخول وإنشاء الحساب بنفس أبعاد المربع
+let activeProfitRate = 0;
+let currentTotalProfit = 0.00;
+let profitInterval = null;
+
 function toggleForms() {
     const signIn = document.getElementById('signInContainer');
     const signUp = document.getElementById('signUpContainer');
@@ -11,56 +14,80 @@ function toggleForms() {
     }
 }
 
-// عرض رسالة الخطأ لتختفي تلقائياً خلال ثانية واحدة (1000 مللي ثانية)
 function showToast(message, isSuccess = false) {
     const toast = document.getElementById('toastNotification');
     toast.textContent = message;
     toast.style.backgroundColor = isSuccess ? '#10b981' : '#ef4444';
     toast.style.display = 'block';
-    
-    setTimeout(() => {
-        toast.style.display = 'none';
-    }, 1000); // 1000 مللي ثانية تساوي ثانية واحدة تماماً
+    setTimeout(() => { toast.style.display = 'none'; }, 1000);
 }
 
-// معالجة إنشاء الحساب وتطبيق شرط رمز الدعوة وحفظ بيانات الشخص
 function handleSignUp(event) {
     event.preventDefault();
     const email = document.getElementById('regEmail').value;
     const password = document.getElementById('regPassword').value;
     const code = document.getElementById('inviteCode').value;
 
-    // الشرط الصارم: تعذر التسجيل إذا لم يكن الرمز 6134
     if (code !== '6134') {
         showToast('تعذر تسجيل الدخول: رمز الدعوة غير صحيح!');
         return;
     }
 
-    // حفظ الحساب بأمان داخل ذاكرة المتصفح المحلية (Local Storage) للشخص نفسه
     localStorage.setItem('userEmail', email);
     localStorage.setItem('userPassword', password);
-
     showToast('تم إنشاء الحساب بنجاح!', true);
-    setTimeout(() => {
-        toggleForms(); // العودة لواجهة الدخول بعد النجاح
-    }, 1000);
+    setTimeout(() => { toggleForms(); }, 1000);
 }
 
-// معالجة تسجيل الدخول والتحقق الصارم من صاحب الحساب الحقيقي فقط
 function handleSignIn(event) {
     event.preventDefault();
     const email = document.getElementById('loginEmail').value;
     const password = document.getElementById('loginPassword').value;
-
-    // استدعاء البيانات المحفوظة لصاحب الحساب
     const savedEmail = localStorage.getItem('userEmail');
     const savedPassword = localStorage.getItem('userPassword');
 
-    // التحقق المطابق: الدخول فقط للشخص الذي قام بإنشاء الحساب
     if (email === savedEmail && password === savedPassword) {
-        showToast('مرحباً بك! تم تسجيل الدخول بنجاح', true);
-        // هنا يمكنك توجيه المستخدم لصفحة موقعك الداخلية مستقبلاً
+        showToast('تم تسجيل الدخول بنجاح', true);
+        document.getElementById('authContainer').style.display = 'none';
+        document.getElementById('mainAppContainer').style.display = 'flex';
+        document.getElementById('profileEmail').textContent = email;
+        startProfitSimulation();
     } else {
-        showToast('خطأ: البريد أو كلمة المرور غير مطابقة لصاحب الحساب!');
+        showToast('خطأ: البيانات غير مطابقة لصاحب الحساب!');
     }
+}
+
+function handleLogOut() {
+    clearInterval(profitInterval);
+    document.getElementById('mainAppContainer').style.display = 'none';
+    document.getElementById('authContainer').style.display = 'flex';
+    showToast('تم تسجيل الخروج بنجاح', true);
+}
+
+function switchPage(pageNumber) {
+    document.getElementById('page1').style.display = pageNumber === 1 ? 'flex' : 'none';
+    document.getElementById('page2').style.display = pageNumber === 2 ? 'flex' : 'none';
+    document.getElementById('page3').style.display = pageNumber === 3 ? 'flex' : 'none';
+    document.getElementById('btnPage1').classList.toggle('active', pageNumber === 1);
+    document.getElementById('btnPage2').classList.toggle('active', pageNumber === 2);
+    document.getElementById('btnPage3').classList.toggle('active', pageNumber === 3);
+}
+
+function buyPackage(id, dailyProfit) {
+    activeProfitRate = dailyProfit;
+    showToast(`تم تفعيل الباقة بنجاح! ربحك اليومي: $${dailyProfit}`, true);
+    switchPage(1);
+}
+
+function startProfitSimulation() {
+    if(profitInterval) clearInterval(profitInterval);
+    profitInterval = setInterval(() => {
+        if (activeProfitRate > 0) {
+            let profitPerSecond = activeProfitRate / 86400; 
+            currentTotalProfit += profitPerSecond * 100; 
+            document.getElementById('profitCounter').textContent = currentTotalProfit.toFixed(2);
+        } else {
+            document.getElementById('profitCounter').textContent = "00.00";
+        }
+    }, 1000);
 }
