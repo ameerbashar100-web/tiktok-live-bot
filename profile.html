@@ -15,14 +15,14 @@
       <div id="balanceCard" class="balance-card" role="button" tabindex="0" aria-pressed="false">
         <div class="balance-left">
           <div class="balance-label">الرصيد</div>
-          <div class="balance-amount">00.00</div>
+          <div id="balanceAmount" class="balance-amount">00.00</div>
         </div>
         <div class="balance-right">
           <div class="status-dot" aria-hidden="true"></div>
         </div>
       </div>
 
-      <form id="depositForm" class="deposit-form">
+      <form id="depositForm" class="deposit-form" onsubmit="return false;">
         <label>اختر الشبكة</label>
         <select id="networkSelect" class="input">
           <option value="TRC20">TRC20</option>
@@ -52,15 +52,73 @@
     </nav>
   </main>
 
-  <script>
-    document.getElementById('balanceCard').addEventListener('click', function(){
-      this.classList.toggle('active');
-      this.setAttribute('aria-pressed', this.classList.contains('active'));
-    });
+  <!-- Modal to show insufficient balance -->
+  <div id="insufficientModal" class="modal" aria-hidden="true">
+    <div class="modal-backdrop"></div>
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <h3 id="modalTitle">عذراً</h3>
+      <p id="modalMessage">رصيدك غير متاح</p>
+      <div style="display:flex; justify-content:center; margin-top:12px;"><button id="modalClose" class="btn-nix" style="width:120px;">حسناً</button></div>
+    </div>
+  </div>
 
-    document.getElementById('nixBtn').addEventListener('click', function(){
-      alert('عذراً، رصيدك غير متاح');
-    });
+  <script>
+    // Ensure Nix cannot be used when balance is zero; show modal instead
+    (function(){
+      const balanceEl = document.getElementById('balanceAmount');
+      const nixBtn = document.getElementById('nixBtn');
+      const modal = document.getElementById('insufficientModal');
+      const modalClose = document.getElementById('modalClose');
+
+      // helper to parse balance (expects format 00.00)
+      function getBalance(){
+        const v = (balanceEl && balanceEl.textContent) ? balanceEl.textContent.trim() : '0';
+        const n = parseFloat(v.replace(/[^0-9.]/g,'')) || 0;
+        return n;
+      }
+
+      function showModal(message){
+        document.getElementById('modalMessage').textContent = message || 'عذراً، رصيدك غير متاح';
+        modal.setAttribute('aria-hidden','false');
+        modal.style.display = 'block';
+      }
+
+      function hideModal(){
+        modal.setAttribute('aria-hidden','true');
+        modal.style.display = 'none';
+      }
+
+      // initialize: if balance is zero, disable Nix (visual + aria)
+      function refreshState(){
+        const bal = getBalance();
+        if(nixBtn){
+          if(bal <= 0){
+            nixBtn.disabled = false; // keep enabled so user sees message, but prevent action
+            nixBtn.classList.add('btn-disabled');
+          } else {
+            nixBtn.classList.remove('btn-disabled');
+          }
+        }
+      }
+
+      if(nixBtn){
+        nixBtn.addEventListener('click', function(e){
+          // Always show modal to confirm; if balance > 0 you can implement actual charging logic here
+          const bal = getBalance();
+          if(bal <= 0){
+            showModal('عذراً، رصيدك غير متاح');
+            return;
+          }
+          // placeholder for real charge flow (not implemented)
+          showModal('جاري الشحن... (وضع تجريبي)');
+        });
+      }
+
+      if(modalClose){ modalClose.addEventListener('click', hideModal); }
+
+      // init
+      refreshState();
+    })();
   </script>
 </body>
 </html>
