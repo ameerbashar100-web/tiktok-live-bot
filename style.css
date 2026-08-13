@@ -1,7 +1,153 @@
+/* الأنماط الشاملة وإعداد شاشة الهاتف الممتدة بالكامل */
+body {
+  background-color: #f3f4f6;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* حاوية الواجهات قبل تسجيل الدخول */
+.auth-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  padding: 20px;
+  background-color: #f3f4f6;
+  box-sizing: border-box;
+}
+
+.form-card-auth {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background-color: #ffffff;
+  padding: 30px;
+  width: 100%;
+  max-width: 350px;
+  border-radius: 20px;
+  box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
+}
+
+.auth-title {
+  text-align: center; 
+  color: #151717; 
+  margin-bottom: 10px;
+  font-size: 22px;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: right;
+}
+
+.flex-column > label {
+  color: #151717;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.inputForm {
+  border: 1.5px solid #ecedec;
+  border-radius: 10px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  transition: 0.2s ease-in-out;
+  background-color: #fff;
+}
+
+.input {
+  border: none;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  font-size: 16px;
+}
+
+.inputForm:focus-within {
+  border: 1.5px solid #2d79f3;
+}
+
+.span {
+  font-size: 14px;
+  color: #2d79f3;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.button-submit {
+  margin-top: 10px;
+  background-color: #151717;
+  border: none;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 10px;
+  height: 50px;
+  width: 100%;
+  cursor: pointer;
+}
+
+.p {
+  text-align: center;
+  color: #6b7280;
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+/* هيكل الموقع الممتد على طول الشاشة بالكامل بعد تسجيل الدخول */
+.app-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  background-color: #f3f4f6;
+  overflow: hidden;
+}
+
+.app-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  padding-bottom: 90px; /* مساحة واقية لعدم الاختفاء تحت شريط الأزرار */
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.page-view {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* تنسيق كود البطاقة الإحصائية الملونة بنمط Neumorphism (الصفحة الأولى) */
 .stat-card {
   padding: 1.5rem;
   background-color: #e5e7eb;
-  box-shadow: -10px -10px 20px white, 10px 10px 20px rgb(153, 161, 175), inset -10px -10px 20px rgb(209, 213, 220);
+  box-shadow:
+    -10px -10px 20px white,
+    10px 10px 20px rgb(153, 161, 175),
+    inset -10px -10px 20px rgb(209, 213, 220);
   width: 100%;
   max-width: 340px;
   border-radius: 20px;
@@ -18,13 +164,19 @@
   position: relative;
   padding: 0.5rem;
   background-color: #10b981;
-  box-shadow: -2px -2px 4px white, 2px 2px 4px rgb(153, 161, 175);
+  box-shadow:
+    -2px -2px 4px white,
+    2px 2px 4px rgb(153, 161, 175);
   width: 1.5rem;
   height: 1.5rem;
   border-radius: 9999px;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.stat-title .stat-icon svg {
+  color: #ffffff;
 }
 
 .stat-title-text {
@@ -36,10 +188,18 @@
 
 .stat-percent {
   margin-right: auto;
+  margin-left: 0;
   color: #02972f;
   font-weight: 600;
   display: flex;
   align-items: center;
+  font-size: 14px;
+}
+
+.stat-data {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .stat-data p {
@@ -47,6 +207,7 @@
   margin-bottom: 1rem;
   color: #1f2937;
   font-size: 2.25rem;
+  line-height: 2.5rem;
   font-weight: 700;
   text-align: right;
 }
@@ -54,7 +215,9 @@
 .stat-range {
   position: relative;
   background-color: #e5e7eb;
-  box-shadow: -2px -2px 4px white, 2px 2px 4px rgb(153, 161, 175);
+  box-shadow:
+    -2px -2px 4px white,
+    2px 2px 4px rgb(153, 161, 175);
   width: 100%;
   height: 0.5rem;
   border-radius: 0.25rem;
@@ -70,6 +233,7 @@
   border-radius: 0.25rem;
 }
 
+/* تنسيق كود البطاقة البنفسجية المضيئة المكررة 5 مرات (الصفحة الثانية) */
 .packages-list {
   display: flex;
   flex-direction: column;
@@ -88,7 +252,9 @@
   width: 100%;
   max-width: 320px;
   background-color: rgb(122, 48, 143);
-  background-image: radial-gradient(circle at 0% 0%, rgb(37, 7, 44) 15%, rgba(0, 0, 0, 0) 75%), linear-gradient(135deg, rgba(24, 8, 28, 0) 0%, rgb(122, 48, 143) 50%, rgba(24, 8, 28, 0) 100%);
+  background-image: radial-gradient(circle at 0% 0%, rgb(37, 7, 44) 15%, rgba(0, 0, 0, 0) 75%),
+                    radial-gradient(circle at 100% 100%, rgb(25, 2, 31, 0.9) 15%, rgba(0, 0, 0, 0) 150%),
+                    linear-gradient(135deg, rgba(24, 8, 28, 0) 0%, rgb(122, 48, 143) 50%, rgba(24, 8, 28, 0) 100%);
   border-radius: 1rem;
   box-sizing: border-box;
   text-align: right;
@@ -98,7 +264,7 @@
   content: "";
   position: absolute;
   top: 1rem;
-  left: 1rem;
+  left: 1rem; /* تم النقل لليسار لتلائم التنسيق العربي */
   width: 2rem;
   height: 2rem;
   background-color: rgb(122, 48, 143);
@@ -107,16 +273,111 @@
   box-shadow: 0 1px 5px 3px rgb(199, 95, 228), 0 0 30px 5px rgb(199, 95, 228);
 }
 
-.card .title { font-size: 1.1rem; color: white; font-weight: 600; }
-.card .pricing { font-size: 1.6rem; color: white; font-weight: 700; }
-.card .pricing .pricing-time, .card .sub-title { font-size: 0.8rem; color: rgb(184, 132, 199); }
-.card .list { display: flex; flex-direction: column; gap: 0.35rem; font-size: 0.8rem; color: white; list-style: none; padding: 0; }
-.card .list .list-item .check { margin-left: 0.35rem; color: rgb(199, 95, 228); font-weight: 900; }
-.card .button { cursor: pointer; position: relative; margin-top: 0.5rem; padding: 0.65rem 0.75rem; width: 100%; background-color: rgb(122, 48, 143); font-size: 0.85rem; font-weight: bold; color: white; border: none; border-radius: 0.5rem; box-shadow: 0px 0px 2px 1px rgb(122, 48, 143); }
-.usdt-footer { text-align: center; color: #fff; font-weight: bold; margin-top: 5px; }
+.card .title {
+  font-size: 1.1rem;
+  color: white;
+  font-weight: 600;
+}
 
-.profile-card { background: white; padding: 30px; border-radius: 20px; width: 100%; max-width: 340px; box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.05); text-align: center; }
+.card .pricing {
+  font-size: 1.6rem;
+  color: white;
+  font-weight: 700;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
 
+.card .pricing .pricing-time,
+.card .sub-title {
+  font-size: 0.8rem;
+  color: rgb(184, 132, 199);
+  font-weight: 500;
+}
+
+.card .list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+  color: white;
+  font-weight: 500;
+  list-style: none;
+  padding: 0;
+  margin: 5px 0;
+}
+
+.card .list .list-item .check {
+  margin-left: 0.35rem;
+  font-size: 1rem;
+  color: rgb(199, 95, 228);
+  font-weight: 900;
+}
+
+.card .button {
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  margin-top: 0.5rem;
+  padding: 0.65rem 0.75rem;
+  width: 100%;
+  background-color: rgb(122, 48, 143);
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 0px 0px 2px 1px rgb(122, 48, 143);
+  transition: all 0.3s cubic-bezier(1, 0, 0, 1);
+}
+
+.card .button .text-button {
+  position: relative;
+  z-index: 10;
+}
+
+.card .button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(circle at 0% 45%, rgba(16, 5, 36, 1) 19%, rgba(16, 5, 36, 0.26) 46%, rgba(16, 5, 36, 0) 100%);
+  transition: all 0.3s ease-in-out;
+}
+
+.card .button:hover {
+  box-shadow: 0px 0px 20px 0 rgb(122, 48, 143);
+}
+
+.card .button:hover::before {
+  width: 0;
+  opacity: 0;
+}
+
+.usdt-footer {
+  text-align: center;
+  color: #fff;
+  font-weight: bold;
+  margin: 5px 0 0 0;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+}
+
+/* صفحة الحساب الثالثة */
+.profile-card {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 340px;
+  box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  box-sizing: border-box;
+}
+
+/* شريط القائمة السفلي الممتد (Navbar) لأسفل شاشة الهاتف */
 .bottom-nav {
   position: fixed;
   bottom: 0;
@@ -128,8 +389,39 @@
   justify-content: space-around;
   align-items: center;
   box-shadow: 0px -4px 15px rgba(0,0,0,0.06);
+  z-index: 999;
 }
 
-.nav-btn { background: none; border: none; display: flex; flex-direction: column; align-items: center; color: #9ca3af; font-size: 12px; font-weight: bold; }
-.nav-btn.active { color: rgb(122, 48, 143); }
-.toast { position: fixed; top: 20px; background-color: #ef4444; color: white; padding: 12px 25px; border-radius: 8px; font-weight: bold; box-shadow: 0px 4px 10px rgba(0,0,0,0.1); display: none; z-index: 2000; }
+.nav-btn {
+  background: none;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  color: #9ca3af;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+.nav-btn.active {
+  color: rgb(122, 48, 143); /* تفعيل لون الشريط بنففس اللون المختار للبطاقات */
+}
+
+/* التنبيهات المنبثقة السريعة لتختفي بثانية واحدة */
+.toast {
+  position: fixed;
+  top: 20px;
+  background-color: #ef4444;
+  color: white;
+  padding: 12px 25px;
+  border-radius: 8px;
+  font-weight: bold;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+  display: none;
+  z-index: 2000;
+  animation: fadeIn 0.2s ease-in-out;
+    }
+             
