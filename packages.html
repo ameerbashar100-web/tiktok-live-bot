@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1, viewport-fit=cover" />
+  <title>GAT — الباقات</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="center">
+    <h2 style="text-align:center;margin-bottom:16px;color:var(--muted)">الباقات</h2>
+    <div class="packages-list">
+      <div class="card">
+        <span class="title">الباقة الأولى</span>
+        <p class="pricing">$15 <span class="pricing-time">/ يومياً $1</span></p>
+        <ul class="list">
+          <li class="list-item"><span class="check">✓</span> Feature</li>
+          <li class="list-item"><span class="check">✓</span> Feature</li>
+        </ul>
+        <button class="button" onclick="buyPackage(1,1)"><span class="text-button">Get pro now</span></button>
+        <p class="usdt-footer">USDT 1</p>
+      </div>
+
+      <div class="card">
+        <span class="title">الباقة الثانية</span>
+        <p class="pricing">$75 <span class="pricing-time">/ يومياً $6</span></p>
+        <ul class="list">
+          <li class="list-item"><span class="check">✓</span> Feature</li>
+          <li class="list-item"><span class="check">✓</span> Feature</li>
+        </ul>
+        <button class="button" onclick="buyPackage(2,6)"><span class="text-button">Get pro now</span></button>
+        <p class="usdt-footer">USDT 1</p>
+      </div>
+
+    </div>
+
+    <nav style="display:flex;gap:12px;justify-content:center;margin-top:18px">
+      <a href="index.html" class="link">العودة إلى الرئيسية</a>
+      <a href="profile.html" class="link">ملفي</a>
+    </nav>
+  </main>
+
+  <script>
+    function buyPackage(id, price){ alert('تم اختيار الباقة '+id+' بسعر '+price); }
+  </script>
+</body>
+</html>

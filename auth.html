@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1, viewport-fit=cover" />
+  <title>GAT — تسجيل الدخول / إنشاء حساب</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="center">
+    <div class="auth-wrapper" style="width:100%; max-width:460px;">
+      <div id="signInContainer" class="form-card-auth">
+        <form class="form" onsubmit="handleSignIn(event)">
+          <h2 class="auth-title">تسجيل الدخول</h2>
+          <div class="flex-column">
+            <label>البريد الإلكتروني</label>
+            <div class="inputForm"><input type="email" id="loginEmail" class="input" placeholder="Enter your Email" required></div>
+          </div>
+          <div class="flex-column">
+            <label>كلمة المرور</label>
+            <div class="inputForm"><input type="password" id="loginPassword" class="input" placeholder="Enter your Password" required></div>
+          </div>
+          <button type="submit" class="button-submit">Sign In</button>
+          <p class="p">Don't have an account? <a href="auth.html" class="link">Sign Up</a></p>
+        </form>
+      </div>
+    </div>
+
+    <nav style="display:flex;gap:12px;justify-content:center;margin-top:18px">
+      <a href="index.html" class="link">العودة إلى الرئيسية</a>
+    </nav>
+  </main>
+
+  <script>
+    function handleSignIn(e){ e.preventDefault(); alert('تم تسجيل الدخول (تجريبي)'); window.location.href='profile.html'; }
+  </script>
+</body>
+</html>
