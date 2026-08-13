@@ -11,111 +11,11 @@
   <main class="center">
     <h2 style="text-align:center;margin-bottom:12px;color:var(--muted)">ملفي الشخصي</h2>
 
-    <div class="deposit-wrapper">
-      <div id="balanceCard" class="balance-card" role="button" tabindex="0" aria-pressed="false">
-        <div class="balance-left">
-          <div class="balance-label">الرصيد</div>
-          <div id="balanceAmount" class="balance-amount">00.00</div>
-        </div>
-        <div class="balance-right">
-          <div class="status-dot" aria-hidden="true"></div>
-        </div>
-      </div>
-
-      <form id="depositForm" class="deposit-form" onsubmit="return false;">
-        <label>اختر الشبكة</label>
-        <select id="networkSelect" class="input">
-          <option value="TRC20">TRC20</option>
-          <option value="ERC20">ERC20</option>
-          <option value="BEP20">BEP20</option>
-          <option value="SOL">SOL</option>
-        </select>
-
-        <label>عنوان المحفظة (TRC20)</label>
-        <input id="walletAddr" class="input" placeholder="ادخل عنوان المحفظة TRC20" />
-
-        <label>كلمة السر</label>
-        <input id="walletPass" class="input" type="password" placeholder="كلمة السر" />
-
-        <label>مبلغ الشحن</label>
-        <input id="depositAmount" class="input" placeholder="مثال: 10.00" />
-
-        <div class="actions-row">
-          <button type="button" id="nixBtn" class="btn-nix">Nix</button>
-        </div>
-      </form>
-    </div>
-
-    <nav style="display:flex;gap:12px;justify-content:center;margin-top:18px">
-      <a href="index.html" class="link">العودة إلى الرئيسية</a>
-      <a href="packages.html" class="link">الباقات</a>
-    </nav>
-  </main>
-
-  <script src="emergency-guard.js"></script>
-
-  <!-- Modal to show insufficient balance -->
-  <div id="insufficientModal" class="modal" aria-hidden="true">
-    <div class="modal-backdrop"></div>
-    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-      <h3 id="modalTitle">عذراً</h3>
-      <p id="modalMessage">رصيدك غير متاح</p>
-      <div style="display:flex; justify-content:center; margin-top:12px;"><button id="modalClose" class="btn-nix" style="width:120px;">حسناً</button></div>
-    </div>
-  </div>
+    
 
   <script>
-    // Ensure Nix cannot be used when balance is zero; show modal instead
-    (function(){
-      const balanceEl = document.getElementById('balanceAmount');
-      const nixBtn = document.getElementById('nixBtn');
-      const modal = document.getElementById('insufficientModal');
-      const modalClose = document.getElementById('modalClose');
+    
 
-      function getBalance(){
-        const v = (balanceEl && balanceEl.textContent) ? balanceEl.textContent.trim() : '0';
-        const n = parseFloat(v.replace(/[^0-9.]/g,'')) || 0;
-        return n;
-      }
-
-      function showModal(message){
-        document.getElementById('modalMessage').textContent = message || 'عذراً، رصيدك غير متاح';
-        modal.setAttribute('aria-hidden','false');
-        modal.style.display = 'block';
-      }
-
-      function hideModal(){
-        modal.setAttribute('aria-hidden','true');
-        modal.style.display = 'none';
-      }
-
-      function refreshState(){
-        const bal = getBalance();
-        if(nixBtn){
-          if(bal <= 0){
-            nixBtn.disabled = false; // keep enabled so user sees message, but prevent action
-            nixBtn.classList.add('btn-disabled');
-          } else {
-            nixBtn.classList.remove('btn-disabled');
-          }
-        }
-      }
-
-      if(nixBtn){
-        nixBtn.addEventListener('click', function(e){
-          const bal = getBalance();
-          if(bal <= 0){
-            showModal('عذراً، رصيدك غير متاح');
-            return;
-          }
-          showModal('جاري الشحن... (وضع تجريبي)');
-        });
-      }
-
-      if(modalClose) modalClose.addEventListener('click', hideModal);
-
-      refreshState();
-    })();
   </script>
 </body>
 </html>
