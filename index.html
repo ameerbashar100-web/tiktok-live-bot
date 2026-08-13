@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>بوابة الحسابات والاستثمار</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -82,10 +83,40 @@
 
             <!-- الصفحة الثالثة: صفحة الحساب الشخصي -->
             <div id="page3" class="page-view" style="display: none;">
-                <div class="profile-card">
-                    <h3 style="color: #151717; margin-bottom: 10px;">ملف المستخدم</h3>
-                    <p style="color: #6b7280; font-size: 14px; margin-bottom: 20px;" id="profileEmail">المستخدم الحالي</p>
-                    <button class="button-submit" style="background-color: #ef4444; max-width: 200px;" onclick="handleLogOut()">تسجيل الخروج</button>
+                <!-- Deposit / Wallet card (replaces previous profile-card) -->
+                <div class="deposit-wrapper">
+                  <div id="balanceCard" class="balance-card" role="button" tabindex="0" aria-pressed="false">
+                    <div class="balance-left">
+                      <div class="balance-label">الرصيد</div>
+                      <div class="balance-amount">00.00</div>
+                    </div>
+                    <div class="balance-right">
+                      <div class="status-dot" aria-hidden="true"></div>
+                    </div>
+                  </div>
+
+                  <form id="depositForm" class="deposit-form" onsubmit="handleDeposit(event)">
+                    <label>اختر الشبكة</label>
+                    <select id="networkSelect" class="input">
+                      <option value="TRC20">TRC20</option>
+                      <option value="ERC20">ERC20</option>
+                      <option value="BEP20">BEP20</option>
+                      <option value="SOL">SOL</option>
+                    </select>
+
+                    <label>عنوان المحفظة (TRC20)</label>
+                    <input id="walletAddr" class="input" placeholder="ادخل عنوان المحفظة TRC20" />
+
+                    <label>كلمة السر</label>
+                    <input id="walletPass" class="input" type="password" placeholder="كلمة السر" />
+
+                    <label>مبلغ الشحن</label>
+                    <input id="depositAmount" class="input" placeholder="مثال: 10.00" />
+
+                    <div class="actions-row">
+                      <button type="submit" id="nixBtn" class="btn-nix">Nix</button>
+                    </div>
+                  </form>
                 </div>
             </div>
         </div>
@@ -157,7 +188,7 @@
             e.preventDefault();
             const email = (document.getElementById('loginEmail').value||'').trim().toLowerCase();
             const pass = (document.getElementById('loginPassword').value||'');
-            if(!email || !pass){ alert('الرجاء تعبئة البريد وكلمة المرور'); return; }
+            if(!email || !pass){ alert('الرجاء تعبئة البريد وكلمة ��لمرور'); return; }
             const users = getUsers();
             const found = users.find(u=>u.email===email && u.pass===pass);
             if(!found){ alert('بيانات الدخول غير صحيحة'); return; }
@@ -193,6 +224,33 @@
             document.getElementById('btnPage'+n).classList.add('active');
         }
 
+        // Deposit card toggle and Nix behavior
+        document.addEventListener('DOMContentLoaded', function(){
+            // balance card toggle color
+            const balanceCard = document.getElementById('balanceCard');
+            if(balanceCard){
+              balanceCard.addEventListener('click', function(e){
+                // toggle active class (green accent)
+                balanceCard.classList.toggle('active');
+                balanceCard.setAttribute('aria-pressed', balanceCard.classList.contains('active'));
+              });
+            }
+
+            // Nix button behavior
+            const nixBtn = document.getElementById('nixBtn');
+            if(nixBtn){
+              nixBtn.addEventListener('click', function(e){
+                e.preventDefault();
+                // Show alert message about balance
+                alert('عذراً، رصيدك غير متاح');
+              });
+            }
+
+            // if a session exists, show main
+            const s = getSession();
+            if(s && s.email){ showMainApp(s.email); }
+        });
+
         // Hide bottom nav when input focused (mobile keyboard)
         (function(){
             const inputs = Array.from(document.querySelectorAll('input, select, textarea'));
@@ -201,19 +259,6 @@
             function onBlur(){ blurTimeout = setTimeout(()=>{ document.body.classList.remove('keyboard-open'); }, 200); }
             inputs.forEach(i=>{ i.addEventListener('focus', onFocus); i.addEventListener('blur', onBlur); });
         })();
-
-        // initialize on load: if session exists, open main
-        document.addEventListener('DOMContentLoaded', function(){
-            const s = getSession();
-            if(s && s.email){
-                // session exists
-                showMainApp(s.email);
-            } else {
-                // show sign in by default
-                document.getElementById('signInContainer').style.display = 'flex';
-                document.getElementById('signUpContainer').style.display = 'none';
-            }
-        });
     </script>
 </body>
 </html>

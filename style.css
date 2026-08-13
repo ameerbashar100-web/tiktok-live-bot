@@ -4,219 +4,67 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Cairo', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  /* use safe area inset as padding fallback for devices with system navigation */
   padding-bottom: env(safe-area-inset-bottom, 0);
 }
 
-/* حاوية الواجهات قبل تسجيل الدخول */
-.auth-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  width: 100%;
-  padding: 20px;
-  background-color: #f3f4f6;
-  box-sizing: border-box;
-}
+/* form/auth styles */
+.auth-wrapper { display:flex; justify-content:center; align-items:center; min-height:100vh; width:100%; padding:20px; background-color: #f3f4f6; box-sizing:border-box; }
+.form-card-auth{ width:100%; display:flex; justify-content:center; }
+.form{ display:flex; flex-direction:column; gap:15px; background-color:#ffffff; padding:30px; width:100%; max-width:350px; border-radius:20px; box-shadow:0px 10px 25px rgba(0,0,0,0.05); box-sizing:border-box; }
+.auth-title{ text-align:center; color:#151717; margin-bottom:10px; font-size:22px; }
+.inputForm{ border:1.5px solid #ecedec; border-radius:10px; height:50px; display:flex; align-items:center; padding:0 15px; transition:0.2s; background-color:#fff; }
+.input{ border:none; width:100%; height:100%; outline:none; font-size:16px; }
+.inputForm:focus-within{ border-color:#2d79f3; }
+.button-submit{ margin-top:10px; background-color:#151717; border:none; color:white; font-size:16px; font-weight:bold; border-radius:10px; height:50px; width:100%; cursor:pointer; }
 
-.form-card-auth {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
+/* app layout */
+.app-wrapper{ display:flex; flex-direction:column; width:100%; min-height:100vh; background-color:#f3f4f6; overflow:hidden; }
+.app-content{ flex:1; overflow-y:auto; padding:20px; padding-bottom:calc(env(safe-area-inset-bottom,12px) + 140px); box-sizing:border-box; display:flex; justify-content:center; align-items:flex-start; }
+.page-view{ width:100%; max-width:400px; display:flex; flex-direction:column; align-items:center; }
 
-.form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  background-color: #ffffff;
-  padding: 30px;
-  width: 100%;
-  max-width: 350px;
-  border-radius: 20px;
-  box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.05);
-  box-sizing: border-box;
-}
+/* stat card existing styles */
+.stat-card{ padding:1.5rem; background-color:#e5e7eb; box-shadow:-10px -10px 20px white, 10px 10px 20px rgb(153,161,175), inset -10px -10px 20px rgb(209,213,220); width:100%; max-width:340px; border-radius:20px; box-sizing:border-box; margin-top:20px; }
+.stat-title{ display:flex; align-items:center; }
+.stat-title .stat-icon{ position:relative; padding:0.5rem; background-color:#10b981; box-shadow:-2px -2px 4px white, 2px 2px 4px rgb(153,161,175); width:1.5rem; height:1.5rem; border-radius:9999px; display:flex; justify-content:center; align-items:center; }
+.stat-title-text{ margin-right:0.5rem; color:#374151; font-size:16px; font-weight:bold; }
+.stat-data p{ margin-top:1rem; margin-bottom:1rem; color:#1f2937; font-size:2.25rem; line-height:2.5rem; font-weight:700; text-align:right; }
 
-.auth-title {
-  text-align: center;
-  color: #151717;
-  margin-bottom: 10px;
-  font-size: 22px;
-}
+/* --- New deposit card styles --- */
+.deposit-wrapper{ width:100%; max-width:420px; display:flex; flex-direction:column; gap:18px; align-items:stretch; }
+.balance-card{ display:flex; align-items:center; justify-content:space-between; padding:18px 20px; border-radius:14px; background: linear-gradient(180deg,#ffffff,#efefef); box-shadow: 0 18px 30px rgba(2,6,23,0.06); cursor:pointer; transition:all .24s ease; }
+.balance-card .balance-left{ display:flex; flex-direction:column; align-items:flex-start; }
+.balance-label{ font-weight:700; color:#374151; opacity:0.85; }
+.balance-amount{ font-size:28px; font-weight:900; color:#111827; margin-top:8px; }
+.balance-right .status-dot{ width:14px; height:14px; border-radius:50%; background:#d1d5db; box-shadow:0 2px 6px rgba(0,0,0,0.12); }
 
-.flex-column {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  text-align: right;
-}
+/* active (green) state */
+.balance-card.active{ background: linear-gradient(90deg,#e6fff3,#e6fef0); box-shadow: 0 24px 40px rgba(16,185,129,0.08); }
+.balance-card.active .status-dot{ background:#10b981; box-shadow:0 6px 20px rgba(16,185,129,0.12); }
+.balance-card:focus{ outline:2px solid rgba(43,130,246,0.12); }
 
-.flex-column > label {
-  color: #151717;
-  font-weight: 600;
-  font-size: 14px;
-}
+/* deposit form */
+.deposit-form{ display:flex; flex-direction:column; gap:12px; background:transparent; }
+.deposit-form label{ color:#374151; font-weight:700; font-size:14px; }
+.deposit-form .input{ padding:12px; border-radius:10px; background:#fff; border:1px solid rgba(0,0,0,0.06); }
 
-.inputForm {
-  border: 1.5px solid #ecedec;
-  border-radius: 10px;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  padding: 0 15px;
-  transition: 0.2s ease-in-out;
-  background-color: #fff;
-}
+/* Nix button style (blue) */
+.actions-row{ display:flex; justify-content:center; margin-top:6px; }
+.btn-nix{ background: linear-gradient(90deg,#2b82f6,#0b63c5); color:#fff; border:none; padding:12px 18px; border-radius:12px; font-weight:900; cursor:pointer; font-size:16px; width:160px; }
 
-.input {
-  border: none;
-  width: 100%;
-  height: 100%;
-  outline: none;
-  font-size: 16px;
-}
+/* profile card fallback */
+.profile-card{ background:white; padding:30px; border-radius:20px; width:100%; max-width:340px; box-shadow:0px 10px 25px rgba(0,0,0,0.05); text-align:center; box-sizing:border-box; }
 
-.inputForm:focus-within {
-  border: 1.5px solid #2d79f3;
-}
+/* bottom nav */
+.bottom-nav{ position:fixed; bottom: env(safe-area-inset-bottom, 0); left:0; width:100%; height:calc(env(safe-area-inset-bottom,12px)+70px); padding-bottom:env(safe-area-inset-bottom,12px); background-color:#ffffff; display:flex; justify-content:space-around; align-items:center; box-shadow:0px -4px 15px rgba(0,0,0,0.06); z-index:9999; }
+.nav-btn{ background:none; border:none; display:flex; flex-direction:column; align-items:center; gap:4px; color:#9ca3af; cursor:pointer; font-size:12px; font-weight:bold; transition:0.2s; }
+.nav-btn.active{ color:rgb(122,48,143); }
 
-.span {
-  font-size: 14px;
-  color: #2d79f3;
-  font-weight: 500;
-  cursor: pointer;
-}
+/* hide bottom nav when keyboard open */
+.keyboard-open .bottom-nav{ transform:translateY(40px); opacity:0; pointer-events:none; transition:transform .18s ease, opacity .18s ease; }
 
-.button-submit {
-  margin-top: 10px;
-  background-color: #151717;
-  border: none;
-  color: white;
-  font-size: 16px;
-  font-weight: bold;
-  border-radius: 10px;
-  height: 50px;
-  width: 100%;
-  cursor: pointer;
-}
-
-.p {
-  text-align: center;
-  color: #6b7280;
-  font-size: 14px;
-  margin: 5px 0;
-}
-
-/* هيكل الموقع الممتد على طول الشاشة بالكامل بعد تسجيل الدخول */
-.app-wrapper {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  min-height: 100vh;
-  background-color: #f3f4f6;
-  overflow: hidden;
-}
-
-.app-content {
-  flex: 1;
-  overflow-y: auto;
-  padding: 20px;
-  /* increased bottom padding to ensure content is not hidden behind the bottom nav or system nav */
-  padding-bottom: calc(env(safe-area-inset-bottom, 12px) + 120px);
-  box-sizing: border-box;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-}
-
-.page-view {
-  width: 100%;
-  max-width: 400px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-/* تنسيق كود البطاقة الإحصائية الملونة بنمط Neumorphism (الصفحة الأولى) */
-.stat-card {
-  padding: 1.5rem;
-  background-color: #e5e7eb;
-  box-shadow:
-    -10px -10px 20px white,
-    10px 10px 20px rgb(153, 161, 175),
-    inset -10px -10px 20px rgb(209, 213, 220);
-  width: 100%;
-  max-width: 340px;
-  border-radius: 20px;
-  box-sizing: border-box;
-  margin-top: 20px;
-}
-
-/* ... (باقي القواعد كما كانت سابقًا) ... */
-
-/* صفحة الحساب الثالثة */
-.profile-card {
-  background: white;
-  padding: 30px;
-  border-radius: 20px;
-  width: 100%;
-  max-width: 340px;
-  box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.05);
-  text-align: center;
-  box-sizing: border-box;
-}
-
-/* شريط القائمة السفلي الممتد (Navbar) لأسفل شاشة الهاتف */
-.bottom-nav {
-  position: fixed;
-  /* respect safe-area-inset-bottom so nav sits above system UI */
-  bottom: env(safe-area-inset-bottom, 0);
-  left: 0;
-  width: 100%;
-  height: calc( env(safe-area-inset-bottom, 12px) + 70px );
-  padding-bottom: env(safe-area-inset-bottom, 12px);
-  background-color: #ffffff;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  box-shadow: 0px -4px 15px rgba(0,0,0,0.06);
-  z-index: 9999;
-}
-
-.nav-btn {
-  background: none;
-  border: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  color: #9ca3af;
-  cursor: pointer;
-  font-size: 12px;
-  font-weight: bold;
-  transition: 0.2s;
-}
-
-.nav-btn.active {
-  color: rgb(122, 48, 143); /* تفعيل لون الشريط بنففس اللون المختار للبطاقات */
-}
-
-/* when keyboard is open (input focused) hide the bottom nav to avoid overlap */
-.keyboard-open .bottom-nav {
-  transform: translateY(40px);
-  opacity: 0;
-  pointer-events: none;
-  transition: transform 0.18s ease, opacity 0.18s ease;
-}
-
-/* ensure action buttons have space above bottom nav on small screens */
-@media (max-width: 520px) {
-  .actions-row { margin-bottom: calc(env(safe-area-inset-bottom, 12px) + 80px); }
-  .app-content { padding-bottom: calc(env(safe-area-inset-bottom, 12px) + 140px); }
+@media (max-width:520px){ .app-content{ padding-bottom:calc(env(safe-area-inset-bottom,12px)+160px); } .actions-row{ margin-bottom:calc(env(safe-area-inset-bottom,12px)+90px); }
 }
