@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>GAT — تسجيل / دخول</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body class="dark full-black">
+  <main id="app">
+    <header class="brand center">
+      <div class="logo-wrap">
+        <div class="logo-anim" aria-hidden="true">
+          <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="30" class="lg-c"/></svg>
+        </div>
+        <div>
+          <div class="brand-name">GAT</div>
+          <div class="brand-sub">GAT للاستثمار شركة رائدة في إدارة الأصول والاستشارات</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Register (Page 1) -->
+    <section class="panel center" id="registerPanel" aria-hidden="false">
+      <form id="registerForm" autocomplete="off">
+        <div class="field"><label>Username<input id="regUser" placeholder="اسم المستخدم" required></label></div>
+        <div class="field"><label>GMALI<input id="regEmail" inputmode="email" placeholder="example@gmail.com" required></label></div>
+        <div class="field"><label>Password<input id="regPass" type="password" placeholder="Password" required></label></div>
+        <div class="field"><label>رمز الدعوة<select id="regCode" required>
+          <option value="">اختر رمز الدعوة</option>
+          <option value="3826">3826</option>
+          <option value="3838">3838</option>
+          <option value="9274">9274</option>
+        </select></label></div>
+
+        <div class="actions-row">
+          <button type="submit" class="btn btn-nix">Nix</button>
+          <button type="button" id="haveAccount" class="btn btn-ghost">لديك حساب GAT</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Login (Page 2) -->
+    <section class="panel center" id="loginPanel" aria-hidden="true">
+      <form id="loginForm" autocomplete="off">
+        <div class="field"><label>GMALI<input id="logEmail" inputmode="email" placeholder="example@gmail.com" required></label></div>
+        <div class="field"><label>Password<input id="logPass" type="password" placeholder="Password" required></label></div>
+        <div class="actions-row">
+          <button type="submit" class="btn btn-primary">تسجيل الدخول</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Dashboard (Page 3) -->
+    <section class="panel center" id="dashPanel" aria-hidden="true">
+      <div id="dashContent">
+        <h2>مرحباً بك في GAT</h2>
+        <p id="dashUser" style="opacity:0.9"></p>
+        <div style="height:220px"></div>
+      </div>
+
+      <nav class="bottom-nav" role="navigation" aria-label="شريط التنقل">
+        <button class="nav-icon" data-target="one" aria-label="الصفحة 1"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3"/></svg></button>
+        <button class="nav-icon" data-target="two" aria-label="الصفحة 2"><svg viewBox="0 0 24 24"><rect x="4" y="6" width="16" height="12" rx="2"/></svg></button>
+        <button class="nav-icon" data-target="three" aria-label="الصفحة 3"><svg viewBox="0 0 24 24"><path d="M3 12h18"/></svg></button>
+      </nav>
+    </section>
+
+  </main>
+
+  <script src="/assets/app.js"></script>
+</body>
+</html>
