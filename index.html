@@ -10,7 +10,7 @@
 
 <div class="login-wrapper">
   
-  <!-- حاوية اللودر الأخضر من تصميم NlghtM4re فوق المربع -->
+  <!-- اللودر الأخضر التفاعلي فوق المربع -->
   <div class="container" id="global-loader" style="display: none;">
     <div class="loader"></div>
   </div>
@@ -89,7 +89,7 @@
 <script>
   const loader = document.getElementById('global-loader');
 
-  // إنشاء حساب والتحقق والحفظ في جهاز المستخدم ثم الانتقال التلقائي
+  // إنشاء حساب والتحويل التلقائي لـ page1.html بعد انتهاء اللودر
   document.getElementById('signup-form').addEventListener('submit', function(e) {
     e.preventDefault();
     
@@ -109,7 +109,7 @@
     }, 2000); 
   });
 
-  // تسجيل دخول ومطابقة البيانات المخزنة محلياً في جهازه ثم الانتقال
+  // تسجيل دخول ومطابقة البيانات المخزنة محلياً في جهازه ثم التحويل لـ page1.html
   document.getElementById('login-form').addEventListener('submit', function(e) {
     e.preventDefault();
     
