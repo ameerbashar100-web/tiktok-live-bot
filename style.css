@@ -1,3 +1,4 @@
+/* مدمج بدقة من تصميم santhosh_2608 وتصميم NlghtM4re */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -49,7 +50,7 @@ body {
   100% { right: 0; left: unset; }
 }
 
-/* واجهة الدخول والخلفية المتوهجة */
+/* واجهة الدخول والخلفية المتوهجة الأصلية */
 .login-wrapper {
   --blob-1-color: #ff5e00;
   --blob-2-color: #7000ff;
@@ -61,9 +62,7 @@ body {
   transform: translateY(30px);
 }
 
-@keyframes floatUp {
-  to { opacity: 1; transform: translateY(0); }
-}
+@keyframes floatUp { to { opacity: 1; transform: translateY(0); } }
 
 .login-card {
   position: relative;
@@ -75,43 +74,18 @@ body {
   box-shadow: 0 24px 48px rgba(0, 0, 0, 0.2), 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
-.glow-blob {
-  position: absolute;
-  filter: blur(45px);
-  border-radius: 50%;
-  z-index: 0;
-  opacity: 0.6;
-  animation: pulseGlow 4s infinite alternate ease-in-out;
-}
-
+.glow-blob { position: absolute; filter: blur(45px); border-radius: 50%; z-index: 0; opacity: 0.6; animation: pulseGlow 4s infinite alternate ease-in-out; }
 .blob-1 { top: -30px; right: -30px; width: 170px; height: 170px; background: var(--blob-1-color); }
 .blob-2 { bottom: -50px; left: -50px; width: 210px; height: 210px; background: var(--blob-2-color); animation-delay: -2s; }
 
-@keyframes pulseGlow {
-  0% { transform: scale(0.9); opacity: 0.5; }
-  100% { transform: scale(1.1); opacity: 0.7; }
-}
-
-.dark-overlay {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 50% 50%, rgba(5, 5, 8, 0.85) 30%, transparent 100%);
-  z-index: 1;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
-  border-radius: inherit;
-}
-
+@keyframes pulseGlow { 0% { transform: scale(0.9); opacity: 0.5; } 100% { transform: scale(1.1); opacity: 0.7; } }
+.dark-overlay { position: absolute; inset: 0; background: radial-gradient(circle at 50% 50%, rgba(5, 5, 8, 0.85) 30%, transparent 100%); z-index: 1; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05); border-radius: inherit; }
 .view-container { position: relative; z-index: 10; }
 .form-view { display: flex; flex-direction: column; animation: fadeInView 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
 #signup-view { display: none; }
 .reg-toggle:checked ~ .view-container #login-view { display: none; }
 .reg-toggle:checked ~ .view-container #signup-view { display: flex; }
-
-@keyframes fadeInView {
-  from { opacity: 0; transform: translateY(15px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
+@keyframes fadeInView { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 .header { margin-bottom: 28px; text-align: center; }
 .decorative-dot { width: 2.2em; height: 2.2em; margin: 0 auto 1em auto; border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.2); display: flex; justify-content: center; align-items: center; }
 .decorative-dot::after { content: ""; width: 1.1em; height: 1.1em; background-image: radial-gradient(circle at center, #ffffff 40%, transparent 50%); background-size: 3.5px 3.5px; }
@@ -127,7 +101,7 @@ body {
 .signup-prompt { margin-top: 20px; text-align: center; color: rgba(255, 255, 255, 0.5); font-size: 13px; }
 .signup-prompt .toggle-link { color: #ffffff; cursor: pointer; font-weight: 500; margin-left: 4px; }
 
-/* شريط التنقل السفلي المتناسق */
+/* 🌟 شريط التنقل الأبيض المطابق لنموذج emmanuelh-dev 🌟 */
 .nav-body {
   background-color: #050508;
   color: #ffffff;
@@ -136,8 +110,9 @@ body {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding-bottom: 20px;
+  padding-bottom: 30px;
 }
+
 .page-content {
   flex: 1;
   display: flex;
@@ -147,33 +122,59 @@ body {
   font-size: 20px;
   font-weight: 500;
 }
+
+/* الحاوية البيضاء الرئيسية الدائرية الناعمة والمضاءة بالظل السفلي الخفيف */
 .custom-nav-bar {
-  background-color: #0d0f14;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background-color: #ffffff;
   border-radius: 20px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  width: 310px;
-  padding: 12px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(112, 0, 255, 0.1);
-}
-.nav-item {
-  color: rgba(255, 255, 255, 0.4);
-  text-decoration: none;
-  font-size: 24px;
-  transition: all 0.3s ease;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
+  padding: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  width: fit-content;
 }
+
+.nav-buttons-box {
+  display: flex;
+  align-items: center;
+}
+
+/* الأزرار الدائرية الرمادية والداكنة عند التمرير والضغط */
+.nav-item {
+  color: #718096; /* لون رمادي هادئ للأزرار غير النشطة */
+  background-color: transparent;
+  border: 2px solid transparent;
+  border-radius: 9999px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  margin-left: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+}
+
+.nav-item:last-of-type {
+  margin-left: 0;
+}
+
+.nav-item svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* حالة زر الهوفر (عند مرور الإصبع أو الماوس يصبح داكناً) */
+.nav-item:hover {
+  color: #000000;
+}
+
+/* زر الصفحة النشطة الحالية (يصبح داكناً وبارزاً تماماً مثل صورتك وعينة الكود) */
 .nav-item.active {
-  color: #00ff66;
-  background: rgba(255, 255, 255, 0.03);
-  box-shadow: 0 0 15px rgba(0, 255, 102, 0.2);
+  color: #1a202c; /* لون أسود داكن واضح */
+  background-color: #f7fafc; /* خلفية ناعمة جداً تبرز الزر النشط */
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
 }
 
 /* بطاقة الملف الشخصي والتأثير الضبابي */
@@ -197,3 +198,4 @@ body {
 .info-label { font-size: 11px; color: rgba(255, 255, 255, 0.4); font-weight: 500; }
 .info-value { font-size: 14px; color: #ffffff; font-weight: 400; transition: filter 0.3s ease; }
 .user-info-container.blurred-active .info-value { filter: blur(7px); user-select: none; }
+                                                                                            
