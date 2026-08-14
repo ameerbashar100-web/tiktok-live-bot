@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الصفحة الشخصية</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="nav-body">
+
+  <div class="profile-card">
+    <button class="toggle-blur-btn" id="toggle-eye" onclick="togglePrivacy()">👁️</button>
+
+    <div class="profile-header">
+      <div class="user-avatar">👤</div>
+      <h2 class="title">الملف الشخصي</h2>
+    </div>
+
+    <div class="user-info-container" id="info-container">
+      <div class="info-item">
+        <span class="info-label">الإسم بالكامل</span>
+        <span class="info-value" id="profile-name">جاري التحميل...</span>
+      </div>
+
+      <div class="info-item">
+        <span class="info-label">البريد الإلكتروني</span>
+        <span class="info-value" id="profile-email">جاري التحميل...</span>
+      </div>
+
+      <div class="info-item">
+        <span class="info-label">كلمة المرور</span>
+        <span class="info-value" id="profile-password">جاري التحميل...</span>
+      </div>
+    </div>
+  </div>
+
+  <nav class="custom-nav-bar">
+      <a href="page1.html" class="nav-item">🏠</a>
+      <a href="page2.html" class="nav-item">📶</a>
+      <a href="page3.html" class="nav-item active">👤</a>
+  </nav>
+
+  <script>
+    document.getElementById('profile-name').innerText = localStorage.getItem('user_name') || 'مستخدم جديد';
+    document.getElementById('profile-email').innerText = localStorage.getItem('user_email') || 'لا يوجد إيميل مسجل';
+    document.getElementById('profile-password').innerText = localStorage.getItem('user_password') || '******';
+
+    function togglePrivacy() {
+      const container = document.getElementById('info-container');
+      const eyeBtn = document.getElementById('toggle-eye');
+      container.classList.toggle('blurred-active');
+      if (container.classList.contains('blurred-active')) {
+        eyeBtn.innerText = '🙈';
+      } else {
+        eyeBtn.innerText = '👁️';
+      }
+    }
+  </script>
+
+</body>
+</html>
