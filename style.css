@@ -175,7 +175,7 @@ body {
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4) !important;
   width: 90% !important; 
   max-width: 360px !important; 
-  height: 74px !important; /* تثبيت طول الحاوية لمنع الخروج */
+  height: 74px !important; 
 }
 
 .nav-buttons-box {
@@ -204,7 +204,7 @@ body {
   overflow: hidden !important;
 }
 
-/* 🔒 قفل الحجم الأقصى للـ SVG إجبارياً بدقة شديدة لمنع العملاقة 🔒 */
+/* قفل الحجم الأقصى للـ SVG إجبارياً بدقة شديدة لمنع العملاقة */
 .nav-item svg {
   width: 28px !important;  
   height: 28px !important; 
