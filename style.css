@@ -1,4 +1,11 @@
-/* مدمج بدقة من تصميم santhosh_2608 وتصميم NlghtM4re */
+/* 
+=========================================
+  DESIGN COMBINED & OPTIMIZED BY AI 
+  Originals from Uiverse.io 
+  (santhosh_2608, NlghtM4re, emmanuelh-dev)
+=========================================
+*/
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -15,7 +22,9 @@ body {
   overflow: hidden;
 }
 
-/* تنسيق اللودر الأخضر المتوهج وموضعه */
+/* =========================================
+   1. تأثير اللودر الأخضر المضيء وموضعه الفوقي
+   ========================================= */
 .container {
   display: flex;
   justify-content: center;
@@ -50,7 +59,9 @@ body {
   100% { right: 0; left: unset; }
 }
 
-/* واجهة الدخول والخلفية المتوهجة الأصلية */
+/* =========================================
+   2. واجهة الدخول والخلفية المتوهجة (Blobs)
+   ========================================= */
 .login-wrapper {
   --blob-1-color: #ff5e00;
   --blob-2-color: #7000ff;
@@ -62,7 +73,9 @@ body {
   transform: translateY(30px);
 }
 
-@keyframes floatUp { to { opacity: 1; transform: translateY(0); } }
+@keyframes floatUp { 
+  to { opacity: 1; transform: translateY(0); } 
+}
 
 .login-card {
   position: relative;
@@ -74,18 +87,44 @@ body {
   box-shadow: 0 24px 48px rgba(0, 0, 0, 0.2), 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
-.glow-blob { position: absolute; filter: blur(45px); border-radius: 50%; z-index: 0; opacity: 0.6; animation: pulseGlow 4s infinite alternate ease-in-out; }
+.glow-blob { 
+  position: absolute; 
+  filter: blur(45px); 
+  border-radius: 50%; 
+  z-index: 0; 
+  opacity: 0.6; 
+  animation: pulseGlow 4s infinite alternate ease-in-out; 
+}
+
 .blob-1 { top: -30px; right: -30px; width: 170px; height: 170px; background: var(--blob-1-color); }
 .blob-2 { bottom: -50px; left: -50px; width: 210px; height: 210px; background: var(--blob-2-color); animation-delay: -2s; }
 
-@keyframes pulseGlow { 0% { transform: scale(0.9); opacity: 0.5; } 100% { transform: scale(1.1); opacity: 0.7; } }
-.dark-overlay { position: absolute; inset: 0; background: radial-gradient(circle at 50% 50%, rgba(5, 5, 8, 0.85) 30%, transparent 100%); z-index: 1; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05); border-radius: inherit; }
+@keyframes pulseGlow { 
+  0% { transform: scale(0.9); opacity: 0.5; } 
+  100% { transform: scale(1.1); opacity: 0.7; } 
+}
+
+.dark-overlay { 
+  position: absolute; 
+  inset: 0; 
+  background: radial-gradient(circle at 50% 50%, rgba(5, 5, 8, 0.85) 30%, transparent 100%); 
+  z-index: 1; 
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05); 
+  border-radius: inherit; 
+}
+
 .view-container { position: relative; z-index: 10; }
 .form-view { display: flex; flex-direction: column; animation: fadeInView 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
 #signup-view { display: none; }
 .reg-toggle:checked ~ .view-container #login-view { display: none; }
 .reg-toggle:checked ~ .view-container #signup-view { display: flex; }
-@keyframes fadeInView { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+@keyframes fadeInView { 
+  from { opacity: 0; transform: translateY(15px); } 
+  to { opacity: 1; transform: translateY(0); } 
+}
+
+/* عناصر الإدخال والنصوص الترحيبية */
 .header { margin-bottom: 28px; text-align: center; }
 .decorative-dot { width: 2.2em; height: 2.2em; margin: 0 auto 1em auto; border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.2); display: flex; justify-content: center; align-items: center; }
 .decorative-dot::after { content: ""; width: 1.1em; height: 1.1em; background-image: radial-gradient(circle at center, #ffffff 40%, transparent 50%); background-size: 3.5px 3.5px; }
@@ -101,7 +140,9 @@ body {
 .signup-prompt { margin-top: 20px; text-align: center; color: rgba(255, 255, 255, 0.5); font-size: 13px; }
 .signup-prompt .toggle-link { color: #ffffff; cursor: pointer; font-weight: 500; margin-left: 4px; }
 
-/* 🌟 شريط التنقل الأبيض المطابق لنموذج emmanuelh-dev 🌟 */
+/* =========================================
+   3. شريط التنقل المطور والمكبر بالألوان البيضاء والنيون
+   ========================================= */
 .nav-body {
   background-color: #050508;
   color: #ffffff;
@@ -110,7 +151,7 @@ body {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding-bottom: 30px;
+  padding-bottom: 25px; /* رفع طفيف للأعلى لتفادي شريط إيماءات الهواتف */
 }
 
 .page-content {
@@ -123,61 +164,66 @@ body {
   font-weight: 500;
 }
 
-/* الحاوية البيضاء الرئيسية الدائرية الناعمة والمضاءة بالظل السفلي الخفيف */
+/* الحاوية البيضاء تم تكبير حجمها لملء الشاشة أفقياً بوضوح ومطابقة صورتك */
 .custom-nav-bar {
   background-color: #ffffff;
-  border-radius: 20px;
+  border-radius: 24px;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 8px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-  width: fit-content;
+  padding: 10px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+  width: 90%; 
+  max-width: 360px; 
 }
 
 .nav-buttons-box {
   display: flex;
-  align-items: center;
+  justify-content: space-around; /* توزيع الأزرار بالتساوي على امتداد المستطيل */
+  width: 100%;
 }
 
-/* الأزرار الدائرية الرمادية والداكنة عند التمرير والضغط */
+/* الأزرار وتوسيع الحاضن الدائري */
 .nav-item {
-  color: #718096; /* لون رمادي هادئ للأزرار غير النشطة */
+  color: #718096; /* لون رمادي هادئ للأيقونات العادية */
   background-color: transparent;
   border: 2px solid transparent;
-  border-radius: 9999px;
+  border-radius: 50%;
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  padding: 10px;
-  margin-left: 16px;
+  width: 54px;  
+  height: 54px; 
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   text-decoration: none;
 }
 
-.nav-item:last-of-type {
-  margin-left: 0;
-}
-
+/* تكبير حجم أيقونات الـ SVG بشكل واضح جداً */
 .nav-item svg {
-  width: 20px;
-  height: 20px;
+  width: 28px;  
+  height: 28px; 
 }
 
-/* حالة زر الهوفر (عند مرور الإصبع أو الماوس يصبح داكناً) */
 .nav-item:hover {
-  color: #000000;
+  color: #4a5568;
 }
 
-/* زر الصفحة النشطة الحالية (يصبح داكناً وبارزاً تماماً مثل صورتك وعينة الكود) */
+/* تدرج لوني بنفسجي وأزرق متوهج للأيقونات المفعلة */
 .nav-item.active {
-  color: #1a202c; /* لون أسود داكن واضح */
-  background-color: #f7fafc; /* خلفية ناعمة جداً تبرز الزر النشط */
-  box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+  color: #7000ff; 
+  background-color: #f7fafc;
+  box-shadow: 0 4px 15px rgba(112, 0, 255, 0.15), 0 2px 5px rgba(59, 130, 246, 0.1);
 }
 
-/* بطاقة الملف الشخصي والتأثير الضبابي */
+/* تطبيق التدرج الملون السحري على الـ SVG المستدعى */
+.nav-item.active svg {
+  fill: url(#blue-purple-gradient); 
+}
+
+/* =========================================
+   4. بطاقة الملف الشخصي وتأثير الضبابية الزجاجي (page3)
+   ========================================= */
 .profile-card {
   background-color: #0d0f14;
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -189,6 +235,7 @@ body {
   margin-top: auto;
   margin-bottom: auto;
 }
+
 .profile-header { text-align: center; margin-bottom: 24px; }
 .user-avatar { font-size: 40px; width: 70px; height: 70px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 0 auto 12px auto; box-shadow: 0 0 15px rgba(112, 0, 255, 0.15); }
 .toggle-blur-btn { position: absolute; top: 20px; left: 20px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: white; padding: 6px 10px; border-radius: 10px; cursor: pointer; font-size: 16px; transition: all 0.2s ease; }
@@ -197,5 +244,10 @@ body {
 .info-item { display: flex; flex-direction: column; gap: 4px; border-bottom: 1px solid rgba(255, 255, 255, 0.03); padding-bottom: 8px; }
 .info-label { font-size: 11px; color: rgba(255, 255, 255, 0.4); font-weight: 500; }
 .info-value { font-size: 14px; color: #ffffff; font-weight: 400; transition: filter 0.3s ease; }
-.user-info-container.blurred-active .info-value { filter: blur(7px); user-select: none; }
-                                                                                            
+
+/* الكلاس المسؤول عن غشاء الضباب الزجاجي لحماية بيانات المستخدم */
+.user-info-container.blurred-active .info-value { 
+  filter: blur(7px); 
+  user-select: none; 
+                 }
+  
