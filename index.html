@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول / إنشاء حساب</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="login-wrapper">
+  <div class="login-card">
+    <!-- هذا الزر المخفي يتحكم بالتبديل بين الواجهتين -->
+    <input type="checkbox" id="reg-toggle" class="reg-toggle" style="display: none;" />
+
+    <!-- خلفية الوهج الملونة -->
+    <div class="glow-blob blob-1"></div>
+    <div class="glow-blob blob-2"></div>
+    <div class="dark-overlay"></div>
+
+    <div class="view-container">
+      <!-- 1. واجهة تسجيل الدخول -->
+      <div class="form-view" id="login-view">
+        <div class="header">
+          <div class="decorative-dot"></div>
+          <div class="title">Welcome Back</div>
+          <p class="subtitle">Please enter your details to sign in.</p>
+        </div>
+
+        <form onsubmit="event.preventDefault();">
+          <div class="input-group">
+            <input type="email" class="input-field" placeholder="Email address" required autocomplete="email" />
+          </div>
+
+          <div class="input-group">
+            <input type="password" class="input-field" placeholder="Password" required autocomplete="current-password" />
+          </div>
+
+          <a href="#" class="forgot-link">Forgot password?</a>
+
+          <button type="submit" class="btn-submit">Sign In</button>
+        </form>
+
+        <div class="signup-prompt">
+          Don't have an account?
+          <label for="reg-toggle" class="toggle-link">Sign up</label>
+        </div>
+      </div>
+
+      <!-- 2. واجهة إنشاء حساب جديد -->
+      <div class="form-view" id="signup-view">
+        <div class="header">
+          <div class="decorative-dot"></div>
+          <div class="title">Create Account</div>
+          <p class="subtitle">Join us to get started.</p>
+        </div>
+
+        <form onsubmit="event.preventDefault();">
+          <div class="input-group">
+            <input type="text" class="input-field" placeholder="Full Name" required autocomplete="name" />
+          </div>
+
+          <div class="input-group">
+            <input type="email" class="input-field" placeholder="Email address" required autocomplete="email" />
+          </div>
+
+          <div class="input-group">
+            <input type="password" class="input-field" placeholder="Password" required autocomplete="new-password" />
+          </div>
+
+          <div style="height: 12px;"></div>
+
+          <button type="submit" class="btn-submit">Sign Up</button>
+        </form>
+
+        <div class="signup-prompt">
+          Already have an account?
+          <label for="reg-toggle" class="toggle-link">Sign in</label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
