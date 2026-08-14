@@ -318,3 +318,13 @@ body.transition-scale .page-content {
   filter: blur(7px); 
   user-select: none; 
 }
+/* حل مشكلة الأيقونات السفلية المخصصة للبث */
+.action-buttons, .bottom-nav, .navigation, [class*="nav"], [class*="icon"] {
+    position: fixed !important;
+    bottom: 25px !important; /* لرفع الأيقونات فوق شريط إيماءات نظام الهاتف */
+    left: 50% !important;
+    transform: translateX(-50%) !important; /* لتوسيطها بدقة في منتصف الشاشة */
+    width: max-content !important;
+    max-width: 90% !important;
+    z-index: 99999 !important; /* يضمن بقاءها فوق أي عنصر آخر */
+}
