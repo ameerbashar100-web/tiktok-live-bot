@@ -318,3 +318,46 @@ body.transition-scale .page-content {
   filter: blur(7px); 
   user-select: none; 
 }
+
+/* تنسيق شريط التنقل السفلي دون المساس بباقي الموقع */
+.custom-nav-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #16161a;
+    z-index: 9999;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: 1px solid #232329;
+}
+
+.nav-buttons-box {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    max-width: 480px;
+    height: 100%;
+}
+
+.nav-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 55px;
+    height: 55px;
+    border-radius: 16px;
+    color: #6c6c7a;
+    text-decoration: none;
+    transition: all 0.25s ease;
+}
+
+/* تأثير الإضاءة للزر النشط بالتدرج الخاص بك */
+.nav-item.active {
+    color: #ffffff;
+    background: linear-gradient(135deg, #3b82f6 0%, #7000ff 100%);
+    box-shadow: 0 4px 15px rgba(112, 0, 255, 0.35);
+}
