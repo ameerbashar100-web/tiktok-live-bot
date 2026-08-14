@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الملف الشخصي</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="nav-body">
+
+  <div class="profile-card">
+    <button class="toggle-blur-btn" id="toggle-eye" onclick="togglePrivacy()">👁️</button>
+
+    <div class="profile-header">
+      <div class="user-avatar">👤</div>
+      <h2 class="title">الملف الشخصي</h2>
+    </div>
+
+    <div class="user-info-container" id="info-container">
+      <div class="info-item">
+        <span class="info-label">الإسم بالكامل</span>
+        <span class="info-value" id="profile-name">جاري التحميل...</span>
+      </div>
+
+      <div class="info-item">
+        <span class="info-label">البريد الإلكتروني</span>
+        <span class="info-value" id="profile-email">جاري التحميل...</span>
+      </div>
+
+      <div class="info-item">
+        <span class="info-label">كلمة المرور</span>
+        <span class="info-value" id="profile-password">جاري التحميل...</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- شريط التنقل السفلي بالألوان البيضاء والأبعاد المقفلة بدقة -->
+  <nav class="custom-nav-bar">
+    <div class="nav-buttons-box">
+<a href="page1.html" title="الصفحة الرئيسية" class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M3.5 10.8 12 4l8.5 6.8"></path>
+          <path d="M5.5 9.5V20h13V9.5"></path>
+          <path d="M9.5 20v-5.5h5V20"></path>
+        </svg>
+      </a>
+      <a href="page2.html" title="البث والإشارات" class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="3" y="5" width="18" height="14" rx="3"></rect>
+          <path d="m10 9 5 3-5 3z" fill="currentColor" stroke="none"></path>
+        </svg>
+      </a>
+      <a href="page3.html" title="الملف الشخصي" class="nav-item active"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="8" r="3.5"></circle>
+          <path d="M5.5 20c.7-3.3 2.8-5 6.5-5s5.8 1.7 6.5 5"></path>
+        </svg>
+      </a>
+    </div>
+  </nav>
+
+  <script>
+    document.getElementById('profile-name').innerText = localStorage.getItem('user_name') || 'مستخدم جديد';
+    document.getElementById('profile-email').innerText = localStorage.getItem('user_email') || 'لا يوجد إيميل مسجل';
+    document.getElementById('profile-password').innerText = localStorage.getItem('user_password') || '******';
+
+    function togglePrivacy() {
+      const container = document.getElementById('info-container');
+      const eyeBtn = document.getElementById('toggle-eye');
+      container.classList.toggle('blurred-active');
+      if (container.classList.contains('blurred-active')) {
+        eyeBtn.innerText = '🙈';
+      } else {
+        eyeBtn.innerText = '👁️';
+      }
+    }
+  </script>
+
+</body>
+</html>
