@@ -141,7 +141,7 @@ body {
 .signup-prompt .toggle-link { color: #ffffff; cursor: pointer; font-weight: 500; margin-left: 4px; }
 
 /* =========================================
-   3. شريط التنقل المطور والمكبر بالألوان البيضاء والنيون
+   3. شريط التنقل المصلح والمحمي من التضخم العملاق
    ========================================= */
 .nav-body {
   background-color: #050508;
@@ -151,7 +151,7 @@ body {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding-bottom: 25px; /* رفع طفيف للأعلى لتفادي شريط إيماءات الهواتف */
+  padding-bottom: 25px; 
 }
 
 .page-content {
@@ -164,61 +164,68 @@ body {
   font-weight: 500;
 }
 
-/* الحاوية البيضاء تم تكبير حجمها لملء الشاشة أفقياً بوضوح ومطابقة صورتك */
+/* مستطيل الحاوية الأبيض الدائري الثابت */
 .custom-nav-bar {
-  background-color: #ffffff;
-  border-radius: 24px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 10px;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
-  width: 90%; 
-  max-width: 360px; 
+  background-color: #ffffff !important;
+  border-radius: 24px !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  padding: 10px !important;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4) !important;
+  width: 90% !important; 
+  max-width: 360px !important; 
+  height: 74px !important; /* تثبيت طول الحاوية لمنع الخروج */
 }
 
 .nav-buttons-box {
-  display: flex;
-  justify-content: space-around; /* توزيع الأزرار بالتساوي على امتداد المستطيل */
-  width: 100%;
+  display: flex !important;
+  justify-content: space-around !important; 
+  align-items: center !important;
+  width: 100% !important;
 }
 
-/* الأزرار وتوسيع الحاضن الدائري */
+/* الأزرار الحاضنة قفل أحجامها بشكل إجباري لمنع التضخم */
 .nav-item {
-  color: #718096; /* لون رمادي هادئ للأيقونات العادية */
-  background-color: transparent;
-  border: 2px solid transparent;
-  border-radius: 50%;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  width: 54px;  
-  height: 54px; 
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  text-decoration: none;
+  color: #718096 !important; 
+  background-color: transparent !important;
+  border: 2px solid transparent !important;
+  border-radius: 50% !important;
+  display: inline-flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 54px !important;  
+  height: 54px !important; 
+  max-width: 54px !important;
+  max-height: 54px !important;
+  cursor: pointer !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  text-decoration: none !important;
+  overflow: hidden !important;
 }
 
-/* تكبير حجم أيقونات الـ SVG بشكل واضح جداً */
+/* 🔒 قفل الحجم الأقصى للـ SVG إجبارياً بدقة شديدة لمنع العملاقة 🔒 */
 .nav-item svg {
-  width: 28px;  
-  height: 28px; 
+  width: 28px !important;  
+  height: 28px !important; 
+  max-width: 28px !important;
+  max-height: 28px !important;
+  display: block !important;
 }
 
 .nav-item:hover {
-  color: #4a5568;
+  color: #4a5568 !important;
 }
 
-/* تدرج لوني بنفسجي وأزرق متوهج للأيقونات المفعلة */
+/* تدرج لوني أزرق وبنفسجي مخصص لزر الصفحة النشطة */
 .nav-item.active {
-  color: #7000ff; 
-  background-color: #f7fafc;
-  box-shadow: 0 4px 15px rgba(112, 0, 255, 0.15), 0 2px 5px rgba(59, 130, 246, 0.1);
+  color: #7000ff !important; 
+  background-color: #f7fafc !important;
+  box-shadow: 0 4px 15px rgba(112, 0, 255, 0.15), 0 2px 5px rgba(59, 130, 246, 0.1) !important;
 }
 
-/* تطبيق التدرج الملون السحري على الـ SVG المستدعى */
 .nav-item.active svg {
-  fill: url(#blue-purple-gradient); 
+  fill: url(#blue-purple-gradient) !important; 
 }
 
 /* =========================================
@@ -245,9 +252,7 @@ body {
 .info-label { font-size: 11px; color: rgba(255, 255, 255, 0.4); font-weight: 500; }
 .info-value { font-size: 14px; color: #ffffff; font-weight: 400; transition: filter 0.3s ease; }
 
-/* الكلاس المسؤول عن غشاء الضباب الزجاجي لحماية بيانات المستخدم */
 .user-info-container.blurred-active .info-value { 
   filter: blur(7px); 
   user-select: none; 
-                 }
-  
+}
