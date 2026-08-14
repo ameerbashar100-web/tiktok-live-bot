@@ -1,20 +1,14 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الصفحة الرئيسية</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body class="nav-body">
-
-  <div class="page-content">
-      <p>هنا محتوى الصفحة الأولى (الرئيسية)</p>
-  </div>
-
-  <!-- شريط التنقل المتطابق بالألوان البيضاء والأيقونات الدقيقة -->
+  <!-- شريط التنقل المتطابق بالألوان البيضاء والأيقونات المكبرة المتدرجة -->
   <nav class="custom-nav-bar">
     <div class="nav-buttons-box">
+      <!-- تدرج لوني مخفي للأيقونات ليجعلها زرقاء وبنفسجية -->
+      <svg style="width:0; height:0; position:absolute;" aria-hidden="true" focusable="false">
+        <linearGradient id="blue-purple-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#3b82f6" /> <!-- أزرق -->
+          <stop offset="100%" stop-color="#7000ff" /> <!-- بنفسجي -->
+        </linearGradient>
+      </svg>
+
       <a href="page1.html" title="Go to the home page" class="nav-item active">
         <svg xmlns="http://w3.org" viewBox="0 0 20 20" fill="currentColor">
           <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path>
@@ -33,6 +27,4 @@
       </a>
     </div>
   </nav>
-
-</body>
-</html>
+  
