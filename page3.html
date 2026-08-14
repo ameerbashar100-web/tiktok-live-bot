@@ -1,43 +1,13 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الصفحة الشخصية</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body class="nav-body">
-
-  <div class="profile-card">
-    <!-- زر العين تم الاحتفاظ به مع النصوص والضبابية المدمجة بداخل البطاقة الداكنة -->
-    <button class="toggle-blur-btn" id="toggle-eye" onclick="togglePrivacy()">👁️</button>
-
-    <div class="profile-header">
-      <div class="user-avatar">👤</div>
-      <h2 class="title">الملف الشخصي</h2>
-    </div>
-
-    <div class="user-info-container" id="info-container">
-      <div class="info-item">
-        <span class="info-label">الإسم بالكامل</span>
-        <span class="info-value" id="profile-name">جاري التحميل...</span>
-      </div>
-
-      <div class="info-item">
-        <span class="info-label">البريد الإلكتروني</span>
-        <span class="info-value" id="profile-email">جاري التحميل...</span>
-      </div>
-
-      <div class="info-item">
-        <span class="info-label">كلمة المرور</span>
-        <span class="info-value" id="profile-password">جاري التحميل...</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- شريط التنقل المتطابق بالألوان البيضاء والأيقونات الدقيقة -->
+  <!-- شريط التنقل المتطابق بالألوان البيضاء والأيقونات المكبرة المتدرجة -->
   <nav class="custom-nav-bar">
     <div class="nav-buttons-box">
+      <svg style="width:0; height:0; position:absolute;" aria-hidden="true" focusable="false">
+        <linearGradient id="blue-purple-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#3b82f6" />
+          <stop offset="100%" stop-color="#7000ff" />
+        </linearGradient>
+      </svg>
+
       <a href="page1.html" title="Go to the home page" class="nav-item">
         <svg xmlns="http://w3.org" viewBox="0 0 20 20" fill="currentColor">
           <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path>
@@ -56,23 +26,4 @@
       </a>
     </div>
   </nav>
-
-  <script>
-    document.getElementById('profile-name').innerText = localStorage.getItem('user_name') || 'مستخدم جديد';
-    document.getElementById('profile-email').innerText = localStorage.getItem('user_email') || 'لا يوجد إيميل مسجل';
-    document.getElementById('profile-password').innerText = localStorage.getItem('user_password') || '******';
-
-    function togglePrivacy() {
-      const container = document.getElementById('info-container');
-      const eyeBtn = document.getElementById('toggle-eye');
-      container.classList.toggle('blurred-active');
-      if (container.classList.contains('blurred-active')) {
-        eyeBtn.innerText = '🙈';
-      } else {
-        eyeBtn.innerText = '👁️';
-      }
-    }
-  </script>
-
-</body>
-</html>
+  
