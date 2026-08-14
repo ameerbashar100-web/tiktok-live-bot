@@ -23,6 +23,57 @@ body {
 }
 
 /* =========================================
+   تأثيرات الانتقال بين الصفحات (3 تأثيرات احترافية)
+   ========================================= */
+@keyframes fadeOutPage {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes slideUpPage {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-100vh); opacity: 0; }
+}
+
+@keyframes scaleRotatePage {
+  0% { transform: scale(1) rotate(0deg); opacity: 1; }
+  100% { transform: scale(0.8) rotate(10deg); opacity: 0; }
+}
+
+/* تأثير الدخول */
+@keyframes fadeInPage {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes slideDownPage {
+  0% { transform: translateY(-100vh); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes scaleRotateInPage {
+  0% { transform: scale(0.8) rotate(-10deg); opacity: 0; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+/* تطبيق التأثيرات على المحتوى */
+.page-content {
+  animation: fadeInPage 0.6s ease-out forwards;
+}
+
+body.transition-fade .page-content {
+  animation: fadeOutPage 0.6s ease-in forwards;
+}
+
+body.transition-slide .page-content {
+  animation: slideDownPage 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+body.transition-scale .page-content {
+  animation: scaleRotateInPage 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* =========================================
    1. تأثير اللودر الأخضر المضيء وموضعه الفوقي
    ========================================= */
 .container {
@@ -131,11 +182,11 @@ body {
 .title { color: #ffffff; font-size: 22px; font-weight: 500; letter-spacing: -0.5px; margin-bottom: 6px; }
 .subtitle { color: rgba(255, 255, 255, 0.6); font-size: 13px; }
 .input-group { margin-bottom: 16px; position: relative; }
-.input-field { width: 100%; padding: 1.05em 1.2em; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; color: #ffffff; font-size: 14px; outline: none; backdrop-filter: blur(10px); }
+.input-field { width: 100%; padding: 1.05em 1.2em; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; color: #ffffff; font-size: 14px; outline: none; transition: all 0.3s ease; }
 .input-field::placeholder { color: rgba(255, 255, 255, 0.4); }
 .input-field:focus { background: rgba(255, 255, 255, 0.06); border-color: rgba(255, 255, 255, 0.25); box-shadow: 0 0 20px var(--input-focus-glow); }
 .forgot-link { display: block; text-align: right; color: rgba(255, 255, 255, 0.6); font-size: 12px; text-decoration: none; margin-bottom: 24px; }
-.btn-submit { width: 100%; padding: 1em; background: rgba(255, 255, 255, 0.1); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 12px; font-size: 14.5px; font-weight: 500; cursor: pointer; backdrop-filter: blur(10px); }
+.btn-submit { width: 100%; padding: 1em; background: rgba(255, 255, 255, 0.1); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 12px; font-size: 14.5px; font-weight: 500; cursor: pointer; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
 .btn-submit:hover { background: rgba(255, 255, 255, 0.15); border-color: rgba(255, 255, 255, 0.4); box-shadow: 0 8px 20px var(--btn-hover-glow); }
 .signup-prompt { margin-top: 20px; text-align: center; color: rgba(255, 255, 255, 0.5); font-size: 13px; }
 .signup-prompt .toggle-link { color: #ffffff; cursor: pointer; font-weight: 500; margin-left: 4px; }
@@ -162,6 +213,7 @@ body {
   text-align: center;
   font-size: 20px;
   font-weight: 500;
+  color: rgba(255, 255, 255, 0.8);
 }
 
 /* مستطيل الحاوية الأبيض الدائري الثابت */
@@ -202,6 +254,7 @@ body {
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
   text-decoration: none !important;
   overflow: hidden !important;
+  position: relative !important;
 }
 
 /* قفل الحجم الأقصى للـ SVG إجبارياً بدقة شديدة لمنع العملاقة */
@@ -211,10 +264,12 @@ body {
   max-width: 28px !important;
   max-height: 28px !important;
   display: block !important;
+  transition: all 0.3s ease !important;
 }
 
 .nav-item:hover {
   color: #4a5568 !important;
+  transform: scale(1.1) !important;
 }
 
 /* تدرج لوني أزرق وبنفسجي مخصص لزر الصفحة النشطة */
@@ -222,10 +277,17 @@ body {
   color: #7000ff !important; 
   background-color: #f7fafc !important;
   box-shadow: 0 4px 15px rgba(112, 0, 255, 0.15), 0 2px 5px rgba(59, 130, 246, 0.1) !important;
+  transform: scale(1.15) !important;
 }
 
 .nav-item.active svg {
   fill: url(#blue-purple-gradient) !important; 
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
 }
 
 /* =========================================
@@ -244,8 +306,8 @@ body {
 }
 
 .profile-header { text-align: center; margin-bottom: 24px; }
-.user-avatar { font-size: 40px; width: 70px; height: 70px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 0 auto 12px auto; box-shadow: 0 0 15px rgba(112, 0, 255, 0.15); }
-.toggle-blur-btn { position: absolute; top: 20px; left: 20px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: white; padding: 6px 10px; border-radius: 10px; cursor: pointer; font-size: 16px; transition: all 0.2s ease; }
+.user-avatar { font-size: 40px; width: 70px; height: 70px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 0 auto; }
+.toggle-blur-btn { position: absolute; top: 20px; left: 20px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: white; padding: 6px 10px; border-radius: 10px; cursor: pointer; font-size: 16px; transition: all 0.3s ease; }
 .toggle-blur-btn:hover { background: rgba(255, 255, 255, 0.15); transform: scale(1.05); }
 .user-info-container { display: flex; flex-direction: column; gap: 16px; transition: filter 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
 .info-item { display: flex; flex-direction: column; gap: 4px; border-bottom: 1px solid rgba(255, 255, 255, 0.03); padding-bottom: 8px; }
