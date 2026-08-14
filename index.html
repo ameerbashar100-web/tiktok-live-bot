@@ -9,17 +9,21 @@
 <body>
 
 <div class="login-wrapper">
+  
+  <!-- حاوية اللودر الأخضر من تصميم NlghtM4re فوق المربع -->
+  <div class="container" id="global-loader" style="display: none;">
+    <div class="loader"></div>
+  </div>
+
   <div class="login-card">
-    <!-- هذا الزر المخفي يتحكم بالتبديل بين الواجهتين -->
     <input type="checkbox" id="reg-toggle" class="reg-toggle" style="display: none;" />
 
-    <!-- خلفية الوهج الملونة -->
     <div class="glow-blob blob-1"></div>
     <div class="glow-blob blob-2"></div>
     <div class="dark-overlay"></div>
 
     <div class="view-container">
-      <!-- 1. واجهة تسجيل الدخول -->
+      <!-- 1. واجهة تسجيل الدخول (login-view) -->
       <div class="form-view" id="login-view">
         <div class="header">
           <div class="decorative-dot"></div>
@@ -27,13 +31,13 @@
           <p class="subtitle">Please enter your details to sign in.</p>
         </div>
 
-        <form onsubmit="event.preventDefault();">
+        <form id="login-form">
           <div class="input-group">
-            <input type="email" class="input-field" placeholder="Email address" required autocomplete="email" />
+            <input type="email" id="login-email" class="input-field" placeholder="Email address" required autocomplete="email" />
           </div>
 
           <div class="input-group">
-            <input type="password" class="input-field" placeholder="Password" required autocomplete="current-password" />
+            <input type="password" id="login-password" class="input-field" placeholder="Password" required autocomplete="current-password" />
           </div>
 
           <a href="#" class="forgot-link">Forgot password?</a>
@@ -47,7 +51,7 @@
         </div>
       </div>
 
-      <!-- 2. واجهة إنشاء حساب جديد -->
+      <!-- 2. واجهة إنشاء حساب جديد (signup-view) -->
       <div class="form-view" id="signup-view">
         <div class="header">
           <div class="decorative-dot"></div>
@@ -55,17 +59,17 @@
           <p class="subtitle">Join us to get started.</p>
         </div>
 
-        <form onsubmit="event.preventDefault();">
+        <form id="signup-form">
           <div class="input-group">
-            <input type="text" class="input-field" placeholder="Full Name" required autocomplete="name" />
+            <input type="text" id="signup-name" class="input-field" placeholder="Full Name" required autocomplete="name" />
           </div>
 
           <div class="input-group">
-            <input type="email" class="input-field" placeholder="Email address" required autocomplete="email" />
+            <input type="email" id="signup-email" class="input-field" placeholder="Email address" required autocomplete="email" />
           </div>
 
           <div class="input-group">
-            <input type="password" class="input-field" placeholder="Password" required autocomplete="new-password" />
+            <input type="password" id="signup-password" class="input-field" placeholder="Password" required autocomplete="new-password" />
           </div>
 
           <div style="height: 12px;"></div>
@@ -81,6 +85,53 @@
     </div>
   </div>
 </div>
+
+<script>
+  const loader = document.getElementById('global-loader');
+
+  // إنشاء حساب والتحقق والحفظ في جهاز المستخدم ثم الانتقال التلقائي
+  document.getElementById('signup-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const name = document.getElementById('signup-name').value;
+    const email = document.getElementById('signup-email').value;
+    const password = document.getElementById('signup-password').value;
+
+    loader.style.display = 'flex';
+
+    setTimeout(() => {
+      localStorage.setItem('user_name', name);
+      localStorage.setItem('user_email', email);
+      localStorage.setItem('user_password', password);
+
+      loader.style.display = 'none';
+      window.location.href = 'page1.html';
+    }, 2000); 
+  });
+
+  // تسجيل دخول ومطابقة البيانات المخزنة محلياً في جهازه ثم الانتقال
+  document.getElementById('login-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const emailInput = document.getElementById('login-email').value;
+    const passwordInput = document.getElementById('login-password').value;
+
+    const savedEmail = localStorage.getItem('user_email');
+    const savedPassword = localStorage.getItem('user_password');
+
+    loader.style.display = 'flex';
+
+    setTimeout(() => {
+      loader.style.display = 'none';
+
+      if (emailInput === savedEmail && passwordInput === savedPassword) {
+        window.location.href = 'page1.html';
+      } else {
+        alert('خطأ: الإيميل أو الرمز غير صحيح، أو لم تقم بالتسجيل على هذا الجهاز من قبل!');
+      }
+    }, 2000);
+  });
+</script>
 
 </body>
 </html>
