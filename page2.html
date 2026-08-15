@@ -8,10 +8,72 @@
 </head>
 <body class="nav-body">
 
-  <!-- محتويات الصفحة الثانية -->
-  <div class="page-content">
-      <p>هنا محتوى الصفحة الثانية (البث / الإشارات)</p>
+  <!-- الشعار المتحرك في أعلى الصفحة -->
+  <div class="page-content logo-area">
+      <div class="shine">UIVERSE</div>
   </div>
+
+  <style>
+    .logo-area {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding-top: 24px;
+      min-height: 0;
+    }
+
+    .shine {
+      font-size: 2em;
+      font-weight: 900;
+      color: rgba(255, 255, 255, 0.3);
+      background: #222 -webkit-gradient(
+        linear,
+        left top,
+        right top,
+        from(#222),
+        to(#222),
+        color-stop(0.5, #fff)
+      ) 0 0 no-repeat;
+      background-image: -webkit-linear-gradient(
+        -40deg,
+        transparent 0%,
+        transparent 40%,
+        #fff 50%,
+        transparent 60%,
+        transparent 100%
+      );
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-background-size: 50px;
+      background-size: 50px;
+      -webkit-animation: zezzz 5s infinite;
+      animation: zezzz 5s infinite;
+    }
+
+    @-webkit-keyframes zezzz {
+      0%, 10% {
+        background-position: -200px;
+      }
+      20% {
+        background-position: top left;
+      }
+      100% {
+        background-position: 200px;
+      }
+    }
+
+    @keyframes zezzz {
+      0%, 10% {
+        background-position: -200px;
+      }
+      20% {
+        background-position: top left;
+      }
+      100% {
+        background-position: 200px;
+      }
+    }
+  </style>
 
   <!-- شريط التنقل السفلي بالألوان البيضاء والأبعاد المقفلة بدقة -->
   <nav class="custom-nav-bar">
