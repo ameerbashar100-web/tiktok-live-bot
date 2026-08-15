@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صفحة البث والشبكة</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .logo-area {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: 24px;
+            padding-bottom: 22px;
+        }
+
+        .shine {
+            font-size: 2.8em;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.3);
+            background-image: linear-gradient(
+                -40deg,
+                transparent 0%,
+                transparent 40%,
+                #fff 50%,
+                transparent 60%,
+                transparent 100%
+            );
+            background-repeat: no-repeat;
+            background-size: 80px 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: rgba(255, 255, 255, 0.3);
+            animation: zezzz 5s infinite;
+        }
+
+        @keyframes zezzz {
+            0%, 10% { background-position: -200px 0; }
+            20% { background-position: top left; }
+            100% { background-position: 200px 0; }
+        }
+
+        .video-area {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding: 0 15px 12px;
+        }
+
+        .video-area video {
+            width: 100%;
+            max-width: 700px;
+            height: auto;
+            display: block;
+            border-radius: 15px;
+            background: #111;
+        }
+    </style>
+</head>
+
+<body class="nav-body">
+
+    <div class="logo-area">
+        <div class="shine">UIVERSE</div>
+    </div>
+
+    <div class="video-area">
+        <video controls playsinline preload="metadata">
+            <source
+                src="https://raw.githubusercontent.com/ameerbashar100-web/tiktok-live-bot/main/video.mp4"
+                type="video/mp4">
+            متصفحك لا يدعم تشغيل الفيديو.
+        </video>
+    </div>
+
+    <!-- مربع البحث عن المستخدم - مضاف فقط أسفل الفيديو -->
+    <section class="user-search-area" aria-label="البحث عن مستخدم">
+        <div class="user-search-box">
+            <div class="fire-line fire-line-one"></div>
+            <div class="fire-line fire-line-two"></div>
+
+            <div class="search-title">البحث عن مستخدم</div>
+
+            <div class="search-input-wrap">
+                <span class="search-icon">⌕</span>
+                <input id="userSearchInput" type="search"
+                       inputmode="numeric"
+                       autocomplete="off"
+                       placeholder="اكتب رقم المستخدم..."
+                       aria-label="رقم المستخدم">
+            </div>
+
+            <div id="userResults" class="user-results" hidden></div>
+
+            <div id="statusMessage" class="status-message" role="status" aria-live="polite"></div>
+
+            <div id="teamCard" class="team-card" hidden>
+                <div class="verified-badge" aria-label="تم التوثيق">
+                    <span>✓</span>
+                </div>
+                <div class="team-text">
+                    <div class="team-label">فريق المستخدم</div>
+                    <div id="teamUserId" class="team-user">997327 👤</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <style>
+        .user-search-area {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding: 0 12px 125px;
+            box-sizing: border-box;
+        }
+
+        .user-search-box {
+            position: relative;
+            width: 100%;
+            max-width: 620px;
+            padding: 15px 14px 14px;
+            border-radius: 22px;
+            overflow: hidden;
+            box-sizing: border-box;
+            background:
+                radial-gradient(circle at 50% -20%, rgba(255,255,255,.09), transparent 42%),
+                linear-gradient(145deg, #151515, #080808);
+            border: 1px solid rgba(255,255,255,.10);
+            box-shadow: 0 16px 45px rgba(0,0,0,.34), inset 0 1px 0 rgba(255,255,255,.05);
+        }
+
+        .user-search-box::before,
+        .user-search-box::after {
+            content: "";
+            position: absolute;
+            inset: -2px;
+            pointer-events: none;
+            border-radius: 24px;
+            background: conic-gradient(
+                from 0deg,
+                transparent 0deg,
+                transparent 35deg,
+                rgba(255,77,0,.9) 55deg,
+                rgba(255,176,0,.35) 75deg,
+                transparent 100deg,
+                transparent 185deg,
+                rgba(255,54,0,.7) 215deg,
+                transparent 255deg,
+                transparent 360deg
+            );
+            -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            padding: 1px;
+            animation: fireOrbit 3.8s linear infinite;
+        }
+
+        .user-search-box::after {
+            filter: blur(7px);
+            opacity: .42;
+            animation-duration: 2.7s;
+        }
+
+        .fire-line {
+            position: absolute;
+            height: 2px;
+            width: 130px;
+            border-radius: 50%;
+            background: linear-gradient(90deg, transparent, #ff3d00, #ffb000, transparent);
+            filter: blur(.2px);
+            opacity: .8;
+            pointer-events: none;
+        }
+
+        .fire-line-one {
+            top: 8px;
+            right: 10%;
+            animation: fireDash 2.4s ease-in-out infinite;
+        }
+
+        .fire-line-two {
+            bottom: 8px;
+            left: 8%;
+            animation: fireDash 2.9s ease-in-out infinite reverse;
+        }
+
+        @keyframes fireOrbit {
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes fireDash {
+            0%, 100% { transform: translateX(0) scaleX(.55); opacity: .25; }
+            50% { transform: translateX(55px) scaleX(1); opacity: 1; }
+        }
+
+        .search-title {
+            position: relative;
+            z-index: 2;
+            margin-bottom: 9px;
+            text-align: center;
+            color: rgba(255,255,255,.88);
+            font-size: 14px;
+            font-weight: 850;
+            letter-spacing: .3px;
+        }
+
+        .search-input-wrap {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            height: 44px;
+            border-radius: 15px;
+            background: rgba(255,255,255,.055);
+            border: 1px solid rgba(255,255,255,.12);
+            transition: .25s ease;
+        }
+
+        .search-input-wrap:focus-within {
+            border-color: rgba(255,132,0,.7);
+            box-shadow: 0 0 0 4px rgba(255,82,0,.08), 0 0 22px rgba(255,69,0,.14);
+        }
+
+        .search-icon {
+            width: 40px;
+            text-align: center;
+            color: #ff9d00;
+            font-size: 24px;
+            line-height: 1;
+            transform: rotate(-20deg);
+            user-select: none;
+        }
+
+        #userSearchInput {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            outline: 0;
+            background: transparent;
+            color: #fff;
+            font-size: 15px;
+            font-weight: 700;
+            padding: 0 12px 0 10px;
+            box-sizing: border-box;
+            direction: rtl;
+        }
+
+        #userSearchInput::placeholder {
+            color: rgba(255,255,255,.38);
+        }
+
+        .user-results {
+            position: relative;
+            z-index: 4;
+            margin-top: 7px;
+            max-height: 170px;
+            overflow-y: auto;
+            border-radius: 15px;
+            background: rgba(12,12,12,.98);
+            border: 1px solid rgba(255,255,255,.09);
+            box-shadow: 0 12px 30px rgba(0,0,0,.35);
+        }
+
+        .user-result {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            border: 0;
+            border-bottom: 1px solid rgba(255,255,255,.055);
+            background: transparent;
+            color: #fff;
+            padding: 9px 11px;
+            cursor: pointer;
+            text-align: right;
+            font-size: 14px;
+            transition: background .2s ease, transform .2s ease;
+        }
+
+        .user-result:last-child {
+            border-bottom: 0;
+        }
+
+        .user-result:hover,
+        .user-result:focus {
+            outline: 0;
+            background: rgba(255,78,0,.10);
+            transform: translateX(-2px);
+        }
+
+        .user-result .user-number {
+            font-weight: 900;
+            letter-spacing: .6px;
+            font-size: 14px;
+        }
+
+        .user-result .user-icon {
+            opacity: 1;
+            font-size: 17px;
+            filter: drop-shadow(0 0 6px rgba(0,170,255,.75));
+        }
+
+        .user-result .user-icon::first-letter {
+            color: #00b7ff;
+        }
+
+        .no-results {
+            padding: 16px;
+            text-align: center;
+            color: rgba(255,255,255,.46);
+            font-size: 13px;
+        }
+
+        .status-message {
+            position: relative;
+            z-index: 3;
+            display: none;
+            margin-top: 12px;
+            padding: 12px 14px;
+            border-radius: 13px;
+            text-align: center;
+            color: #fff;
+            background: rgba(255,255,255,.055);
+            border: 1px solid rgba(255,255,255,.10);
+            font-size: 13px;
+            font-weight: 800;
+            animation: messageIn .35s ease both;
+        }
+
+        .status-message.request {
+            border-color: rgba(255,107,0,.32);
+            box-shadow: 0 0 18px rgba(255,70,0,.08);
+        }
+
+        .status-message.success {
+            border-color: rgba(0,145,255,.35);
+            box-shadow: 0 0 22px rgba(0,130,255,.12);
+        }
+
+        @keyframes messageIn {
+            from { opacity: 0; transform: translateY(7px) scale(.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .team-card {
+            position: relative;
+            z-index: 3;
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            margin-top: 13px;
+            padding: 14px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(0,119,255,.10), rgba(255,255,255,.045));
+            border: 1px solid rgba(0,150,255,.30);
+            box-shadow: 0 0 26px rgba(0,110,255,.10), inset 0 1px 0 rgba(255,255,255,.05);
+            animation: teamReveal .7s cubic-bezier(.2,.8,.2,1) both;
+        }
+
+        @keyframes teamReveal {
+            from { opacity: 0; transform: translateY(12px) scale(.97); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .verified-badge {
+            flex: 0 0 40px;
+            width: 40px;
+            height: 40px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background: #168cff;
+            box-shadow: 0 0 0 4px rgba(22,140,255,.10), 0 0 22px rgba(22,140,255,.55);
+            animation: verifiedPulse 1.7s ease-in-out infinite;
+        }
+
+        .verified-badge span {
+            color: #fff;
+            font-size: 24px;
+            font-weight: 1000;
+            line-height: 1;
+            transform: translateY(-1px);
+        }
+
+        @keyframes verifiedPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 0 4px rgba(22,140,255,.10), 0 0 22px rgba(22,140,255,.48); }
+            50% { transform: scale(1.08); box-shadow: 0 0 0 7px rgba(22,140,255,.05), 0 0 31px rgba(22,140,255,.75); }
+        }
+
+        .team-text {
+            min-width: 0;
+        }
+
+        .team-label {
+            color: rgba(255,255,255,.50);
+            font-size: 11px;
+            margin-bottom: 4px;
+        }
+
+        .team-user {
+            color: #fff;
+            font-size: 16px;
+            font-weight: 950;
+            letter-spacing: .4px;
+        }
+
+        @media (max-width: 420px) {
+            .user-search-area {
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+
+            .user-search-box {
+                padding-left: 14px;
+                padding-right: 14px;
+            }
+        }
+    </style>
+
+
+        /* خطوط نارية دقيقة ومتحركة */
+        .user-search-box {
+            isolation: isolate;
+        }
+
+        .user-search-box .fire-line {
+            box-shadow:
+                0 0 4px #ff5a00,
+                0 0 10px rgba(255,100,0,.8),
+                0 0 20px rgba(255,35,0,.35);
+        }
+
+        .user-search-box::marker {
+            display: none;
+        }
+
+        .user-search-box .fire-line-one {
+            width: 90px;
+            height: 1px;
+            top: 5px;
+            right: 14%;
+        }
+
+        .user-search-box .fire-line-two {
+            width: 75px;
+            height: 1px;
+            bottom: 5px;
+            left: 12%;
+        }
+
+        .user-search-box::before {
+            background:
+                conic-gradient(
+                    from 20deg,
+                    transparent 0deg,
+                    transparent 28deg,
+                    rgba(255,55,0,.95) 42deg,
+                    rgba(255,183,0,.95) 52deg,
+                    transparent 66deg,
+                    transparent 148deg,
+                    rgba(255,82,0,.85) 164deg,
+                    transparent 178deg,
+                    transparent 248deg,
+                    rgba(255,155,0,.75) 263deg,
+                    transparent 280deg,
+                    transparent 360deg
+                );
+            animation: fireOrbit 2.8s linear infinite;
+        }
+
+        .user-search-box::after {
+            opacity: .5;
+            filter: blur(9px);
+            animation: fireOrbit 2.1s linear infinite reverse;
+        }
+
+        /* توهج خاص لأيقونة المستخدم */
+        .user-result .user-number::first-letter {
+            color: #00aaff;
+        }
+
+        @media (max-width: 420px) {
+            .user-search-box {
+                max-width: 100%;
+                padding: 13px 11px 12px;
+                border-radius: 18px;
+            }
+
+            .search-input-wrap {
+                height: 42px;
+                border-radius: 13px;
+            }
+
+            .user-results {
+                max-height: 150px;
+            }
+
+            .user-result {
+                padding: 8px 10px;
+            }
+        }
+
+    <script>
+        (() => {
+            const input = document.getElementById('userSearchInput');
+            const results = document.getElementById('userResults');
+            const status = document.getElementById('statusMessage');
+            const teamCard = document.getElementById('teamCard');
+            const teamUserId = document.getElementById('teamUserId');
+
+            // قائمة تحتوي على 346 رقم مستخدم عشوائي وفريد.
+            // تم تضمين الرقمين المطلوبين 377272 و997327 ضمن القائمة.
+            const uniqueUsers = ['483115', '509069', '372323', '559813', '418533', '695585', '414659', '180074', '870090', '168150', '490420', '548047', '268097', '113385', '410986', '857324', '702494', '295105', '607075', '285612', '323972', '458737', '516740', '821240', '948813', '568229', '274631', '182027', '955406', '353898', '270829', '165420', '274660', '501461', '610975', '674975', '289532', '767957', '719607', '467411', '357976', '272566', '788130', '391716', '259562', '211547', '396491', '873246', '591140', '233037', '341281', '194480', '438715', '859557', '952109', '506324', '186491', '382655', '347574', '359726', '442290', '386463', '852514', '783612', '213556', '598934', '755897', '816997', '365227', '868205', '213309', '791064', '971065', '838248', '477249', '908813', '587672', '195877', '375740', '841264', '536199', '296281', '116132', '457954', '245071', '242473', '749208', '738061', '491091', '143384', '179777', '201829', '870214', '751702', '513542', '636601', '237012', '392495', '356937', '366447', '676884', '489331', '890848', '985664', '921198', '749060', '669968', '597843', '180473', '227564', '361190', '697049', '370825', '481115', '315127', '942504', '410457', '688112', '484378', '638859', '961397', '297164', '490123', '560614', '532102', '413081', '529028', '662834', '427489', '853996', '273505', '610903', '731419', '818507', '413636', '278413', '828227', '725225', '347613', '750067', '570098', '119869', '540404', '128897', '591999', '624742', '172011', '403443', '389823', '743900', '263119', '863373', '958587', '368500', '521512', '940854', '897001', '313394', '995012', '941672', '182107', '771311', '795019', '393077', '579396', '214078', '132967', '812609', '387262', '117869', '227423', '998296', '305280', '813748', '552168', '390957', '294215', '688031', '677492', '416639', '461535', '112949', '989219', '657733', '906901', '394631', '103863', '253143', '377272', '722613', '624334', '125813', '728790', '676494', '516280', '605589', '775461', '411788', '746917', '640156', '126335', '946419', '567542', '119862', '481094', '207180', '445055', '981279', '929636', '647627', '156072', '903899', '319619', '388171', '363958', '603846', '442351', '367110', '477924', '852323', '594918', '931657', '403081', '905682', '765949', '178191', '785028', '673176', '990380', '502942', '948374', '496980', '785284', '547507', '704257', '446808', '871128', '624019', '869070', '185614', '993781', '959050', '158412', '159960', '495642', '756799', '416031', '669413', '955815', '627103', '843209', '173459', '631130', '939767', '365171', '887753', '969293', '155359', '901610', '326085', '255053', '118401', '758322', '800103', '133835', '118345', '543105', '584532', '446723', '165544', '286540', '430888', '464552', '179306', '916903', '726371', '543696', '195070', '961439', '847402', '662295', '871919', '100489', '194666', '163344', '944466', '753864', '755296', '242998', '111151', '656580', '727444', '196910', '387006', '101420', '687230', '561461', '280078', '914628', '357246', '679006', '738709', '952764', '994361', '437418', '890249', '564551', '721619', '663470', '543144', '131997', '910845', '697704', '431430', '843087', '218379', '339445', '253056', '403875', '689812', '710035', '592937', '222698', '993548', '502437', '232869', '997327', '739321', '958535', '643707', '339058', '436192', '350922', '646070', '568632', '389072', '760391', '991280', '956563', '604282', '102082', '423637', '357781', '361973', '451142', '266624'];
+
+            let requestTimer = null;
+            let selectedUser = null;
+
+            const showResults = (matches) => {
+                results.innerHTML = '';
+
+                if (!matches.length) {
+                    results.innerHTML = '<div class="no-results">لا يوجد مستخدم بهذا الرقم</div>';
+                    results.hidden = false;
+                    return;
+                }
+
+                matches.slice(0, 30).forEach(userId => {
+                    const button = document.createElement('button');
+                    button.type = 'button';
+                    button.className = 'user-result';
+                    button.innerHTML = `
+                        <span class="user-number">${userId} 👤</span>
+                        <span class="user-icon">›</span>
+                    `;
+                    button.addEventListener('click', () => selectUser(userId));
+                    results.appendChild(button);
+                });
+
+                results.hidden = false;
+            };
+
+            const selectUser = (userId) => {
+                selectedUser = userId;
+                input.value = userId;
+                results.hidden = true;
+                sendJoinRequest(userId);
+            };
+
+            const showStatus = (text, type, duration) => {
+                status.textContent = text;
+                status.className = `status-message ${type}`;
+                status.style.display = 'block';
+
+                window.clearTimeout(status.hideTimer);
+                if (duration) {
+                    status.hideTimer = window.setTimeout(() => {
+                        status.style.display = 'none';
+                    }, duration);
+                }
+            };
+
+            const sendJoinRequest = (userId) => {
+                window.clearTimeout(requestTimer);
+                teamCard.hidden = true;
+
+                showStatus('تم ارســال طلب للانظـمام', 'request', 6000);
+
+                // بعد الضغط على المستخدم: تظهر رسالة النجاح تلقائياً
+                // وتختفي بعد 12 ثانية، ثم يبقى فريق المستخدم ثابتاً.
+                requestTimer = window.setTimeout(() => {
+                    showStatus('تمت العمليه بنجاح ✓', 'success', 12000);
+
+                    teamUserId.textContent = `${userId} 👤`;
+                    teamCard.hidden = false;
+                }, 6000);
+            };
+
+            input.addEventListener('input', () => {
+                const query = input.value.trim();
+
+                if (!query) {
+                    results.hidden = true;
+                    results.innerHTML = '';
+                    return;
+                }
+
+                const matches = uniqueUsers.filter(id => id.startsWith(query));
+                showResults(matches);
+            });
+
+            input.addEventListener('focus', () => {
+                const query = input.value.trim();
+                if (query) {
+                    const matches = uniqueUsers.filter(id => id.startsWith(query));
+                    showResults(matches);
+                }
+            });
+
+            document.addEventListener('click', (event) => {
+                if (!event.target.closest('.user-search-box')) {
+                    results.hidden = true;
+                }
+            });
+        })();
+    </script>
+
+    <!-- شريط التنقل الأصلي بدون تغيير -->
+    <nav class="custom-nav-bar">
+        <div class="nav-buttons-box">
+
+            <a href="page3.html" title="الملف الشخصي" class="nav-item">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="12" cy="7" r="4"></circle>
+                    <path d="M4.2 21c.8-4.3 3.4-6.6 7.8-6.6s7 2.3 7.8 6.6z"></path>
+                </svg>
+            </a>
+
+            <a href="page1.html" title="المنصب" class="nav-item platform-item">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M13.8 2.5 6.7 12h4.7l-1.1 9.5L17.3 11h-4.6z"></path>
+                </svg>
+            </a>
+
+            <a href="page2.html" title="التوظيف" class="nav-item active">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M4 7.5h16A2 2 0 0 1 22 9.5v9A2 2 0 0 1 20 20.5H4a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2z"></path>
+                    <path d="M8 7.5V5.8A1.8 1.8 0 0 1 9.8 4h4.4A1.8 1.8 0 0 1 16 5.8v1.7"></path>
+                    <path d="M2 11.5h20"></path>
+                    <path d="M10 11.5v2h4v-2"></path>
+                </svg>
+            </a>
+
+        </div>
+    </nav>
+
+</body>
+</html>
