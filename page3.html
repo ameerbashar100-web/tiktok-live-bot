@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الملف الشخصي</title>
+    <style>
+:root{
+  --bg:#030405;
+  --panel:#0c0f13;
+  --panel2:#10151b;
+  --blue:#1598ff;
+  --blue2:#006fd1;
+  --gold:#ffb52e;
+  --orange:#ff6a00;
+  --text:#f5f7fa;
+  --muted:#8d96a0;
+  --line:rgba(255,255,255,.07);
+}
+*{box-sizing:border-box}
+html,body{
+  margin:0;min-height:100%;background:var(--bg);color:var(--text);
+  font-family:"Noto Sans Arabic","Noto Kufi Arabic",Tahoma,Arial,sans-serif;
+}
+body.nav-body{
+  min-height:100vh;padding:28px 14px 125px;overflow-x:hidden;
+}
+.profile-card{
+  position:relative;width:min(620px,100%);margin:24px auto 0;
+  padding:20px 18px 18px;border-radius:28px;overflow:hidden;
+  background:
+    radial-gradient(circle at 12% 8%,rgba(21,152,255,.10),transparent 28%),
+    radial-gradient(circle at 88% 92%,rgba(255,106,0,.08),transparent 30%),
+    linear-gradient(145deg,#0b0e12,#11151a 56%,#090c10);
+  border:1px solid rgba(255,255,255,.09);
+  box-shadow:0 22px 65px rgba(0,0,0,.48),inset 0 1px 0 rgba(255,255,255,.035);
+}
+.profile-card:before{
+  content:"";position:absolute;inset:0;border-radius:28px;padding:1px;
+  background:linear-gradient(115deg,rgba(21,152,255,.55),transparent 28%,transparent 70%,rgba(255,106,0,.4));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;
+}
+.profile-card:after{
+  content:"";position:absolute;width:180px;height:1px;right:8%;top:8px;
+  background:linear-gradient(90deg,transparent,#ff6a00,#ffc247,transparent);
+  box-shadow:0 0 9px rgba(255,106,0,.7),0 0 20px rgba(255,140,0,.25);
+  animation:glide 4s ease-in-out infinite alternate;pointer-events:none;
+}
+@keyframes glide{from{transform:translateX(20px);opacity:.35}to{transform:translateX(-35px);opacity:1}}
+.profile-header{text-align:center;position:relative;z-index:2}
+.user-avatar{
+  width:84px;height:84px;margin:2px auto 11px;border-radius:50%;
+  display:grid;place-items:center;background:linear-gradient(145deg,#151a20,#090c10);
+  border:1px solid rgba(21,152,255,.38);
+  box-shadow:0 0 0 6px rgba(21,152,255,.035),0 0 28px rgba(21,152,255,.17);
+  font-size:0;
+}
+.user-avatar svg{width:51px;height:51px;fill:var(--blue);filter:drop-shadow(0 0 8px rgba(21,152,255,.38))}
+.title{
+  margin:0 0 18px;font-size:28px;font-weight:900;letter-spacing:.1px;
+  text-shadow:0 2px 18px rgba(255,255,255,.08);
+}
+.user-info-container{
+  position:relative;z-index:2;border:1px solid rgba(255,255,255,.065);
+  border-radius:19px;background:rgba(4,6,8,.56);overflow:hidden;
+}
+.info-item{
+  min-height:67px;padding:12px 15px;display:flex;flex-direction:column;
+  justify-content:center;gap:5px;border-bottom:1px solid var(--line);
+}
+.info-item:last-child{border-bottom:0}
+.info-label{color:#7f8993;font-size:11px;font-weight:700}
+.info-value{color:#f2f4f7;font-size:16px;font-weight:850;line-height:1.5}
+.toggle-blur-btn{
+  position:absolute;z-index:5;top:19px;left:19px;width:58px;height:50px;
+  border:1px solid rgba(255,255,255,.12);border-radius:15px;
+  background:linear-gradient(145deg,#1b2027,#11151a);color:#dfe5ea;
+  display:grid;place-items:center;cursor:pointer;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 8px 22px rgba(0,0,0,.25);
+  transition:.25s ease;
+}
+.toggle-blur-btn:hover{border-color:rgba(21,152,255,.5);transform:translateY(-1px)}
+.toggle-blur-btn.is-hidden{border-color:rgba(255,106,0,.42);box-shadow:0 0 18px rgba(255,106,0,.10),inset 0 1px 0 rgba(255,255,255,.05)}
+.toggle-blur-btn.is-hidden .toggle-icon{stroke:#ffad32}
+.toggle-icon{width:25px;height:25px;stroke:#dfe5ea;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.blurred-active .info-value{
+  filter:blur(7px);user-select:none;opacity:.72;
+}
+.blurred-active .info-item{background:rgba(255,255,255,.008)}
+.custom-nav-bar{
+  position:fixed;z-index:30;left:50%;bottom:15px;transform:translateX(-50%);
+  width:min(620px,calc(100% - 32px));height:88px;border-radius:30px;
+  background:#f8f8f9;box-shadow:0 12px 40px rgba(0,0,0,.38);
+}
+.nav-buttons-box{height:100%;display:flex;align-items:center;justify-content:space-around;padding:0 22px}
+.nav-item{width:54px;height:54px;display:grid;place-items:center;text-decoration:none}
+.nav-item svg{width:30px;height:30px;stroke:#aeb5bd;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.nav-item.active svg{stroke:#1776d2}
+.platform-item{width:66px;height:66px;border-radius:50%;background:#d2d4d8}
+.platform-item svg{width:30px;height:30px;stroke:#fff}
+@media(max-width:430px){
+  body.nav-body{padding-top:18px}
+  .profile-card{margin-top:18px;padding:18px 15px 16px}
+  .title{font-size:26px}
+}
+</style>
+</head>
+<body class="nav-body">
+
+  <div class="profile-card">
+    <button class="toggle-blur-btn" id="toggle-eye" onclick="togglePrivacy()" aria-label="إخفاء أو إظهار البيانات">
+      <svg class="toggle-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M2.5 12s3.3-5 9.5-5 9.5 5 9.5 5-3.3 5-9.5 5-9.5-5-9.5-5z"></path>
+        <circle cx="12" cy="12" r="2.8"></circle>
+      </svg>
+    </button>
+
+    <div class="profile-header">
+      <div class="user-avatar" aria-label="المستخدمون">
+       <svg viewBox="0 0 64 64" aria-hidden="true" class="users-avatar-icon">
+         <circle cx="25" cy="22" r="9"></circle>
+         <circle cx="43" cy="25" r="7"></circle>
+         <path d="M8 53c1.8-10.8 8.2-16.2 17-16.2S40.2 42.2 42 53z"></path>
+         <path d="M37 39.5c2-2.1 4.8-3.3 8-3.3 6.4 0 10.2 4.3 11.2 10.8"></path>
+       </svg>
+    </div>
+      <h2 class="title">الملف الشخصي</h2>
+    </div>
+
+    <div class="user-info-container" id="info-container">
+      <div class="info-item">
+        <span class="info-label">الإسم بالكامل</span>
+        <span class="info-value" id="profile-name">جاري التحميل...</span>
+      </div>
+
+      <div class="info-item">
+        <span class="info-label">البريد الإلكتروني</span>
+        <span class="info-value" id="profile-email">جاري التحميل...</span>
+      </div>
+
+      <div class="info-item">
+        <span class="info-label">كلمة المرور</span>
+        <span class="info-value" id="profile-password">جاري التحميل...</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- شريط التنقل السفلي بالألوان البيضاء والأبعاد المقفلة بدقة -->
+  <nav class="custom-nav-bar">
+  <div class="nav-buttons-box">
+
+    <a href="page3.html" title="الملف الشخصي" class="nav-item active">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="7" r="4"></circle>
+        <path d="M4.2 21c.8-4.3 3.4-6.6 7.8-6.6s7 2.3 7.8 6.6z"></path>
+      </svg>
+    </a>
+
+    <a href="page1.html" title="المنصب" class="nav-item platform-item">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+  <path d="M13.8 2.5 6.7 12h4.7l-1.1 9.5L17.3 11h-4.6z"></path>
+</svg>
+    </a>
+
+    <a href="page2.html" title="التوظيف" class="nav-item">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+  <path d="M4 7.5h16A2 2 0 0 1 22 9.5v9A2 2 0 0 1 20 20.5H4a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2z"></path>
+  <path d="M8 7.5V5.8A1.8 1.8 0 0 1 9.8 4h4.4A1.8 1.8 0 0 1 16 5.8v1.7"></path>
+  <path d="M2 11.5h20"></path>
+  <path d="M10 11.5v2h4v-2"></path>
+</svg>
+    </a>
+
+  </div>
+</nav>
+
+  <script>
+    document.getElementById('profile-name').innerText = localStorage.getItem('user_name') || 'مستخدم جديد';
+    document.getElementById('profile-email').innerText = localStorage.getItem('user_email') || 'لا يوجد إيميل مسجل';
+    document.getElementById('profile-password').innerText = localStorage.getItem('user_password') || '******';
+
+    function togglePrivacy() {
+      const container = document.getElementById('info-container');
+      const eyeBtn = document.getElementById('toggle-eye');
+      container.classList.toggle('blurred-active');
+      eyeBtn.classList.toggle('is-hidden', container.classList.contains('blurred-active'));
+      eyeBtn.style.transform = 'scale(.94)';
+      setTimeout(() => eyeBtn.style.transform = '', 160);
+    }
+  </script>
+
+</body>
+</html>
