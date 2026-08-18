@@ -20,13 +20,21 @@
             color: #ffffff;
             font-family: 'Cairo', 'Inter', sans-serif;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
+            justify-content: flex-start;
             min-height: 100vh;
-            padding: 20px 12px;
+            padding: 10px 12px 90px; /* مسافة بسيطة من الأعلى وللأسفل للهاتف */
         }
 
-        /* --- تصميم البطاقة المطابق للصورة --- */
+        .page-content {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-top: 5px; /* رفعه لأعلى نقطة ممكنة */
+        }
+
+        /* --- تصميم البطاقة البنفسجية --- */
         .purple-card-container {
             width: 100%;
             max-width: 360px;
@@ -323,9 +331,9 @@
 
 <body class="nav-body">
 
-    <div class="page-content" style="width: 100%; display: flex; justify-content: center;">
+    <div class="page-content">
 
-        <!-- التصميم البنفسجي المطابق للصورة -->
+        <!-- البطاقة البنفسجية في أعلى الصفحة -->
         <div class="purple-card-container">
             <!-- الشريط المتحرك العلوي -->
             <div class="ticker-bar">
@@ -343,7 +351,7 @@
                 <div class="bg-glow-2"></div>
                 <div class="bg-blob"></div>
 
-                <!-- الرصيد المباشر من الكود -->
+                <!-- الرصيد المباشر -->
                 <div class="balance-title-val">
                     $<span id="availableTop">0.000</span>
                 </div>
@@ -351,22 +359,22 @@
                 <!-- الشارات -->
                 <div class="badges-row">
                     <div class="badge-item">
-                        <span>🔍</span> min 7.4% APR
+                        <span>✧</span> earned +124.62
                     </div>
                     <div class="badge-item">
-                        <span>✧</span> earned +124.62
+                        <span>🔍</span> min 7.4% APR
                     </div>
                 </div>
 
                 <!-- الجزء السفلي للبطاقة -->
                 <div class="card-bottom-row">
-                    <span class="unlocked-tag" id="viewMoreBtn">Unlocked</span>
                     <div class="maturity-tag">
-                        100% maturity
                         <svg class="lock-icon" viewBox="0 0 24 24">
                             <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
                         </svg>
+                        maturity 100%
                     </div>
+                    <span class="unlocked-tag" id="viewMoreBtn">Unlocked</span>
                 </div>
             </div>
         </div>
@@ -414,7 +422,6 @@
         </div>
     </div>
 
-    <!-- جافاسكريبت الأصلي للعمليات والتفاعلات -->
     <script>
         const amountInput = document.getElementById('usdtAmount');
         const availableAmount = document.getElementById('availableAmount');
