@@ -9,131 +9,161 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap');
 
-        .budget-card {
-            width: min(92%, 340px);
-            margin: 20px auto;
-            padding: 24px;
-            box-sizing: border-box;
-            border-radius: 24px;
-            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+        body {
+            background-color: #121212;
             color: #fff;
             font-family: 'Cairo', sans-serif;
-            box-shadow: 0 16px 40px rgba(0,0,0,.32), inset 0 1px 0 rgba(255,255,255,.08);
-            border: 1px solid rgba(255,255,255,.06);
-            position: relative;
-            overflow: hidden;
+            margin: 0;
+            padding: 0;
         }
 
-        /* خلفية زخرفية */
-        .budget-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(61,169,255,.08) 0%, transparent 70%);
-            animation: float 8s ease-in-out infinite;
-            pointer-events: none;
+        /* --- تصميم مربع التداول الجديد --- */
+        .trading-card {
+            width: min(92%, 360px);
+            margin: 20px auto 10px;
+            padding: 18px;
+            box-sizing: border-box;
+            border-radius: 20px;
+            background: #1e222d;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
         }
 
-        .budget-card > * {
-            position: relative;
-            z-index: 1;
+        .trading-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .pair-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .pair-symbol {
+            font-size: 15px;
+            font-weight: 800;
+            color: #fff;
+        }
+
+        .pair-badge {
+            background: rgba(61, 169, 255, 0.15);
+            color: #3da9ff;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 6px;
+            font-weight: 700;
+        }
+
+        .live-price {
+            text-align: left;
+        }
+
+        .price-val {
+            font-size: 18px;
+            font-weight: 800;
+            color: #089981; /* أخضر التداول */
+        }
+
+        .price-change {
+            font-size: 10px;
+            color: #089981;
+            font-weight: 700;
+        }
+
+        /* الرسم البياني التفاعلي التوضيحي */
+        .chart-container {
+            width: 100%;
+            height: 60px;
+            margin: 10px 0;
+        }
+
+        .trading-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .trade-btn {
+            flex: 1;
+            height: 38px;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.15s ease, opacity 0.15s ease;
+        }
+
+        .trade-btn:active { transform: scale(0.97); }
+
+        .btn-buy {
+            background: #089981;
+            color: #fff;
+        }
+
+        .btn-sell {
+            background: #f23645;
+            color: #fff;
+        }
+
+        /* --- بطاقة الرصيد الأصلية --- */
+        .budget-card {
+            width: min(92%, 360px);
+            margin: 15px auto 28px;
+            padding: 17px;
+            box-sizing: border-box;
+            border-radius: 20px;
+            background: #202020;
+            color: #fff;
+            box-shadow: 0 10px 28px rgba(0,0,0,.18);
         }
 
         .budget-title {
             margin: 0;
-            color: #999;
-            font-size: 12px;
-            font-weight: 600;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .budget-title::before {
-            content: '💰';
-            font-size: 14px;
+            color: #bdbdbd;
+            font-size: 11px;
+            font-weight: 500;
         }
 
         .budget-number {
-            margin: 8px 0 0;
-            font-size: 32px;
-            line-height: 1.2;
+            margin: 1px 0 0;
+            font-size: 27px;
+            line-height: 1.1;
             font-weight: 800;
-            letter-spacing: -0.5px;
-            background: linear-gradient(135deg, #fff 0%, #e0e0e0 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            letter-spacing: .3px;
         }
 
         .budget-subtitle {
-            margin: 4px 0 0;
-            color: #666;
-            font-size: 11px;
-            font-weight: 500;
-            letter-spacing: 0.5px;
-        }
-
-        .budget-stats {
-            display: flex;
-            gap: 12px;
-            margin-top: 16px;
-            padding-top: 16px;
-            border-top: 1px solid rgba(255,255,255,.06);
-        }
-
-        .stat-item {
-            flex: 1;
-            padding: 10px;
-            border-radius: 12px;
-            background: rgba(61,169,255,.08);
-            text-align: center;
-        }
-
-        .stat-label {
-            font-size: 9px;
-            color: #888;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 4px;
-        }
-
-        .stat-value {
-            font-size: 14px;
-            font-weight: 700;
-            color: #3da9ff;
+            margin: 2px 0 10px;
+            color: #999;
+            font-size: 10px;
         }
 
         .action-btn {
             width: 100%;
-            height: 44px;
+            height: 42px;
             border: 0;
             border-radius: 13px;
             color: #111;
             font: 700 13px 'Cairo', sans-serif;
             cursor: pointer;
-            transition: all .2s ease;
-            margin-top: 16px;
+            transition: transform .16s ease, filter .16s ease;
         }
 
-        .action-btn:active { transform: scale(.97); }
+        .action-btn:active { transform: scale(.98); }
 
         .blue-btn {
-            background: linear-gradient(135deg, #fff 0%, #f5f5f5 100%);
-            box-shadow: 0 8px 20px rgba(0,0,0,.2);
+            background: #fff;
+            box-shadow: 0 5px 15px rgba(0,0,0,.16);
         }
 
-        .blue-btn:hover { 
-            transform: translateY(-2px);
-            box-shadow: 0 12px 28px rgba(0,0,0,.28);
-        }
+        .blue-btn:hover { filter: brightness(.96); }
 
-        /* نافذة صغيرة تظهر فوق التصميم */
+        /* النوافذ المنبثقة */
         .modal-backdrop {
             position: fixed;
             inset: 0;
@@ -143,7 +173,7 @@
             justify-content: center;
             padding: 16px;
             box-sizing: border-box;
-            background: rgba(0,0,0,.24);
+            background: rgba(0,0,0,.4);
             backdrop-filter: blur(9px);
             -webkit-backdrop-filter: blur(9px);
         }
@@ -164,7 +194,6 @@
             border: 1px solid rgba(255,255,255,.08);
             box-shadow: 0 18px 50px rgba(0,0,0,.38);
             text-align: right;
-            font-family: 'Cairo', sans-serif;
             color: #fff;
             animation: popIn .2s ease;
         }
@@ -241,17 +270,6 @@
             font-size: 12px;
         }
 
-        .nix-message {
-            text-align: center;
-            margin-top: 10px;
-            padding: 10px;
-            border-radius: 12px;
-            background: rgba(255,255,255,.05);
-            color: #ddd;
-            font-size: 11px;
-            line-height: 1.7;
-        }
-
         .modal-icon {
             width: 38px;
             height: 38px;
@@ -290,38 +308,57 @@
             from { opacity: 0; transform: scale(.96) translateY(6px); }
             to { opacity: 1; transform: scale(1) translateY(0); }
         }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) translateX(0px); }
-            50% { transform: translateY(-20px) translateX(10px); }
-        }
     </style>
 </head>
 
 <body class="nav-body">
 
     <div class="page-content">
-        <!-- المربع الرئيسي الصغير - محسّن احترافياً -->
+
+        <!-- 1. مربع التداول الجديد العلوي -->
+        <div class="trading-card">
+            <div class="trading-header">
+                <div class="pair-info">
+                    <span class="pair-symbol">BTC / USDT</span>
+                    <span class="pair-badge">مباشر</span>
+                </div>
+                <div class="live-price">
+                    <div class="price-val" id="cryptoPrice">64,230.50</div>
+                    <div class="price-change">+2.45% ▲</div>
+                </div>
+            </div>
+
+            <!-- رسم بياني ديناميكي بسيط معبّر عن التداول -->
+            <div class="chart-container">
+                <svg width="100%" height="100%" viewBox="0 0 300 60" preserveAspectRatio="none">
+                    <defs>
+                        <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="#089981" stop-opacity="0.4"/>
+                            <stop offset="100%" stop-color="#089981" stop-opacity="0"/>
+                        </linearGradient>
+                    </defs>
+                    <path d="M0,45 Q40,15 80,35 T160,10 T240,25 T300,5 L300,60 L0,60 Z" fill="url(#chartGradient)"/>
+                    <path d="M0,45 Q40,15 80,35 T160,10 T240,25 T300,5" fill="none" stroke="#089981" stroke-width="2.5"/>
+                </svg>
+            </div>
+
+            <div class="trading-actions">
+                <button class="trade-btn btn-buy" type="button">شراء (Buy)</button>
+                <button class="trade-btn btn-sell" type="button">بيع (Sell)</button>
+            </div>
+        </div>
+
+        <!-- 2. المربع الرئيسي الصغير الأصلي -->
         <div class="budget-card">
             <p class="budget-title">الرصيد المتاح</p>
             <h1 class="budget-number" id="availableTop">0.000</h1>
             <p class="budget-subtitle">USDT</p>
 
-            <div class="budget-stats">
-                <div class="stat-item">
-                    <div class="stat-label">النسبة</div>
-                    <div class="stat-value">5.555%</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-label">الحد الأدنى</div>
-                    <div class="stat-value">10</div>
-                </div>
-            </div>
-
             <button class="action-btn blue-btn" type="button" id="viewMoreBtn">
                 View More
             </button>
         </div>
+
     </div>
 
     <!-- التفاصيل تظهر فقط عند الضغط على View More -->
