@@ -19,19 +19,20 @@
             background-color: #050505;
             color: #ffffff;
             font-family: 'Cairo', 'Inter', sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
             min-height: 100vh;
-            padding: 10px 12px 90px; /* مسافة بسيطة من الأعلى وللأسفل للهاتف */
         }
 
+        /* حاوية البطاقة مثبتة في أعلى الشاشة مباشرة */
         .page-content {
             width: 100%;
             display: flex;
             justify-content: center;
-            margin-top: 5px; /* رفعه لأعلى نقطة ممكنة */
+            position: fixed;
+            top: 10px;
+            left: 0;
+            right: 0;
+            z-index: 10;
+            padding: 0 12px;
         }
 
         /* --- تصميم البطاقة البنفسجية --- */
@@ -44,6 +45,7 @@
             box-shadow: 0 20px 50px rgba(115, 59, 246, 0.25);
             overflow: hidden;
             position: relative;
+            cursor: pointer; /* جعل البطاقة بالكامل قابلة للنقر */
         }
 
         /* الشريط المتحرك العلوي */
@@ -80,7 +82,7 @@
             padding: 24px 20px 20px;
             position: relative;
             overflow: hidden;
-            min-height: 260px;
+            min-height: 240px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -160,23 +162,11 @@
         /* الجزء السفلي للبطاقة */
         .card-bottom-row {
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-start;
             align-items: flex-end;
-            margin-top: 40px;
+            margin-top: 30px;
             position: relative;
             z-index: 2;
-        }
-
-        .unlocked-tag {
-            color: #c3b5fd;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: opacity 0.2s ease;
-        }
-
-        .unlocked-tag:hover {
-            opacity: 0.8;
         }
 
         .maturity-tag {
@@ -333,8 +323,8 @@
 
     <div class="page-content">
 
-        <!-- البطاقة البنفسجية في أعلى الصفحة -->
-        <div class="purple-card-container">
+        <!-- البطاقة البنفسجية في أعلى الشاشة كلياً -->
+        <div class="purple-card-container" id="viewMoreBtn">
             <!-- الشريط المتحرك العلوي -->
             <div class="ticker-bar">
                 <div class="ticker-track">
@@ -374,7 +364,6 @@
                         </svg>
                         maturity 100%
                     </div>
-                    <span class="unlocked-tag" id="viewMoreBtn">Unlocked</span>
                 </div>
             </div>
         </div>
@@ -401,18 +390,13 @@
                 </div>
             </div>
 
-            <div class="field-group">
-                <label class="field-label" for="trcAddress">عنوان شبكة TRC-20</label>
-                <input class="field" id="trcAddress" type="text"
-                       placeholder="أدخل عنوان TRC-20" autocomplete="off">
-            </div>
-
-            <button class="action-btn nix-btn" type="button" id="nixBtn">NiX</button>
+            <!-- تم تغيير اسم الزر من NiX إلى سحب -->
+            <button class="action-btn nix-btn" type="button" id="nixBtn">سحب</button>
             <button class="action-btn close-btn" type="button" id="closeDetails">إغلاق</button>
         </div>
     </div>
 
-    <!-- نافذة NiX -->
+    <!-- نافذة السحب -->
     <div class="modal-backdrop nix-modal" id="nixModal" aria-hidden="true">
         <div class="modal-card" role="dialog" aria-modal="true">
             <div class="modal-icon">♈</div>
