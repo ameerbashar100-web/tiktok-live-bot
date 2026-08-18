@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الصفحة الرئيسية</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap');
+
+        .budget-card {
+            width: min(92%, 320px);
+            margin: 28px auto;
+            padding: 17px;
+            box-sizing: border-box;
+            border-radius: 20px;
+            background: #202020;
+            color: #fff;
+            font-family: 'Cairo', sans-serif;
+            box-shadow: 0 10px 28px rgba(0,0,0,.18);
+        }
+
+        .budget-title {
+            margin: 0;
+            color: #bdbdbd;
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        .budget-number {
+            margin: 1px 0 0;
+            font-size: 27px;
+            line-height: 1.1;
+            font-weight: 800;
+            letter-spacing: .3px;
+        }
+
+        .budget-subtitle {
+            margin: 2px 0 10px;
+            color: #999;
+            font-size: 10px;
+        }
+
+        .action-btn {
+            width: 100%;
+            height: 42px;
+            border: 0;
+            border-radius: 13px;
+            color: #111;
+            font: 700 13px 'Cairo', sans-serif;
+            cursor: pointer;
+            transition: transform .16s ease, filter .16s ease;
+        }
+
+        .action-btn:active { transform: scale(.98); }
+
+        .blue-btn {
+            background: #fff;
+            box-shadow: 0 5px 15px rgba(0,0,0,.16);
+        }
+
+        .blue-btn:hover { filter: brightness(.96); }
+
+        /* نافذة صغيرة تظهر فوق التصميم */
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            box-sizing: border-box;
+            background: rgba(0,0,0,.24);
+            backdrop-filter: blur(9px);
+            -webkit-backdrop-filter: blur(9px);
+        }
+
+        .modal-backdrop.show {
+            display: flex;
+            animation: fadeIn .18s ease;
+        }
+
+        .modal-card {
+            width: min(88%, 300px);
+            max-height: 82vh;
+            overflow: auto;
+            padding: 17px;
+            box-sizing: border-box;
+            border-radius: 19px;
+            background: #202020;
+            border: 1px solid rgba(255,255,255,.08);
+            box-shadow: 0 18px 50px rgba(0,0,0,.38);
+            text-align: right;
+            font-family: 'Cairo', sans-serif;
+            color: #fff;
+            animation: popIn .2s ease;
+        }
+
+        .modal-title {
+            margin: 0 0 12px;
+            font-size: 16px;
+            font-weight: 800;
+        }
+
+        .field-group { margin-top: 10px; }
+
+        .field-label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 11px;
+            color: #c7c7c7;
+        }
+
+        .field {
+            width: 100%;
+            height: 43px;
+            box-sizing: border-box;
+            border: 1px solid rgba(255,255,255,.08);
+            outline: none;
+            border-radius: 12px;
+            background: #2b2b2b;
+            color: #fff;
+            padding: 0 12px;
+            font: 600 13px 'Cairo', sans-serif;
+            direction: rtl;
+        }
+
+        .field:focus {
+            border-color: #3da9ff;
+            box-shadow: 0 0 0 2px rgba(61,169,255,.11);
+        }
+
+        .amount-summary {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 7px;
+            gap: 8px;
+        }
+
+        .rate {
+            color: #888;
+            font-size: 10px;
+        }
+
+        .available {
+            font-size: 11px;
+            color: #aaa;
+        }
+
+        .available strong {
+            color: #fff;
+            font-size: 14px;
+        }
+
+        .nix-btn {
+            background: linear-gradient(135deg, #21c977, #0eaa5b);
+            color: #fff;
+            margin-top: 10px;
+            box-shadow: 0 6px 16px rgba(14,170,91,.18);
+        }
+
+        .close-btn {
+            margin-top: 9px;
+            height: 38px;
+            background: #fff;
+            color: #171717;
+            font-size: 12px;
+        }
+
+        .nix-message {
+            text-align: center;
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 12px;
+            background: rgba(255,255,255,.05);
+            color: #ddd;
+            font-size: 11px;
+            line-height: 1.7;
+        }
+
+        .modal-icon {
+            width: 38px;
+            height: 38px;
+            margin: 0 auto 7px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background: rgba(32,201,120,.12);
+            color: #28d47f;
+            font-size: 18px;
+        }
+
+        .nix-modal .modal-card {
+            width: min(82%, 270px);
+            text-align: center;
+        }
+
+        .nix-modal h3 {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .nix-modal p {
+            margin: 5px 0 0;
+            color: #aaa;
+            font-size: 11px;
+            line-height: 1.7;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(.96) translateY(6px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+    </style>
+</head>
+
+<body class="nav-body">
+
+    <div class="page-content">
+        <!-- المربع الرئيسي الصغير -->
+        <div class="budget-card">
+            <p class="budget-title">الرصيد المتاح</p>
+            <h1 class="budget-number" id="availableTop">0.000</h1>
+            <p class="budget-subtitle">USDT</p>
+
+            <button class="action-btn blue-btn" type="button" id="viewMoreBtn">
+                View More
+            </button>
+        </div>
+    </div>
+
+    <!-- التفاصيل تظهر فقط عند الضغط على View More -->
+    <div class="modal-backdrop" id="detailsModal" aria-hidden="true">
+        <div class="modal-card" role="dialog" aria-modal="true">
+            <h3 class="modal-title">تفاصيل الرصيد</h3>
+
+            <div class="field-group">
+                <label class="field-label" for="usdtAmount">USDT</label>
+                <input class="field" id="usdtAmount" type="number"
+                       inputmode="decimal" min="0" step="any"
+                       placeholder="0.000" autocomplete="off">
+
+                <div class="amount-summary">
+                    <span class="rate">النسبة: 5.555%</span>
+                    <span class="available">
+                        المتاح:
+                        <strong id="availableAmount">0.000 USDT</strong>
+                    </span>
+                </div>
+            </div>
+
+            <div class="field-group">
+                <label class="field-label" for="trcAddress">عنوان شبكة TRC-20</label>
+                <input class="field" id="trcAddress" type="text"
+                       placeholder="أدخل عنوان TRC-20" autocomplete="off">
+            </div>
+
+            <button class="action-btn nix-btn" type="button" id="nixBtn">NiX</button>
+            <button class="action-btn close-btn" type="button" id="closeDetails">إغلاق</button>
+        </div>
+    </div>
+
+    <!-- رسالة NiX صغيرة -->
+    <div class="modal-backdrop nix-modal" id="nixModal" aria-hidden="true">
+        <div class="modal-card" role="dialog" aria-modal="true">
+            <div class="modal-icon">♈</div>
+            <h3>رصيدك غير متاح</h3>
+            <p>لا يمكن إتمام العملية حاليًا.</p>
+            <button class="action-btn close-btn" type="button" id="closeNix">إغلاق</button>
+        </div>
+    </div>
+
+    <script>
+        const amountInput = document.getElementById('usdtAmount');
+        const availableAmount = document.getElementById('availableAmount');
+        const availableTop = document.getElementById('availableTop');
+
+        const viewMoreBtn = document.getElementById('viewMoreBtn');
+        const detailsModal = document.getElementById('detailsModal');
+        const closeDetails = document.getElementById('closeDetails');
+
+        const nixBtn = document.getElementById('nixBtn');
+        const nixModal = document.getElementById('nixModal');
+        const closeNix = document.getElementById('closeNix');
+
+        const RATE = 0.05555;
+
+        function updateAmount() {
+            const value = Number.parseFloat(amountInput.value);
+
+            if (!Number.isFinite(value) || value < 0) {
+                availableAmount.textContent = '0.000 USDT';
+                availableTop.textContent = '0.000';
+                return;
+            }
+
+            const available = Math.max(0, value - (value * RATE));
+            const formatted = available.toFixed(3);
+
+            availableAmount.textContent = formatted + ' USDT';
+            availableTop.textContent = formatted;
+        }
+
+        amountInput.addEventListener('input', updateAmount);
+
+        viewMoreBtn.addEventListener('click', () => {
+            detailsModal.classList.add('show');
+            detailsModal.setAttribute('aria-hidden', 'false');
+        });
+
+        closeDetails.addEventListener('click', () => {
+            detailsModal.classList.remove('show');
+            detailsModal.setAttribute('aria-hidden', 'true');
+        });
+
+        nixBtn.addEventListener('click', () => {
+            nixModal.classList.add('show');
+            nixModal.setAttribute('aria-hidden', 'false');
+        });
+
+        closeNix.addEventListener('click', () => {
+            nixModal.classList.remove('show');
+            nixModal.setAttribute('aria-hidden', 'true');
+        });
+
+        [detailsModal, nixModal].forEach(modal => {
+            modal.addEventListener('click', event => {
+                if (event.target === modal) {
+                    modal.classList.remove('show');
+                    modal.setAttribute('aria-hidden', 'true');
+                }
+            });
+        });
+
+        document.addEventListener('keydown', event => {
+            if (event.key === 'Escape') {
+                detailsModal.classList.remove('show');
+                nixModal.classList.remove('show');
+            }
+        });
+    </script>
+
+    <script src="./bottom-nav.js"></script>
+</body>
+</html>
