@@ -22,7 +22,7 @@
             min-height: 100vh;
         }
 
-        /* حاوية البطاقة مثبتة في أعلى الشاشة مباشرة */
+        /* حاوية البطاقة المثبتة في أعلى الشاشة */
         .page-content {
             width: 100%;
             display: flex;
@@ -45,7 +45,6 @@
             box-shadow: 0 20px 50px rgba(115, 59, 246, 0.25);
             overflow: hidden;
             position: relative;
-            cursor: pointer; /* جعل البطاقة بالكامل قابلة للنقر */
         }
 
         /* الشريط المتحرك العلوي */
@@ -88,7 +87,7 @@
             justify-content: space-between;
         }
 
-        /* الأشكال والدوائر المضيئة في الخلفية */
+        /* الخلفيات المضيئة */
         .bg-glow-1 {
             position: absolute;
             width: 260px;
@@ -183,139 +182,6 @@
             height: 14px;
             fill: currentColor;
         }
-
-        /* --- النوافذ المنبثقة (المودال) --- */
-        .modal-backdrop {
-            position: fixed;
-            inset: 0;
-            z-index: 9999;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 16px;
-            box-sizing: border-box;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-        }
-
-        .modal-backdrop.show {
-            display: flex;
-            animation: fadeIn 0.18s ease;
-        }
-
-        .modal-card {
-            width: min(90%, 320px);
-            max-height: 82vh;
-            overflow: auto;
-            padding: 20px;
-            box-sizing: border-box;
-            border-radius: 20px;
-            background: #1a1c23;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-            text-align: right;
-            font-family: 'Cairo', sans-serif;
-            color: #fff;
-            animation: popIn 0.2s ease;
-        }
-
-        .modal-title {
-            margin: 0 0 14px;
-            font-size: 16px;
-            font-weight: 800;
-        }
-
-        .field-group { margin-top: 12px; }
-
-        .field-label {
-            display: block;
-            margin-bottom: 6px;
-            font-size: 11px;
-            color: #a0a5b1;
-        }
-
-        .field {
-            width: 100%;
-            height: 44px;
-            box-sizing: border-box;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            outline: none;
-            border-radius: 12px;
-            background: #242731;
-            color: #fff;
-            padding: 0 12px;
-            font: 600 13px 'Cairo', sans-serif;
-            direction: rtl;
-        }
-
-        .field:focus {
-            border-color: #8a56ff;
-            box-shadow: 0 0 0 2px rgba(138, 86, 255, 0.2);
-        }
-
-        .amount-summary {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: 8px;
-            gap: 8px;
-        }
-
-        .rate { color: #787e8c; font-size: 11px; }
-        .available { font-size: 11px; color: #a0a5b1; }
-        .available strong { color: #fff; font-size: 13px; }
-
-        .action-btn {
-            width: 100%;
-            height: 44px;
-            border: 0;
-            border-radius: 12px;
-            font: 700 13px 'Cairo', sans-serif;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .nix-btn {
-            background: linear-gradient(135deg, #8a56ff, #6323ec);
-            color: #fff;
-            margin-top: 14px;
-            box-shadow: 0 6px 18px rgba(138, 86, 255, 0.3);
-        }
-
-        .close-btn {
-            margin-top: 8px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.08);
-            color: #ccc;
-            font-size: 12px;
-        }
-
-        .modal-icon {
-            width: 42px;
-            height: 42px;
-            margin: 0 auto 10px;
-            border-radius: 50%;
-            display: grid;
-            place-items: center;
-            background: rgba(138, 86, 255, 0.15);
-            color: #8a56ff;
-            font-size: 20px;
-        }
-
-        .nix-modal .modal-card {
-            width: min(85%, 280px);
-            text-align: center;
-        }
-
-        .nix-modal h3 { margin: 0; font-size: 16px; }
-        .nix-modal p { margin: 6px 0 0; color: #9096a2; font-size: 12px; line-height: 1.6; }
-
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes popIn {
-            from { opacity: 0; transform: scale(.95) translateY(8px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
-        }
     </style>
 </head>
 
@@ -323,15 +189,15 @@
 
     <div class="page-content">
 
-        <!-- البطاقة البنفسجية في أعلى الشاشة كلياً -->
-        <div class="purple-card-container" id="viewMoreBtn">
+        <!-- البطاقة البنفسجية فقط -->
+        <div class="purple-card-container">
             <!-- الشريط المتحرك العلوي -->
             <div class="ticker-bar">
                 <div class="ticker-track">
-                    <span class="ticker-item">Unlock your tokens now!</span>
-                    <span class="ticker-item">Unlock your tokens now!</span>
-                    <span class="ticker-item">Unlock your tokens now!</span>
-                    <span class="ticker-item">Unlock your tokens now!</span>
+                    <span class="ticker-item">!Unlock your tokens now</span>
+                    <span class="ticker-item">!Unlock your tokens now</span>
+                    <span class="ticker-item">!Unlock your tokens now</span>
+                    <span class="ticker-item">!Unlock your tokens now</span>
                 </div>
             </div>
 
@@ -343,138 +209,32 @@
 
                 <!-- الرصيد المباشر -->
                 <div class="balance-title-val">
-                    $<span id="availableTop">0.000</span>
+                    $0.000
                 </div>
 
                 <!-- الشارات -->
                 <div class="badges-row">
                     <div class="badge-item">
-                        <span>✧</span> earned +124.62
+                        <span>🔍</span> min 7.4% APR
                     </div>
                     <div class="badge-item">
-                        <span>🔍</span> min 7.4% APR
+                        <span>✧</span> earned +124.62
                     </div>
                 </div>
 
                 <!-- الجزء السفلي للبطاقة -->
                 <div class="card-bottom-row">
                     <div class="maturity-tag">
+                        maturity 100%
                         <svg class="lock-icon" viewBox="0 0 24 24">
                             <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
                         </svg>
-                        maturity 100%
                     </div>
                 </div>
             </div>
         </div>
 
     </div>
-
-    <!-- نافذة التفاصيل (المودال) -->
-    <div class="modal-backdrop" id="detailsModal" aria-hidden="true">
-        <div class="modal-card" role="dialog" aria-modal="true">
-            <h3 class="modal-title">تفاصيل الرصيد</h3>
-
-            <div class="field-group">
-                <label class="field-label" for="usdtAmount">USDT</label>
-                <input class="field" id="usdtAmount" type="number"
-                       inputmode="decimal" min="0" step="any"
-                       placeholder="0.000" autocomplete="off">
-
-                <div class="amount-summary">
-                    <span class="rate">النسبة: 5.555%</span>
-                    <span class="available">
-                        المتاح:
-                        <strong id="availableAmount">0.000 USDT</strong>
-                    </span>
-                </div>
-            </div>
-
-            <!-- تم تغيير اسم الزر من NiX إلى سحب -->
-            <button class="action-btn nix-btn" type="button" id="nixBtn">سحب</button>
-            <button class="action-btn close-btn" type="button" id="closeDetails">إغلاق</button>
-        </div>
-    </div>
-
-    <!-- نافذة السحب -->
-    <div class="modal-backdrop nix-modal" id="nixModal" aria-hidden="true">
-        <div class="modal-card" role="dialog" aria-modal="true">
-            <div class="modal-icon">♈</div>
-            <h3>رصيدك غير متاح</h3>
-            <p>لا يمكن إتمام العملية حاليًا.</p>
-            <button class="action-btn close-btn" type="button" id="closeNix">إغلاق</button>
-        </div>
-    </div>
-
-    <script>
-        const amountInput = document.getElementById('usdtAmount');
-        const availableAmount = document.getElementById('availableAmount');
-        const availableTop = document.getElementById('availableTop');
-
-        const viewMoreBtn = document.getElementById('viewMoreBtn');
-        const detailsModal = document.getElementById('detailsModal');
-        const closeDetails = document.getElementById('closeDetails');
-
-        const nixBtn = document.getElementById('nixBtn');
-        const nixModal = document.getElementById('nixModal');
-        const closeNix = document.getElementById('closeNix');
-
-        const RATE = 0.05555;
-
-        function updateAmount() {
-            const value = Number.parseFloat(amountInput.value);
-
-            if (!Number.isFinite(value) || value < 0) {
-                availableAmount.textContent = '0.000 USDT';
-                availableTop.textContent = '0.000';
-                return;
-            }
-
-            const available = Math.max(0, value - (value * RATE));
-            const formatted = available.toFixed(3);
-
-            availableAmount.textContent = formatted + ' USDT';
-            availableTop.textContent = formatted;
-        }
-
-        amountInput.addEventListener('input', updateAmount);
-
-        viewMoreBtn.addEventListener('click', () => {
-            detailsModal.classList.add('show');
-            detailsModal.setAttribute('aria-hidden', 'false');
-        });
-
-        closeDetails.addEventListener('click', () => {
-            detailsModal.classList.remove('show');
-            detailsModal.setAttribute('aria-hidden', 'true');
-        });
-
-        nixBtn.addEventListener('click', () => {
-            nixModal.classList.add('show');
-            nixModal.setAttribute('aria-hidden', 'false');
-        });
-
-        closeNix.addEventListener('click', () => {
-            nixModal.classList.remove('show');
-            nixModal.setAttribute('aria-hidden', 'true');
-        });
-
-        [detailsModal, nixModal].forEach(modal => {
-            modal.addEventListener('click', event => {
-                if (event.target === modal) {
-                    modal.classList.remove('show');
-                    modal.setAttribute('aria-hidden', 'true');
-                }
-            });
-        });
-
-        document.addEventListener('keydown', event => {
-            if (event.key === 'Escape') {
-                detailsModal.classList.remove('show');
-                nixModal.classList.remove('show');
-            }
-        });
-    </script>
 
     <script src="./bottom-nav.js"></script>
 </body>
