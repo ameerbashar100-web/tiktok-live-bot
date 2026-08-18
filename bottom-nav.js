@@ -1,48 +1,118 @@
 (() => {
   'use strict';
 
-  // منع إنشاء شريط التنقل أكثر من مرة
-  const oldNav = document.querySelector('[data-site-bottom-nav]');
-  if (oldNav) oldNav.remove();
-
   /*
-   * تحديد الصفحة الحالية
-   * أولاً من اسم الملف، ثم من محتوى الصفحة.
+   * ==========================================
+   * منع تكرار شريط التنقل
+   * ==========================================
    */
-  const path = window.location.pathname.toLowerCase();
-  const currentFile = path.split('/').pop() || '';
 
-  let active = 'main';
+  const oldNav = document.querySelector(
+    '[data-site-bottom-nav]'
+  );
 
-  if (
-    currentFile === 'page3.html' ||
-    /profile|الملف\s*الشخصي/i.test(document.body.innerText)
-  ) {
-    active = 'profile';
-
-  } else if (
-    currentFile === 'page2.html' ||
-    /shop|المتجر/i.test(document.body.innerText)
-  ) {
-    active = 'shop';
-
-  } else {
-    active = 'main';
+  if (oldNav) {
+    oldNav.remove();
   }
 
 
   /*
-   * 3 أيقونات فقط
-   * Main - Shop - Profile
+   * ==========================================
+   * معرفة الصفحة الحالية
+   * ==========================================
    */
+
+  const path =
+    window.location.pathname.toLowerCase();
+
+  const currentFile =
+    path.split('/').pop();
+
+
+  /*
+   * ==========================================
+   * قراءة آخر أيقونة تم اختيارها
+   * ==========================================
+   */
+
+  let savedActive = null;
+
+  try {
+    savedActive =
+      localStorage.getItem(
+        'site_active_nav'
+      );
+  } catch (e) {
+    savedActive = null;
+  }
+
+
+  /*
+   * ==========================================
+   * تحديد الأيقونة النشطة
+   * ==========================================
+   */
+
+  let active = 'main';
+
+
+  /*
+   * إذا كان اسم الصفحة واضحًا
+   * نعتمد عليه أولاً
+   */
+
+  if (currentFile === 'page3.html') {
+
+    active = 'profile';
+
+  } else if (currentFile === 'page2.html') {
+
+    active = 'shop';
+
+  } else if (currentFile === 'page1.html') {
+
+    active = 'main';
+
+  } else if (
+    savedActive === 'profile' ||
+    savedActive === 'shop' ||
+    savedActive === 'main'
+  ) {
+
+    /*
+     * إذا كان الموقع يستخدم نفس الرابط
+     * للصفحات، نعتمد على الاختيار المحفوظ.
+     */
+
+    active = savedActive;
+  }
+
+
+  /*
+   * ==========================================
+   * الأيقونات الثلاثة فقط
+   * ==========================================
+   */
+
   const items = [
+
     {
       key: 'main',
+
       text: 'Main',
-      href: new URL('page1.html', window.location.href).href,
+
+      href:
+        new URL(
+          'page1.html',
+          window.location.href
+        ).href,
 
       icon: `
-        <svg viewBox="0 0 24 24" aria-hidden="true">
+        <svg
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+
           <rect
             x="3.5"
             y="3.5"
@@ -74,6 +144,7 @@
             height="6.5"
             rx="1.4"
           />
+
         </svg>
       `
     },
@@ -81,25 +152,40 @@
 
     {
       key: 'shop',
+
       text: 'Shop',
-      href: new URL('page2.html', window.location.href).href,
+
+      href:
+        new URL(
+          'page2.html',
+          window.location.href
+        ).href,
 
       icon: `
-        <svg viewBox="0 0 24 24" aria-hidden="true">
+        <svg
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
 
           <path
-            d="M4 8.5h16v10.2
-               a2 2 0 0 1-2 2H6
-               a2 2 0 0 1-2-2z"
+            d="
+              M4 8.5h16v10.2
+              a2 2 0 0 1-2 2H6
+              a2 2 0 0 1-2-2z
+            "
           />
 
           <path
-            d="M5 8.5L7 4h10l2 4.5"
+            d="
+              M5 8.5L7 4h10l2 4.5
+            "
           />
 
           <path
-            d="M8 8.5v2.2
-               a4 4 0 0 0 8 0V8.5"
+            d="
+              M8 8.5v2.2
+              a4 4 0 0 0 8 0V8.5
+            "
           />
 
         </svg>
@@ -109,11 +195,20 @@
 
     {
       key: 'profile',
+
       text: 'Profile',
-      href: new URL('page3.html', window.location.href).href,
+
+      href:
+        new URL(
+          'page3.html',
+          window.location.href
+        ).href,
 
       icon: `
-        <svg viewBox="0 0 24 24" aria-hidden="true">
+        <svg
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
 
           <circle
             cx="12"
@@ -122,21 +217,28 @@
           />
 
           <path
-            d="M5.2 20
-               c.7-3.8 3-5.8 6.8-5.8
-               s6.1 2 6.8 5.8z"
+            d="
+              M5.2 20
+              c.7-3.8 3-5.8 6.8-5.8
+              s6.1 2 6.8 5.8z
+            "
           />
 
         </svg>
       `
     }
+
   ];
 
 
   /*
+   * ==========================================
    * إنشاء شريط التنقل
+   * ==========================================
    */
-  const nav = document.createElement('nav');
+
+  const nav =
+    document.createElement('nav');
 
   nav.setAttribute(
     'data-site-bottom-nav',
@@ -150,8 +252,9 @@
 
 
   /*
-   * إنشاء الأيقونات
+   * إنشاء الأزرار
    */
+
   nav.innerHTML = items.map(item => {
 
     const isActive =
@@ -163,6 +266,7 @@
       <a
         class="site-nav-item${isActive}"
         href="${item.href}"
+        data-nav-key="${item.key}"
       >
 
         <span class="site-nav-icon">
@@ -180,9 +284,13 @@
 
 
   /*
-   * CSS الخاص بشريط التنقل
+   * ==========================================
+   * CSS
+   * ==========================================
    */
-  const style = document.createElement('style');
+
+  const style =
+    document.createElement('style');
 
   style.textContent = `
 
@@ -203,7 +311,8 @@
       width:
         min(92vw, 620px) !important;
 
-      height: 86px !important;
+      height:
+        86px !important;
 
 
       padding:
@@ -213,12 +322,14 @@
         border-box !important;
 
 
-      display: grid !important;
+      display:
+        grid !important;
 
       grid-template-columns:
         repeat(3, 1fr) !important;
 
-      gap: 8px !important;
+      gap:
+        8px !important;
 
 
       border-radius:
@@ -226,20 +337,20 @@
 
 
       background:
-        rgba(15, 18, 16, .94) !important;
+        rgba(15,18,16,.94) !important;
 
 
       border:
         1px solid
-        rgba(255, 255, 255, .10) !important;
+        rgba(255,255,255,.10) !important;
 
 
       box-shadow:
         0 18px 50px
-        rgba(0, 0, 0, .55),
+        rgba(0,0,0,.55),
 
         inset 0 1px 0
-        rgba(255, 255, 255, .04) !important;
+        rgba(255,255,255,.04) !important;
 
 
       backdrop-filter:
@@ -250,15 +361,15 @@
     }
 
 
-    /*
-     * الأزرار
-     */
     [data-site-bottom-nav]
     .site-nav-item {
 
-      height: 72px !important;
+      height:
+        72px !important;
 
-      display: flex !important;
+
+      display:
+        flex !important;
 
       flex-direction:
         column !important;
@@ -269,7 +380,9 @@
       justify-content:
         center !important;
 
-      gap: 4px !important;
+
+      gap:
+        4px !important;
 
 
       color:
@@ -300,6 +413,7 @@
     /*
      * الأيقونة النشطة
      */
+
     [data-site-bottom-nav]
     .site-nav-item.active {
 
@@ -310,7 +424,7 @@
       filter:
         drop-shadow(
           0 0 8px
-          rgba(183, 255, 32, .30)
+          rgba(183,255,32,.30)
         ) !important;
     }
 
@@ -318,15 +432,19 @@
     /*
      * مكان الأيقونة
      */
+
     [data-site-bottom-nav]
     .site-nav-icon {
 
-      width: 34px !important;
+      width:
+        34px !important;
 
-      height: 35px !important;
+      height:
+        35px !important;
 
 
-      display: flex !important;
+      display:
+        flex !important;
 
       align-items:
         center !important;
@@ -344,17 +462,21 @@
 
 
     /*
-     * شكل الأيقونات
+     * الأيقونات
      */
+
     [data-site-bottom-nav]
     .site-nav-icon svg {
 
-      display: block !important;
+      display:
+        block !important;
 
 
-      width: 30px !important;
+      width:
+        30px !important;
 
-      height: 30px !important;
+      height:
+        30px !important;
 
 
       fill:
@@ -380,7 +502,6 @@
       visibility:
         visible !important;
 
-
       opacity:
         1 !important;
     }
@@ -389,10 +510,12 @@
     /*
      * أسماء الأيقونات
      */
+
     [data-site-bottom-nav]
     .site-nav-label {
 
-      display: block !important;
+      display:
+        block !important;
 
 
       color:
@@ -430,8 +553,9 @@
 
 
     /*
-     * الهواتف الصغيرة
+     * الهاتف
      */
+
     @media (max-width: 480px) {
 
       [data-site-bottom-nav] {
@@ -456,16 +580,84 @@
         height:
           29px !important;
       }
+
     }
 
   `;
 
 
   /*
-   * إضافة CSS والـ Navigation إلى الصفحة
+   * ==========================================
+   * إضافة CSS والـ Navigation
+   * ==========================================
    */
+
   document.head.appendChild(style);
 
   document.body.appendChild(nav);
+
+
+  /*
+   * ==========================================
+   * عند الضغط على أيقونة
+   * ==========================================
+   */
+
+  const navItems =
+    nav.querySelectorAll(
+      '.site-nav-item'
+    );
+
+
+  navItems.forEach(item => {
+
+    item.addEventListener(
+      'click',
+      function () {
+
+        const key =
+          this.getAttribute(
+            'data-nav-key'
+          );
+
+
+        /*
+         * حفظ الصفحة المختارة
+         */
+
+        try {
+
+          localStorage.setItem(
+            'site_active_nav',
+            key
+          );
+
+        } catch (e) {
+
+          // تجاهل الخطأ إذا كان التخزين غير متاح
+        }
+
+
+        /*
+         * تغيير اللون فورًا
+         */
+
+        navItems.forEach(other => {
+
+          other.classList.remove(
+            'active'
+          );
+
+        });
+
+
+        this.classList.add(
+          'active'
+        );
+
+      }
+    );
+
+  });
 
 })();
