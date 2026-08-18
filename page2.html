@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صفحة البث والشبكة</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .logo-area {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: 24px;
+            padding-bottom: 22px;
+        }
+
+        .shine {
+            font-size: 2.8em;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.3);
+            background-image: linear-gradient(
+                -40deg,
+                transparent 0%,
+                transparent 40%,
+                #fff 50%,
+                transparent 60%,
+                transparent 100%
+            );
+            background-repeat: no-repeat;
+            background-size: 80px 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: rgba(255, 255, 255, 0.3);
+            animation: zezzz 5s infinite;
+        }
+
+        @keyframes zezzz {
+            0%, 10% { background-position: -200px 0; }
+            20% { background-position: top left; }
+            100% { background-position: 200px 0; }
+        }
+
+        .video-area {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding: 0 15px 12px;
+        }
+
+        .video-area video {
+            width: 100%;
+            max-width: 700px;
+            height: auto;
+            display: block;
+            border-radius: 15px;
+            background: #111;
+        }
+    </style>
+</head>
+
+<body class="nav-body">
+
+    <div class="logo-area">
+        <div class="shine">UIVERSE</div>
+    </div>
+
+    <div class="video-area">
+        <video controls playsinline preload="metadata">
+            <source
+                src="https://raw.githubusercontent.com/ameerbashar100-web/tiktok-live-bot/main/video.mp4"
+                type="video/mp4">
+            متصفحك لا يدعم تشغيل الفيديو.
+        </video>
+    </div>
+
+    <!-- مربع البحث عن المستخدم - مضاف فقط أسفل الفيديو -->
+    <section class="user-search-area" aria-label="البحث عن مستخدم">
+        <div class="user-search-box">
+            <div class="fire-line fire-line-one"></div>
+            <div class="fire-line fire-line-two"></div>
+
+            <div class="search-title">البحث عن مستخدم</div>
+
+            <div class="search-input-wrap">
+                <span class="search-icon">⌕</span>
+                <input id="userSearchInput" type="search"
+                       inputmode="numeric"
+                       autocomplete="off"
+                       placeholder="اكتب رقم المستخدم..."
+                       aria-label="رقم المستخدم">
+            </div>
+
+            <div id="userResults" class="user-results" hidden></div>
+
+            <div id="statusMessage" class="status-message" role="status" aria-live="polite"></div>
+
+            <div id="myUserCard" class="my-user-card" hidden>
+                <div class="my-user-main">
+                    <div class="my-user-leader">
+                        <span class="leader-id-wrap"><span id="leaderId">997327</span><span class="leader-avatar-inline"><img id="leaderAvatar" alt="" /></span></span>
+                        <span class="my-user-role">قائد V3</span>
+                    </div>
+                    <div class="my-user-code">رمز المستخدم الخاص بك: <strong id="myUserId"></strong></div>
+                </div>
+                <div class="my-user-avatar"><img id="myUserAvatar" alt="" /></div>
+            </div>
+
+
+        </div>
+    </section>
+
+    <style>
+        .user-search-area {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding: 0 12px 125px;
+            box-sizing: border-box;
+        }
+
+        .user-search-box {
+            position: relative;
+            width: 100%;
+            max-width: 620px;
+            padding: 11px 11px 11px;
+            border-radius: 22px;
+            overflow: hidden;
+            box-sizing: border-box;
+            background:
+                radial-gradient(circle at 50% -20%, rgba(255,255,255,.09), transparent 42%),
+                linear-gradient(145deg, #151515, #080808);
+            border: 1px solid rgba(255,255,255,.10);
+            box-shadow: 0 16px 45px rgba(0,0,0,.34), inset 0 1px 0 rgba(255,255,255,.05);
+        }
+
+        .user-search-box::before,
+        .user-search-box::after {
+            content: "";
+            position: absolute;
+            inset: -2px;
+            pointer-events: none;
+            border-radius: 24px;
+            background: conic-gradient(
+                from 0deg,
+                transparent 0deg,
+                transparent 35deg,
+                rgba(255,77,0,.9) 55deg,
+                rgba(255,176,0,.35) 75deg,
+                transparent 100deg,
+                transparent 185deg,
+                rgba(255,54,0,.7) 215deg,
+                transparent 255deg,
+                transparent 360deg
+            );
+            -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            padding: 1px;
+            animation: fireOrbit 3.8s linear infinite;
+        }
+
+        .user-search-box::after {
+            filter: blur(7px);
+            opacity: .42;
+            animation-duration: 2.7s;
+        }
+
+        .fire-line {
+            position: absolute;
+            height: 2px;
+            width: 130px;
+            border-radius: 50%;
+            background: linear-gradient(90deg, transparent, #ff3d00, #ffb000, transparent);
+            filter: blur(.2px);
+            opacity: .8;
+            pointer-events: none;
+        }
+
+        .fire-line-one {
+            top: 8px;
+            right: 10%;
+            animation: fireDash 2.4s ease-in-out infinite;
+        }
+
+        .fire-line-two {
+            bottom: 8px;
+            left: 8%;
+            animation: fireDash 2.9s ease-in-out infinite reverse;
+        }
+
+        @keyframes fireOrbit {
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes fireDash {
+            0%, 100% { transform: translateX(0) scaleX(.55); opacity: .25; }
+            50% { transform: translateX(55px) scaleX(1); opacity: 1; }
+        }
+
+        .search-title {
+            position: relative;
+            z-index: 2;
+            margin-bottom: 7px;
+            text-align: center;
+            color: rgba(255,255,255,.88);
+            font-size: 14px;
+            font-weight: 850;
+            letter-spacing: .3px;
+        }
+
+        .search-input-wrap {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            height: 40px;
+            border-radius: 15px;
+            background: rgba(255,255,255,.055);
+            border: 1px solid rgba(255,255,255,.12);
+            transition: .25s ease;
+        }
+
+        .search-input-wrap:focus-within {
+            border-color: rgba(255,132,0,.7);
+            box-shadow: 0 0 0 4px rgba(255,82,0,.08), 0 0 22px rgba(255,69,0,.14);
+        }
+
+        .search-icon {
+            width: 40px;
+            text-align: center;
+            color: #ff9d00;
+            font-size: 24px;
+            line-height: 1;
+            transform: rotate(-20deg);
+            user-select: none;
+        }
+
+        #userSearchInput {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            outline: 0;
+            background: transparent;
+            color: #fff;
+            font-size: 15px;
+            font-weight: 700;
+            padding: 0 12px 0 10px;
+            box-sizing: border-box;
+            direction: rtl;
+        }
+
+        #userSearchInput::placeholder {
+            color: rgba(255,255,255,.38);
+        }
+
+        .user-results {
+            position: relative;
+            z-index: 4;
+            margin-top: 7px;
+            max-height: 145px;
+            overflow-y: auto;
+            border-radius: 15px;
+            background: rgba(12,12,12,.98);
+            border: 1px solid rgba(255,255,255,.09);
+            box-shadow: 0 12px 30px rgba(0,0,0,.35);
+        }
+
+        .user-result {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            border: 0;
+            border-bottom: 1px solid rgba(255,255,255,.055);
+            background: transparent;
+            color: #fff;
+            padding: 9px 11px;
+            cursor: pointer;
+            text-align: right;
+            font-size: 14px;
+            transition: background .2s ease, transform .2s ease;
+        }
+
+        .user-result:last-child {
+            border-bottom: 0;
+        }
+
+        .user-result:hover,
+        .user-result:focus {
+            outline: 0;
+            background: rgba(255,78,0,.10);
+            transform: translateX(-2px);
+        }
+
+        .user-result .user-number {
+            font-weight: 900;
+            letter-spacing: .6px;
+            font-size: 14px;
+        }
+
+        .user-result .user-icon {
+            opacity: 1;
+            font-size: 17px;
+            filter: drop-shadow(0 0 6px rgba(0,170,255,.75));
+        }
+
+        .user-result .user-icon::first-letter {
+            color: #00b7ff;
+        }
+
+        .no-results {
+            padding: 16px;
+            text-align: center;
+            color: rgba(255,255,255,.46);
+            font-size: 13px;
+        }
+
+        .status-message {
+            position: relative;
+            z-index: 3;
+            display: none;
+            margin-top: 12px;
+            padding: 12px 14px;
+            border-radius: 13px;
+            text-align: center;
+            color: #fff;
+            background: rgba(255,255,255,.055);
+            border: 1px solid rgba(255,255,255,.10);
+            font-size: 13px;
+            font-weight: 800;
+            animation: messageIn .35s ease both;
+        }
+
+        .status-message.request {
+            border-color: rgba(255,107,0,.32);
+            box-shadow: 0 0 18px rgba(255,70,0,.08);
+        }
+
+        .status-message.success {
+            border-color: rgba(0,145,255,.35);
+            box-shadow: 0 0 22px rgba(0,130,255,.12);
+        }
+
+        @keyframes messageIn {
+            from { opacity: 0; transform: translateY(7px) scale(.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+
+
+
+
+
+
+
+
+        @media (max-width: 420px) {
+            .user-search-area {
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+
+            .user-search-box {
+                padding-left: 14px;
+                padding-right: 14px;
+            }
+        }
+    </style>
+<style>
+.user-search-box.user-card-only {
+            padding: 10px;
+            min-height: 0;
+        }
+
+        .user-search-box.user-card-only::before,
+        .user-search-box.user-card-only::after {
+            animation-duration: 2.4s;
+        }
+
+        .user-search-box.user-card-only .my-user-card {
+            margin-top: 0;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+
+        /* طابع خط متناسق مع التصميم الداكن */
+        .user-search-box,
+        .user-search-box input,
+        .user-search-box button {
+            font-family: "Noto Sans Arabic", "Noto Kufi Arabic", Tahoma, Arial, sans-serif;
+        }
+
+        .search-title {
+            letter-spacing: .25px;
+            text-shadow: 0 1px 10px rgba(255,255,255,.08);
+        }
+
+        .my-user-leader {
+            text-shadow:
+                0 0 8px rgba(255,255,255,.08),
+                0 0 18px rgba(0,145,255,.08);
+        }
+
+        .my-user-code {
+            letter-spacing: .15px;
+        }
+
+        /* خطوط نارية دقيقة ومتحركة */
+        .user-search-box {
+            isolation: isolate;
+        }
+
+        .user-search-box .fire-line {
+            box-shadow:
+                0 0 4px #ff5a00,
+                0 0 10px rgba(255,100,0,.8),
+                0 0 20px rgba(255,35,0,.35);
+        }
+
+        .user-search-box::marker {
+            display: none;
+        }
+
+        .user-search-box .fire-line-one {
+            width: 90px;
+            height: 1px;
+            top: 5px;
+            right: 14%;
+        }
+
+        .user-search-box .fire-line-two {
+            width: 75px;
+            height: 1px;
+            bottom: 5px;
+            left: 12%;
+        }
+
+        .user-search-box::before {
+            background:
+                conic-gradient(
+                    from 0deg,
+                    transparent 0deg,
+                    transparent 32deg,
+                    rgba(255,55,0,.96) 40deg,
+                    rgba(255,179,0,1) 47deg,
+                    rgba(255,215,80,.72) 51deg,
+                    transparent 59deg,
+                    transparent 145deg,
+                    rgba(255,69,0,.92) 153deg,
+                    rgba(255,145,0,.86) 160deg,
+                    transparent 168deg,
+                    transparent 238deg,
+                    rgba(255,85,0,.88) 247deg,
+                    rgba(255,190,0,.78) 254deg,
+                    transparent 264deg,
+                    transparent 360deg
+                );
+            animation: fireOrbit 3.6s linear infinite;
+        }
+
+        .user-search-box::after {
+            opacity: .34;
+            filter: blur(7px);
+            animation: fireOrbit 2.9s linear infinite reverse;
+        }
+
+        /* خيوط ضوئية رفيعة تتحرك مثل شرارات النار */
+        .user-search-box .fire-line {
+            height: 1px;
+            border-radius: 999px;
+            background: linear-gradient(
+                90deg,
+                transparent 0%,
+                rgba(255,72,0,.15) 12%,
+                #ff4d00 35%,
+                #ffc400 50%,
+                #ff5a00 65%,
+                rgba(255,72,0,.15) 88%,
+                transparent 100%
+            );
+            box-shadow:
+                0 0 3px rgba(255,90,0,.95),
+                0 0 8px rgba(255,115,0,.62),
+                0 0 15px rgba(255,55,0,.28);
+        }
+
+        .user-search-box .fire-line-one {
+            width: 105px;
+            top: 5px;
+            right: 12%;
+        }
+
+        .user-search-box .fire-line-two {
+            width: 82px;
+            bottom: 5px;
+            left: 10%;
+        }
+
+        /* توهج خاص لأيقونة المستخدم */
+        .user-result .user-number::first-letter {
+            color: #00aaff;
+        }
+
+        @media (max-width: 420px) {
+            .user-search-box {
+                max-width: 100%;
+                padding: 13px 11px 12px;
+                border-radius: 18px;
+            }
+
+            .search-input-wrap {
+                height: 42px;
+                border-radius: 13px;
+            }
+
+            .user-results {
+                max-height: 150px;
+            }
+
+            .user-result {
+                padding: 8px 10px;
+            }
+        }
+
+
+        .my-user-card[hidden] {
+            display: none !important;
+        }
+
+        .my-user-card {
+            position: relative;
+            z-index: 3;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-top: 8px;
+            padding: 11px 13px;
+            min-height: 58px;
+            border-radius: 15px;
+            background: linear-gradient(135deg, rgba(18,18,18,.98), rgba(0,65,115,.16));
+            border: 1px solid rgba(0,160,255,.32);
+            box-shadow: 0 0 18px rgba(0,120,255,.10), inset 0 1px 0 rgba(255,255,255,.05);
+            animation: cardIn .45s ease both;
+        }
+
+        .my-user-main {
+            min-width: 0;
+            text-align: right;
+        }
+
+        .my-user-leader {
+            color: #fff;
+            font-size: 15px;
+            font-weight: 950;
+            letter-spacing: .35px;
+            white-space: nowrap;
+        }
+
+        .my-user-role {
+            display: inline-block;
+            margin-right: 5px;
+            color: #69c7ff;
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        .my-user-code {
+            margin-top: 3px;
+            color: rgba(255,255,255,.53);
+            font-size: 10px;
+        }
+
+        .my-user-code strong {
+            color: rgba(255,255,255,.84);
+            letter-spacing: 1px;
+            font-size: 11px;
+        }
+
+        .my-user-avatar {
+            flex: 0 0 38px;
+            width: 38px;
+            height: 38px;
+            display: grid;
+            place-items: center;
+            border-radius: 12px;
+            color: #20a8ff;
+            background: rgba(0,145,255,.10);
+            border: 1px solid rgba(0,165,255,.30);
+            box-shadow: 0 0 14px rgba(0,145,255,.18);
+            font-size: 21px;
+        }
+
+        @keyframes cardIn {
+            from { opacity: 0; transform: translateY(6px) scale(.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .status-message.pending {
+            border-color: rgba(0,160,255,.28);
+            color: rgba(255,255,255,.88);
+            box-shadow: 0 0 16px rgba(0,130,255,.08);
+        }
+
+        /* واجهة مستخدم احترافية بأسلوب منصات التداول */
+        .user-search-box {
+            font-family: "Cairo", "Tajawal", "Noto Kufi Arabic", Tahoma, Arial, sans-serif;
+        }
+
+        .user-result {
+            border-radius: 12px;
+            margin: 3px 0;
+            padding: 8px 10px;
+            min-height: 46px;
+            transition: background .2s ease, transform .2s ease, border-color .2s ease;
+        }
+
+        .user-result:hover,
+        .user-result:active {
+            background: linear-gradient(90deg, rgba(0,145,255,.10), rgba(255,255,255,.025));
+            transform: translateX(-2px);
+            border-bottom-color: rgba(0,160,255,.22);
+        }
+
+        .result-user-main {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .result-avatar {
+            width: 31px;
+            height: 31px;
+            border-radius: 10px;
+            display: block;
+            box-shadow: 0 0 12px rgba(0,150,255,.15);
+            border: 1px solid rgba(255,255,255,.12);
+        }
+
+        .result-arrow {
+            color: rgba(255,255,255,.35);
+            font-size: 21px;
+            line-height: 1;
+        }
+
+        .user-number {
+            font-family: "Cairo", "Tajawal", Tahoma, Arial, sans-serif;
+            font-size: 14px;
+            font-weight: 900;
+            letter-spacing: .7px;
+        }
+
+        .leader-id-wrap {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            direction: ltr;
+            vertical-align: middle;
+        }
+
+        .leader-avatar-inline img {
+            width: 25px;
+            height: 25px;
+            display: block;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,150,255,.22);
+        }
+
+        .my-user-avatar {
+            overflow: hidden;
+        }
+
+        .my-user-avatar img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+        }
+
+        .my-user-leader {
+            font-family: "Cairo", "Tajawal", "Noto Kufi Arabic", Tahoma, Arial, sans-serif;
+            font-size: 14px;
+            font-weight: 850;
+        }
+
+        .my-user-role {
+            font-family: "Cairo", "Tajawal", Tahoma, Arial, sans-serif;
+            font-size: 10px;
+            letter-spacing: .5px;
+            color: #63c5ff;
+        }
+
+        .my-user-code {
+            font-family: "Cairo", "Tajawal", Tahoma, Arial, sans-serif;
+            font-size: 10px;
+        }
+
+        .status-message {
+            font-family: "Cairo", "Tajawal", Tahoma, Arial, sans-serif;
+            letter-spacing: .15px;
+        }
+
+        @media (max-width: 420px) {
+            .user-search-box.user-card-only {
+                padding: 8px;
+                border-radius: 18px;
+            }
+
+            .my-user-card {
+                min-height: 54px;
+                padding: 9px 10px;
+                border-radius: 13px;
+            }
+
+            .my-user-avatar {
+                width: 34px;
+                height: 34px;
+                flex-basis: 34px;
+                border-radius: 10px;
+            }
+
+            .my-user-leader {
+                font-size: 13px;
+            }
+
+            .my-user-code {
+                font-size: 9px;
+            }
+        }
+
+</style>
+
+    <script>
+        (() => {
+            const input = document.getElementById('userSearchInput');
+            const results = document.getElementById('userResults');
+            const status = document.getElementById('statusMessage');
+            const myUserCard = document.getElementById('myUserCard');
+            const myUserIdElement = document.getElementById('myUserId');
+            const leaderIdElement = document.getElementById('leaderId');
+
+            // 346 رقمًا عشوائيًا وفريدًا، مع تضمين الرقمين المطلوبين.
+            const uniqueUsers = ['483115', '509069', '372323', '559813', '418533', '695585', '414659', '180074', '870090', '168150', '490420', '548047', '268097', '113385', '410986', '857324', '702494', '295105', '607075', '285612', '323972', '458737', '516740', '821240', '948813', '568229', '274631', '182027', '955406', '353898', '270829', '165420', '274660', '501461', '610975', '674975', '289532', '767957', '719607', '467411', '357976', '272566', '788130', '391716', '259562', '211547', '396491', '873246', '591140', '233037', '341281', '194480', '438715', '859557', '952109', '506324', '186491', '382655', '347574', '359726', '442290', '386463', '852514', '783612', '213556', '598934', '755897', '816997', '365227', '868205', '213309', '791064', '971065', '838248', '477249', '908813', '587672', '195877', '375740', '841264', '536199', '296281', '116132', '457954', '245071', '242473', '749208', '738061', '491091', '143384', '179777', '201829', '870214', '751702', '513542', '636601', '237012', '392495', '356937', '366447', '676884', '489331', '890848', '985664', '921198', '749060', '669968', '597843', '180473', '227564', '361190', '697049', '370825', '481115', '315127', '942504', '410457', '688112', '484378', '638859', '961397', '297164', '490123', '560614', '532102', '413081', '529028', '662834', '427489', '853996', '273505', '610903', '731419', '818507', '413636', '278413', '828227', '725225', '347613', '750067', '570098', '119869', '540404', '128897', '591999', '624742', '172011', '403443', '389823', '743900', '263119', '863373', '958587', '368500', '521512', '940854', '897001', '313394', '995012', '941672', '182107', '771311', '795019', '393077', '579396', '214078', '132967', '812609', '387262', '117869', '227423', '998296', '305280', '813748', '552168', '390957', '294215', '688031', '677492', '416639', '461535', '112949', '989219', '657733', '906901', '394631', '103863', '253143', '377272', '722613', '624334', '125813', '728790', '676494', '516280', '605589', '775461', '411788', '746917', '640156', '126335', '946419', '567542', '119862', '481094', '207180', '445055', '981279', '929636', '647627', '156072', '903899', '319619', '388171', '363958', '603846', '442351', '367110', '477924', '852323', '594918', '931657', '403081', '905682', '765949', '178191', '785028', '673176', '990380', '502942', '948374', '496980', '785284', '547507', '704257', '446808', '871128', '624019', '869070', '185614', '993781', '959050', '158412', '159960', '495642', '756799', '416031', '669413', '955815', '627103', '843209', '173459', '631130', '939767', '365171', '887753', '969293', '155359', '901610', '326085', '255053', '118401', '758322', '800103', '133835', '118345', '543105', '584532', '446723', '165544', '286540', '430888', '464552', '179306', '916903', '726371', '543696', '195070', '961439', '847402', '662295', '871919', '100489', '194666', '163344', '944466', '753864', '755296', '242998', '111151', '656580', '727444', '196910', '387006', '101420', '687230', '561461', '280078', '914628', '357246', '679006', '738709', '952764', '994361', '437418', '890249', '564551', '721619', '663470', '543144', '131997', '910845', '697704', '431430', '843087', '218379', '339445', '253056', '403875', '689812', '710035', '592937', '222698', '993548', '502437', '232869', '997327', '739321', '958535', '643707', '339058', '436192', '350922', '646070', '568632', '389072', '760391', '991280', '956563', '604282', '102082', '423637', '357781', '361973', '451142', '266624'];
+
+            // رمز مختلف لكل جهاز/متصفح، ويُحفظ على الجهاز نفسه.
+            const getDeviceUserId = () => {
+                const key = 'uiverse_device_user_id_v1';
+                let id = localStorage.getItem(key);
+
+                if (!id) {
+                    if (window.crypto && crypto.getRandomValues) {
+                        const bytes = new Uint32Array(1);
+                        crypto.getRandomValues(bytes);
+                        id = String(10000 + (bytes[0] % 90000));
+                    } else {
+                        id = String(Math.floor(10000 + Math.random() * 90000));
+                    }
+                    localStorage.setItem(key, id);
+                }
+                return id;
+            };
+
+            const myUserId = getDeviceUserId();
+            myUserIdElement.textContent = myUserId;
+
+            const avatars = ['data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5NiIgaGVpZ2h0PSI5NiIgdmlld0JveD0iMCAwIDk2IDk2Ij4KICAgICAgPGRlZnM+CiAgICAgICAgPGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+CiAgICAgICAgICA8c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMxMDFjMmMiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMwODNmNjYiLz4KICAgICAgICA8L2xpbmVhckdyYWRpZW50PgogICAgICAgIDxmaWx0ZXIgaWQ9InMiPjxmZURyb3BTaGFkb3cgZHg9IjAiIGR5PSIyIiBzdGREZXZpYXRpb249IjMiIGZsb29kLW9wYWNpdHk9Ii4zNSIvPjwvZmlsdGVyPgogICAgICA8L2RlZnM+CiAgICAgIDxyZWN0IHg9IjIiIHk9IjIiIHdpZHRoPSI5MiIgaGVpZ2h0PSI5MiIgcng9IjI3IiBmaWxsPSJ1cmwoI2cpIi8+CiAgICAgIDxjaXJjbGUgY3g9IjQ4IiBjeT0iMzciIHI9IjE1IiBmaWxsPSIjZjRmN2ZiIiBmaWx0ZXI9InVybCgjcykiLz4KICAgICAgPHBhdGggZD0iTTIxIDc2YzMtMTggMTQtMjcgMjctMjdzMjQgOSAyNyAyNyIgZmlsbD0iI2Y0ZjdmYiIgZmlsdGVyPSJ1cmwoI3MpIi8+CiAgICAgIDxjaXJjbGUgY3g9Ijc2IiBjeT0iMjAiIHI9IjciIGZpbGw9IiMyNWI4ZmYiIG9wYWNpdHk9Ii45Ii8+CiAgICAgIDxjaXJjbGUgY3g9Ijc2IiBjeT0iMjAiIHI9IjMiIGZpbGw9IiNmZmYiLz4KICAgIDwvc3ZnPg==','data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5NiIgaGVpZ2h0PSI5NiIgdmlld0JveD0iMCAwIDk2IDk2Ij4KICAgICAgPGRlZnM+CiAgICAgICAgPGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+CiAgICAgICAgICA8c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMxNzEzMjEiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMzYzFjNjEiLz4KICAgICAgICA8L2xpbmVhckdyYWRpZW50PgogICAgICAgIDxmaWx0ZXIgaWQ9InMiPjxmZURyb3BTaGFkb3cgZHg9IjAiIGR5PSIyIiBzdGREZXZpYXRpb249IjMiIGZsb29kLW9wYWNpdHk9Ii4zNSIvPjwvZmlsdGVyPgogICAgICA8L2RlZnM+CiAgICAgIDxyZWN0IHg9IjIiIHk9IjIiIHdpZHRoPSI5MiIgaGVpZ2h0PSI5MiIgcng9IjI3IiBmaWxsPSJ1cmwoI2cpIi8+CiAgICAgIDxjaXJjbGUgY3g9IjQ4IiBjeT0iMzciIHI9IjE1IiBmaWxsPSIjZjRmN2ZiIiBmaWx0ZXI9InVybCgjcykiLz4KICAgICAgPHBhdGggZD0iTTIxIDc2YzMtMTggMTQtMjcgMjctMjdzMjQgOSAyNyAyNyIgZmlsbD0iI2Y0ZjdmYiIgZmlsdGVyPSJ1cmwoI3MpIi8+CiAgICAgIDxjaXJjbGUgY3g9Ijc2IiBjeT0iMjAiIHI9IjciIGZpbGw9IiNiMjZjZmYiIG9wYWNpdHk9Ii45Ii8+CiAgICAgIDxjaXJjbGUgY3g9Ijc2IiBjeT0iMjAiIHI9IjMiIGZpbGw9IiNmZmYiLz4KICAgIDwvc3ZnPg==','data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5NiIgaGVpZ2h0PSI5NiIgdmlld0JveD0iMCAwIDk2IDk2Ij4KICAgICAgPGRlZnM+CiAgICAgICAgPGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+CiAgICAgICAgICA8c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMxZDE1MTAiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM2YjM1MTEiLz4KICAgICAgICA8L2xpbmVhckdyYWRpZW50PgogICAgICAgIDxmaWx0ZXIgaWQ9InMiPjxmZURyb3BTaGFkb3cgZHg9IjAiIGR5PSIyIiBzdGREZXZpYXRpb249IjMiIGZsb29kLW9wYWNpdHk9Ii4zNSIvPjwvZmlsdGVyPgogICAgICA8L2RlZnM+CiAgICAgIDxyZWN0IHg9IjIiIHk9IjIiIHdpZHRoPSI5MiIgaGVpZ2h0PSI5MiIgcng9IjI3IiBmaWxsPSJ1cmwoI2cpIi8+CiAgICAgIDxjaXJjbGUgY3g9IjQ4IiBjeT0iMzciIHI9IjE1IiBmaWxsPSIjZjRmN2ZiIiBmaWx0ZXI9InVybCgjcykiLz4KICAgICAgPHBhdGggZD0iTTIxIDc2YzMtMTggMTQtMjcgMjctMjdzMjQgOSAyNyAyNyIgZmlsbD0iI2Y0ZjdmYiIgZmlsdGVyPSJ1cmwoI3MpIi8+CiAgICAgIDxjaXJjbGUgY3g9Ijc2IiBjeT0iMjAiIHI9IjciIGZpbGw9IiNmZmFkMmYiIG9wYWNpdHk9Ii45Ii8+CiAgICAgIDxjaXJjbGUgY3g9Ijc2IiBjeT0iMjAiIHI9IjMiIGZpbGw9IiNmZmYiLz4KICAgIDwvc3ZnPg==','data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5NiIgaGVpZ2h0PSI5NiIgdmlld0JveD0iMCAwIDk2IDk2Ij4KICAgICAgPGRlZnM+CiAgICAgICAgPGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+CiAgICAgICAgICA8c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMwZDIxMWQiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMwNzU5NDciLz4KICAgICAgICA8L2xpbmVhckdyYWRpZW50PgogICAgICAgIDxmaWx0ZXIgaWQ9InMiPjxmZURyb3BTaGFkb3cgZHg9IjAiIGR5PSIyIiBzdGREZXZpYXRpb249IjMiIGZsb29kLW9wYWNpdHk9Ii4zNSIvPjwvZmlsdGVyPgogICAgICA8L2RlZnM+CiAgICAgIDxyZWN0IHg9IjIiIHk9IjIiIHdpZHRoPSI5MiIgaGVpZ2h0PSI5MiIgcng9IjI3IiBmaWxsPSJ1cmwoI2cpIi8+CiAgICAgIDxjaXJjbGUgY3g9IjQ4IiBjeT0iMzciIHI9IjE1IiBmaWxsPSIjZjRmN2ZiIiBmaWx0ZXI9InVybCgjcykiLz4KICAgICAgPHBhdGggZD0iTTIxIDc2YzMtMTggMTQtMjcgMjctMjdzMjQgOSAyNyAyNyIgZmlsbD0iI2Y0ZjdmYiIgZmlsdGVyPSJ1cmwoI3MpIi8+CiAgICAgIDxjaXJjbGUgY3g9Ijc2IiBjeT0iMjAiIHI9IjciIGZpbGw9IiMyN2UwYTAiIG9wYWNpdHk9Ii45Ii8+CiAgICAgIDxjaXJjbGUgY3g9Ijc2IiBjeT0iMjAiIHI9IjMiIGZpbGw9IiNmZmYiLz4KICAgIDwvc3ZnPg==','data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5NiIgaGVpZ2h0PSI5NiIgdmlld0JveD0iMCAwIDk2IDk2Ij4KICAgICAgPGRlZnM+CiAgICAgICAgPGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+CiAgICAgICAgICA8c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMxODEzMWIiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM1YTE2NDgiLz4KICAgICAgICA8L2xpbmVhckdyYWRpZW50PgogICAgICAgIDxmaWx0ZXIgaWQ9InMiPjxmZURyb3BTaGFkb3cgZHg9IjAiIGR5PSIyIiBzdGREZXZpYXRpb249IjMiIGZsb29kLW9wYWNpdHk9Ii4zNSIvPjwvZmlsdGVyPgogICAgICA8L2RlZnM+CiAgICAgIDxyZWN0IHg9IjIiIHk9IjIiIHdpZHRoPSI5MiIgaGVpZ2h0PSI5MiIgcng9IjI3IiBmaWxsPSJ1cmwoI2cpIi8+CiAgICAgIDxjaXJjbGUgY3g9IjQ4IiBjeT0iMzciIHI9IjE1IiBmaWxsPSIjZjRmN2ZiIiBmaWx0ZXI9InVybCgjcykiLz4KICAgICAgPHBhdGggZD0iTTIxIDc2YzMtMTggMTQtMjcgMjctMjdzMjQgOSAyNyAyNyIgZmlsbD0iI2Y0ZjdmYiIgZmlsdGVyPSJ1cmwoI3MpIi8+CiAgICAgIDxjaXJjbGUgY3g9Ijc2IiBjeT0iMjAiIHI9IjciIGZpbGw9IiNmZjViOWQiIG9wYWNpdHk9Ii45Ii8+CiAgICAgIDxjaXJjbGUgY3g9Ijc2IiBjeT0iMjAiIHI9IjMiIGZpbGw9IiNmZmYiLz4KICAgIDwvc3ZnPg=='];
+            const myAvatar = avatars[Number(myUserId) % avatars.length];
+            const myUserAvatar = document.getElementById('myUserAvatar');
+            const leaderAvatar = document.getElementById('leaderAvatar');
+            if (myUserAvatar) myUserAvatar.src = myAvatar;
+            if (leaderAvatar) leaderAvatar.src = avatars[Number('997327') % avatars.length];
+
+            const selectedUserKey = 'uiverse_selected_user_v1';
+            const getSelectedUser = () => localStorage.getItem(selectedUserKey);
+
+            let requestTimer = null;
+
+            const showResults = (matches) => {
+                results.innerHTML = '';
+
+                if (!matches.length) {
+                    results.innerHTML = '<div class="no-results">لا يوجد مستخدم بهذا الرقم</div>';
+                    results.hidden = false;
+                    return;
+                }
+
+                matches.slice(0, 20).forEach(userId => {
+                    const button = document.createElement('button');
+                    button.type = 'button';
+                    button.className = 'user-result';
+                    const avatar = avatars[Math.abs(Number(userId)) % avatars.length];
+                    button.innerHTML = `
+                        <span class="result-user-main">
+                            <img class="result-avatar" src="${avatar}" alt="">
+                            <span class="user-number">${userId}</span>
+                        </span>
+                        <span class="result-arrow">›</span>
+                    `;
+                    button.addEventListener('click', () => selectUser(userId));
+                    results.appendChild(button);
+                });
+
+                results.hidden = false;
+            };
+
+            const showStatus = (text, type, duration) => {
+                status.textContent = text;
+                status.className = `status-message ${type}`;
+                status.style.display = 'block';
+
+                window.clearTimeout(status.hideTimer);
+                if (duration) {
+                    status.hideTimer = window.setTimeout(() => {
+                        status.style.display = 'none';
+                    }, duration);
+                }
+            };
+
+            const selectUser = (userId) => {
+                window.clearTimeout(requestTimer);
+
+                results.hidden = true;
+                results.innerHTML = '';
+                input.value = '';
+
+                // الرسالة محلية لهذا الجهاز فقط؛ لا توجد واجهة موافقة للمستخدم الوهمي.
+                showStatus('تم أرســال الطلب', 'request', 6000);
+
+                if (userId !== '997327') {
+                    return;
+                }
+
+                // حفظ الاختيار على نفس الجهاز/المتصفح.
+                localStorage.setItem(selectedUserKey, '997327');
+
+                // بعد دقيقة واحدة يتحول المربع إلى بطاقة ثابتة.
+                requestTimer = window.setTimeout(() => {
+                    const searchBox = document.querySelector('.user-search-box');
+                    const searchTitle = document.querySelector('.search-title');
+                    const searchInputWrap = document.querySelector('.search-input-wrap');
+                    const fireLines = document.querySelectorAll('.user-search-box .fire-line');
+
+                    searchTitle.style.display = 'none';
+                    searchInputWrap.style.display = 'none';
+                    status.style.display = 'none';
+                    fireLines.forEach(line => line.style.display = 'none');
+
+                    leaderIdElement.textContent = '997327';
+                    myUserIdElement.textContent = myUserId;
+                    myUserCard.hidden = false;
+                    myUserCard.style.display = 'flex';
+                    searchBox.classList.add('user-card-only');
+                    localStorage.setItem('uiverse_selected_user_ready_v1', '997327');
+                }, 60 * 1000);
+            };
+
+            input.addEventListener('input', () => {
+                const query = input.value.trim();
+
+                if (!query) {
+                    results.hidden = true;
+                    results.innerHTML = '';
+                    return;
+                }
+
+                const matches = uniqueUsers.filter(id => id.startsWith(query));
+                showResults(matches);
+            });
+
+            input.addEventListener('focus', () => {
+                const query = input.value.trim();
+                if (query) showResults(uniqueUsers.filter(id => id.startsWith(query)));
+            });
+
+
+            // استعادة الحالة المحفوظة عند فتح الصفحة من جديد.
+            // يبقى الرقم ثابتًا على نفس الجهاز/المتصفح حتى بعد الخروج والدخول أو التحديث.
+            if (localStorage.getItem('uiverse_selected_user_ready_v1') === '997327') {
+                const searchBox = document.querySelector('.user-search-box');
+                const searchTitle = document.querySelector('.search-title');
+                const searchInputWrap = document.querySelector('.search-input-wrap');
+                const fireLines = document.querySelectorAll('.user-search-box .fire-line');
+
+                searchTitle.style.display = 'none';
+                searchInputWrap.style.display = 'none';
+                results.hidden = true;
+                status.style.display = 'none';
+                fireLines.forEach(line => line.style.display = 'none');
+
+                leaderIdElement.textContent = '997327';
+                myUserIdElement.textContent = myUserId;
+                myUserCard.hidden = false;
+                myUserCard.style.display = 'flex';
+                searchBox.classList.add('user-card-only');
+            }
+
+            document.addEventListener('click', (event) => {
+                if (!event.target.closest('.user-search-box')) {
+                    results.hidden = true;
+                }
+            });
+        })();
+    </script>
+
+    <script src="bottom-nav.js"></script>
+</body>
+</html>
