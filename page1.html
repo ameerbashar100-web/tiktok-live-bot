@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>الصفحة الرئيسية</title>
-    <link rel="stylesheet" href="style.css">
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap');
@@ -20,23 +19,19 @@
             color: #ffffff;
             font-family: 'Cairo', 'Inter', sans-serif;
             min-height: 100vh;
-            position: relative;
+            padding-bottom: 110px; /* مساحة لضمان عدم تغطية الشريط السفلاني للمحتوى */
         }
 
         /* حاوية الصفحة */
         .page-content {
             width: 100%;
             max-width: 520px;
-            position: absolute;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
+            margin: 10px auto 0;
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 12px;
             padding: 0 12px;
-            z-index: 10;
         }
 
         /* --- البطاقة الداكنة العلويّة --- */
@@ -219,12 +214,6 @@
             background: #111115;
             color: #ffffff;
             border: 1px solid rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s ease, background-color 0.2s ease;
-        }
-
-        .menu-item:hover .item-icon {
-            background: #000000;
-            transform: scale(1.05);
         }
 
         .item-icon svg {
@@ -244,6 +233,55 @@
             font-size: 15px;
             color: #111115;
             font-weight: bold;
+        }
+
+        /* --- الشريط السفلاني الجديد المطابق للصورة (Bottom Floating Nav) --- */
+        .bottom-nav-container {
+            position: fixed;
+            bottom: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 32px);
+            max-width: 360px;
+            height: 72px;
+            background: #141618;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 28px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 999;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+        }
+
+        .nav-tab {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            text-decoration: none;
+            color: #8f9298;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            transition: all 0.2s ease;
+            width: 33.33%;
+        }
+
+        .nav-tab svg {
+            width: 24px;
+            height: 24px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* الأيقونة النشطة (Main) بالحجم واللون الأخضر */
+        .nav-tab.active {
+            color: #a3e635; /* الأخضر المضيء الفاتح */
         }
 
         /* --- النوافذ المنبثقة (Modals) --- */
@@ -293,7 +331,6 @@
             font-family: 'Cairo', sans-serif;
             font-weight: 800;
             cursor: pointer;
-            transition: all 0.2s ease;
         }
 
         .close-btn {
@@ -301,7 +338,6 @@
             color: #fff;
         }
 
-        /* --- تنسيقات نموذج السحب (Withdraw Form) --- */
         .withdraw-form {
             display: flex;
             flex-direction: column;
@@ -332,14 +368,8 @@
             font-family: 'Inter', 'Cairo', sans-serif;
             font-size: 13px;
             outline: none;
-            transition: border-color 0.2s ease;
         }
 
-        .custom-input:focus {
-            border-color: rgba(255, 255, 255, 0.4);
-        }
-
-        /* زر Next أبيض عند التفعيل ورمادي عند الإيقاف */
         .next-btn {
             background: #ffffff;
             color: #000000;
@@ -351,7 +381,6 @@
             cursor: not-allowed;
         }
 
-        /* رسالة التنبيه عند عدم توفر الرصيد */
         .toast-msg {
             display: none;
             background: rgba(220, 53, 69, 0.95);
@@ -361,15 +390,8 @@
             padding: 10px 14px;
             border-radius: 10px;
             margin-top: 10px;
-            animation: fadeIn 0.3s ease;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-5px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* باقي النوافذ */
         .trc20-card {
             background: #0d0d10;
             border: 1px solid rgba(255,255,255,.09);
@@ -428,7 +450,7 @@
     </style>
 </head>
 
-<body class="nav-body">
+<body>
 
     <div class="page-content">
 
@@ -507,7 +529,40 @@
 
     </div>
 
-    <!-- نافذة السحب المنبثقة المُحدثة -->
+    <!-- الشريط السفلاني المطابق للنموذج المطلوب -->
+    <div class="bottom-nav-container">
+        <!-- 1. Profile -->
+        <a href="#" class="nav-tab">
+            <svg viewBox="0 0 24 24">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <span>Profile</span>
+        </a>
+
+        <!-- 2. Shop -->
+        <a href="#" class="nav-tab">
+            <svg viewBox="0 0 24 24">
+                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <path d="M16 10a4 4 0 0 1-8 0"></path>
+            </svg>
+            <span>Shop</span>
+        </a>
+
+        <!-- 3. Main (محدد باللون الأخضر) -->
+        <a href="#" class="nav-tab active">
+            <svg viewBox="0 0 24 24">
+                <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
+                <rect x="14" y="3" width="7" height="7" rx="1.5"></rect>
+                <rect x="14" y="14" width="7" height="7" rx="1.5"></rect>
+                <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
+            </svg>
+            <span>Main</span>
+        </a>
+    </div>
+
+    <!-- النوافذ المنبثقة -->
     <div id="withdrawModal" class="modal" onclick="outsideClose(event, this)">
         <div class="modal-box">
             <div class="modal-title">سحب</div>
@@ -524,7 +579,6 @@
                 </div>
             </div>
 
-            <!-- رسالة الخطأ الظاهرة لمدة 3 ثواني -->
             <div id="withdrawToast" class="toast-msg">رصيد USDT غير متاح</div>
 
             <div class="modal-actions">
@@ -534,7 +588,6 @@
         </div>
     </div>
 
-    <!-- باقي النوافذ المنبثقة -->
     <div id="topupModal" class="modal" onclick="outsideClose(event, this)">
         <div class="modal-box">
             <div class="modal-title">شحن الحساب</div>
@@ -585,31 +638,6 @@
             if (event.target === modal) closeModal(modal.id);
         }
 
-        /* التحقق من إدخال الحقول لتفعيل زر Next */
         function validateWithdrawForm() {
             const amount = document.getElementById('usdtAmount').value.trim();
-            const wallet = document.getElementById('trcWallet').value.trim();
-            const nextBtn = document.getElementById('nextBtn');
-
-            if (amount !== '' && wallet !== '') {
-                nextBtn.disabled = false;
-            } else {
-                nextBtn.disabled = true;
-            }
-        }
-
-        /* إظهار رسالة عدم توفر الرصيد لمدة 3 ثواني */
-        function handleWithdrawSubmit() {
-            const toast = document.getElementById('withdrawToast');
-            toast.style.display = 'block';
-
-            setTimeout(() => {
-                toast.style.display = 'none';
-            }, 3000);
-        }
-    </script>
-
-    <script src="./bottom-nav.js"></script>
-</body>
-                                       </html>
-                                       
+            cons
