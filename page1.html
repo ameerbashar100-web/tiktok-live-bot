@@ -19,10 +19,10 @@
             color: #ffffff;
             font-family: 'Cairo', 'Inter', sans-serif;
             min-height: 100vh;
-            padding-bottom: 80px; /* مساحة مخصصة لضمان عدم تغطية الشريط السفلي */
+            padding-bottom: 110px; /* مساحة لضمان عدم تغطية الشريط السفلي */
         }
 
-        /* حاوية الصفحة المعدلة بدون position: absolute */
+        /* حاوية الصفحة */
         .page-content {
             width: 100%;
             max-width: 520px;
@@ -214,12 +214,6 @@
             background: #111115;
             color: #ffffff;
             border: 1px solid rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s ease, background-color 0.2s ease;
-        }
-
-        .menu-item:hover .item-icon {
-            background: #000000;
-            transform: scale(1.05);
         }
 
         .item-icon svg {
@@ -241,42 +235,57 @@
             font-weight: bold;
         }
 
-        /* --- الشريط السفلي المدمج (Bottom Navigation) --- */
-        .bottom-nav {
+        /* --- الشريط السفلي الأصلي المعدل --- */
+        .original-bottom-nav {
             position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 65px;
-            background: #111115;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 32px);
+            max-width: 360px;
+            height: 70px;
+            background: #161618;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 28px;
             display: flex;
             justify-content: space-around;
             align-items: center;
             z-index: 999;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
             padding: 0 10px;
         }
 
-        .nav-link {
+        .nav-item {
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 4px;
-            color: #71717a;
+            color: #888890;
             text-decoration: none;
-            font-size: 11px;
+            font-size: 12px;
             font-weight: 700;
-            transition: color 0.2s ease;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.2s ease;
+            width: 33.33%;
         }
 
-        .nav-link.active, .nav-link:hover {
-            color: #ffffff;
-        }
-
-        .nav-link svg {
+        .nav-item svg {
             width: 22px;
             height: 22px;
-            fill: currentColor;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .nav-item.active {
+            color: #a3ff12; /* اللون الأخضر الفسفوري الأصلي */
+        }
+
+        .nav-item.active svg {
+            stroke: #a3ff12;
+            filter: drop-shadow(0 0 6px rgba(163, 255, 18, 0.4));
         }
 
         /* --- النوافذ المنبثقة (Modals) --- */
@@ -303,158 +312,25 @@
             padding: 22px;
             box-shadow: 0 20px 60px rgba(0,0,0,.65);
             text-align: center;
-            position: relative;
         }
 
-        .modal-title {
-            font-size: 20px;
-            font-weight: 800;
-            margin-bottom: 16px;
-        }
-
-        .modal-actions {
-            display: flex;
-            gap: 9px;
-            margin-top: 15px;
-        }
-
-        .modal-actions button {
-            flex: 1;
-            height: 45px;
-            border-radius: 13px;
-            border: 0;
-            font-family: 'Cairo', sans-serif;
-            font-weight: 800;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .close-btn {
-            background: #29282f;
-            color: #fff;
-        }
-
-        /* --- تنسيقات نموذج السحب (Withdraw Form) --- */
-        .withdraw-form {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            text-align: right;
-        }
-
-        .input-group {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .input-label {
-            font-size: 12px;
-            font-weight: 700;
-            color: #aaaab3;
-        }
-
-        .custom-input {
-            width: 100%;
-            height: 46px;
-            background: #0d0d10;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 12px;
-            padding: 0 14px;
-            color: #ffffff;
-            font-family: 'Inter', 'Cairo', sans-serif;
-            font-size: 13px;
-            outline: none;
-            transition: border-color 0.2s ease;
-        }
-
-        .custom-input:focus {
-            border-color: rgba(255, 255, 255, 0.4);
-        }
-
-        .next-btn {
-            background: #ffffff;
-            color: #000000;
-        }
-
-        .next-btn:disabled {
-            background: rgba(255, 255, 255, 0.2);
-            color: rgba(255, 255, 255, 0.4);
-            cursor: not-allowed;
-        }
-
-        .toast-msg {
-            display: none;
-            background: rgba(220, 53, 69, 0.95);
-            color: #ffffff;
-            font-size: 13px;
-            font-weight: 700;
-            padding: 10px 14px;
-            border-radius: 10px;
-            margin-top: 10px;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-5px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .trc20-card {
-            background: #0d0d10;
-            border: 1px solid rgba(255,255,255,.09);
-            border-radius: 17px;
-            padding: 16px;
-            text-align: left;
-        }
-
-        .trc20-brand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 16px;
-            font-weight: 800;
-            margin-bottom: 15px;
-        }
-
-        .wallet-label {
-            color: #aaaab3;
-            font-size: 11px;
-            font-weight: 800;
-            margin-bottom: 7px;
-        }
-
-        .wallet-address {
-            word-break: break-all;
-            background: #17171c;
-            border: 1px solid rgba(255,255,255,.08);
-            border-radius: 11px;
-            padding: 12px;
-            color: #fff;
-            font-family: 'Inter', sans-serif;
-            font-size: 12px;
-            font-weight: 700;
-        }
-
-        .copy-wallet {
-            width: 100%;
-            height: 43px;
-            margin-top: 10px;
-            border: 0;
-            border-radius: 11px;
-            background: #fff;
-            color: #090909;
-            font-family: 'Cairo', sans-serif;
-            font-weight: 800;
-            cursor: pointer;
-        }
-
-        .status-text {
-            color: #bdbdc6;
-            font-size: 14px;
-            font-weight: 700;
-            padding: 15px 0;
-        }
+        .modal-title { font-size: 20px; font-weight: 800; margin-bottom: 16px; }
+        .modal-actions { display: flex; gap: 9px; margin-top: 15px; }
+        .modal-actions button { flex: 1; height: 45px; border-radius: 13px; border: 0; font-family: 'Cairo', sans-serif; font-weight: 800; cursor: pointer; }
+        .close-btn { background: #29282f; color: #fff; }
+        .withdraw-form { display: flex; flex-direction: column; gap: 12px; text-align: right; }
+        .input-group { display: flex; flex-direction: column; gap: 6px; }
+        .input-label { font-size: 12px; font-weight: 700; color: #aaaab3; }
+        .custom-input { width: 100%; height: 46px; background: #0d0d10; border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 12px; padding: 0 14px; color: #ffffff; outline: none; }
+        .next-btn { background: #ffffff; color: #000000; }
+        .next-btn:disabled { background: rgba(255, 255, 255, 0.2); color: rgba(255, 255, 255, 0.4); cursor: not-allowed; }
+        .toast-msg { display: none; background: rgba(220, 53, 69, 0.95); color: #ffffff; font-size: 13px; font-weight: 700; padding: 10px 14px; border-radius: 10px; margin-top: 10px; }
+        .trc20-card { background: #0d0d10; border: 1px solid rgba(255,255,255,.09); border-radius: 17px; padding: 16px; text-align: left; }
+        .trc20-brand { font-size: 16px; font-weight: 800; margin-bottom: 15px; }
+        .wallet-label { color: #aaaab3; font-size: 11px; font-weight: 800; margin-bottom: 7px; }
+        .wallet-address { word-break: break-all; background: #17171c; border: 1px solid rgba(255,255,255,.08); border-radius: 11px; padding: 12px; font-size: 12px; font-weight: 700; }
+        .copy-wallet { width: 100%; height: 43px; margin-top: 10px; border: 0; border-radius: 11px; background: #fff; color: #090909; font-weight: 800; cursor: pointer; }
+        .status-text { color: #bdbdc6; font-size: 14px; font-weight: 700; padding: 15px 0; }
     </style>
 </head>
 
@@ -488,94 +364,72 @@
 
         <!-- القائمة البيضاء السفليّة -->
         <div class="white-menu-box">
-            
-            <!-- 1. شحن الحساب -->
             <button class="menu-item" onclick="openModal('topupModal')">
                 <div class="item-right">
-                    <div class="item-icon">
-                        <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-                    </div>
+                    <div class="item-icon"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div>
                     <span class="item-text">شحن الحساب</span>
                 </div>
                 <span class="item-arrow">❮</span>
             </button>
 
-            <!-- 2. سحب -->
             <button class="menu-item" onclick="openModal('withdrawModal')">
                 <div class="item-right">
-                    <div class="item-icon">
-                        <svg viewBox="0 0 24 24"><path d="M5 13h14v-2H5v2zm0 4h14v-2H5v2zM5 9h14V7H5v2z"/></svg>
-                    </div>
+                    <div class="item-icon"><svg viewBox="0 0 24 24"><path d="M5 13h14v-2H5v2zm0 4h14v-2H5v2zM5 9h14V7H5v2z"/></svg></div>
                     <span class="item-text">سحب</span>
                 </div>
                 <span class="item-arrow">❮</span>
             </button>
 
-            <!-- 3. توظيف الموظفين -->
             <button class="menu-item" onclick="openModal('hireModal')">
                 <div class="item-right">
-                    <div class="item-icon">
-                        <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-                    </div>
+                    <div class="item-icon"><svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
                     <span class="item-text">توظيف الموظفين</span>
                 </div>
                 <span class="item-arrow">❮</span>
             </button>
 
-            <!-- 4. عنوان المحفظة -->
             <button class="menu-item" onclick="openModal('walletModal')">
                 <div class="item-right">
-                    <div class="item-icon">
-                        <svg viewBox="0 0 24 24"><path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
-                    </div>
+                    <div class="item-icon"><svg viewBox="0 0 24 24"><path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg></div>
                     <span class="item-text">عنوان المحفظة</span>
                 </div>
                 <span class="item-arrow">❮</span>
             </button>
-
         </div>
 
     </div>
 
-    <!-- الشريط السفلي المدمج للتحكم -->
-    <nav class="bottom-nav">
-        <a href="#" class="nav-link active">
-            <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-            <span>الرئيسية</span>
+    <!-- الشريط السفلي الأصلي المفرغ بدقة (Profile - Shop - Main) -->
+    <div class="original-bottom-nav">
+        <a href="#" class="nav-item">
+            <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span>Profile</span>
         </a>
-        <a href="#" class="nav-link">
-            <svg viewBox="0 0 24 24"><path d="M4 11h5V5H4v6zm0 7h5v-6H4v6zm6 0h5v-6h-5v6zm6 0h5v-6h-5v6zm0-13v6h5V5h-5zm-6 6h5V5h-5v6z"/></svg>
-            <span>الخدمات</span>
+        <a href="#" class="nav-item">
+            <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            <span>Shop</span>
         </a>
-        <a href="#" class="nav-link">
-            <svg viewBox="0 0 24 24"><path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
-            <span>المحفظة</span>
+        <a href="#" class="nav-item active">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/></svg>
+            <span>Main</span>
         </a>
-        <a href="#" class="nav-link">
-            <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-            <span>حسابي</span>
-        </a>
-    </nav>
+    </div>
 
-    <!-- نافذة السحب المنبثقة -->
+    <!-- النوافذ المنبثقة -->
     <div id="withdrawModal" class="modal" onclick="outsideClose(event, this)">
         <div class="modal-box">
             <div class="modal-title">سحب</div>
-            
             <div class="withdraw-form">
                 <div class="input-group">
                     <label class="input-label">المبلغ (USDT)</label>
                     <input type="number" id="usdtAmount" class="custom-input" placeholder="0.00" oninput="validateWithdrawForm()">
                 </div>
-
                 <div class="input-group">
                     <label class="input-label">عنوان محفظة TRC20</label>
                     <input type="text" id="trcWallet" class="custom-input" placeholder="أدخل العنوان هنا..." oninput="validateWithdrawForm()">
                 </div>
             </div>
-
             <div id="withdrawToast" class="toast-msg">رصيد USDT غير متاح</div>
-
             <div class="modal-actions">
                 <button id="nextBtn" class="next-btn" disabled onclick="handleWithdrawSubmit()">Next</button>
                 <button class="close-btn" onclick="closeModal('withdrawModal')">إغلاق</button>
@@ -583,7 +437,6 @@
         </div>
     </div>
 
-    <!-- باقي النوافذ المنبثقة -->
     <div id="topupModal" class="modal" onclick="outsideClose(event, this)">
         <div class="modal-box">
             <div class="modal-title">شحن الحساب</div>
@@ -620,19 +473,19 @@
     </div>
 
     <script>
-        function openModal(id) {
-            document.getElementById(id).classList.add('show');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeModal(id) {
-            document.getElementById(id).classList.remove('show');
-            document.body.style.overflow = '';
-        }
-
-        function outsideClose(event, modal) {
-            if (event.target === modal) closeModal(modal.id);
-        }
-
+        function openModal(id) { document.getElementById(id).classList.add('show'); document.body.style.overflow = 'hidden'; }
+        function closeModal(id) { document.getElementById(id).classList.remove('show'); document.body.style.overflow = ''; }
+        function outsideClose(event, modal) { if (event.target === modal) closeModal(modal.id); }
         function validateWithdrawForm() {
-            const amount = docum
+            const amount = document.getElementById('usdtAmount').value.trim();
+            const wallet = document.getElementById('trcWallet').value.trim();
+            document.getElementById('nextBtn').disabled = !(amount !== '' && wallet !== '');
+        }
+        function handleWithdrawSubmit() {
+            const toast = document.getElementById('withdrawToast');
+            toast.style.display = 'block';
+            setTimeout(() => { toast.style.display = 'none'; }, 3000);
+        }
+    </script>
+</body>
+</html>
