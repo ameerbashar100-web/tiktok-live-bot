@@ -20,7 +20,7 @@
             font-family: 'Cairo', 'Inter', sans-serif;
             min-height: 100vh;
             position: relative;
-            padding-bottom: 110px; /* مساحة حماية للشريط السفلي */
+            padding-bottom: 110px;
         }
 
         /* حاوية الصفحة */
@@ -244,7 +244,7 @@
             font-weight: bold;
         }
 
-        /* --- الشريط السفلي المدمج --- */
+        /* --- الشريط السفلي التنقلي (مُعدل الترتيب والدعم لـ LTR) --- */
         .bottom-navbar {
             position: fixed;
             bottom: 12px;
@@ -261,6 +261,7 @@
             align-items: center;
             z-index: 999;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
+            direction: ltr; /* التوجيه لليصار لتعديل الترتيب */
         }
 
         .nav-item-btn {
@@ -513,7 +514,7 @@
                     </div>
                     <span class="item-text">شحن الحساب</span>
                 </div>
-                <span class="item-arrow">❮</span>
+                <span class="item-arrow">‹</span>
             </button>
 
             <button class="menu-item" onclick="openModal('withdrawModal')">
@@ -523,7 +524,7 @@
                     </div>
                     <span class="item-text">سحب</span>
                 </div>
-                <span class="item-arrow">❮</span>
+                <span class="item-arrow">‹</span>
             </button>
 
             <button class="menu-item" onclick="openModal('hireModal')">
@@ -533,7 +534,7 @@
                     </div>
                     <span class="item-text">توظيف الموظفين</span>
                 </div>
-                <span class="item-arrow">❮</span>
+                <span class="item-arrow">‹</span>
             </button>
 
             <button class="menu-item" onclick="openModal('walletModal')">
@@ -543,26 +544,26 @@
                     </div>
                     <span class="item-text">عنوان المحفظة</span>
                 </div>
-                <span class="item-arrow">❮</span>
+                <span class="item-arrow">‹</span>
             </button>
 
         </div>
 
     </div>
 
-    <!-- الشريط السفلي التنقلي -->
+    <!-- الشريط السفلي التنقلي (تم تعديل الترتيب الصحيح: Main -> Shop -> Profile) -->
     <div class="bottom-navbar">
-        <a href="#" class="nav-item-btn">
-            <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            <span>Profile</span>
+        <a href="#" class="nav-item-btn active">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg>
+            <span>Main</span>
         </a>
         <a href="#" class="nav-item-btn">
             <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
             <span>Shop</span>
         </a>
-        <a href="#" class="nav-item-btn active">
-            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg>
-            <span>Main</span>
+        <a href="#" class="nav-item-btn">
+            <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span>Profile</span>
         </a>
     </div>
 
@@ -636,6 +637,4 @@
             document.body.style.overflow = '';
         }
 
-        function outsideClose(event, modal) {
-            if (event.target === modal) closeModal(modal.id);
-       
+ 
