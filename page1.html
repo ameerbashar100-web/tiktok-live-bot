@@ -22,7 +22,7 @@
             min-height: 100vh;
         }
 
-        /* حاوية الصفحة - تم التعديل لرفع المحتوى لأعلى الشاشة */
+        /* حاوية الصفحة - محاذاة من الأعلى مباشرة */
         .page-content {
             width: 100%;
             max-width: 520px;
@@ -30,7 +30,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             padding: 0 12px;
         }
 
@@ -49,7 +49,7 @@
             justify-content: space-between;
             border: 1px solid rgba(255, 255, 255, 0.08);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            margin-top: 0; /* إلغاء أي هامش علوي */
+            margin-top: -15px; /* رفع بطاقة الرصيد للأعلى جداً */
         }
 
         /* خلفية بنفسجية ضبابية متحرّكة */
@@ -243,6 +243,24 @@
             font-weight: bold;
         }
 
+        /* --- تصميم الصورة الإعلانية السفلية --- */
+        .bottom-banner-container {
+            width: 100%;
+            max-width: 360px;
+            margin-top: 4px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .bottom-banner-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 16px;
+            object-fit: cover;
+        }
+
         /* --- النوافذ المنبثقة (Modals) --- */
         .modal {
             position: fixed;
@@ -429,6 +447,11 @@
                 <span class="item-arrow">❮</span>
             </button>
 
+        </div>
+
+        <!-- الصورة الإعلانية أسفل القائمة -->
+        <div class="bottom-banner-container">
+            <img src="banner.png" alt="الإعلان">
         </div>
 
     </div>
