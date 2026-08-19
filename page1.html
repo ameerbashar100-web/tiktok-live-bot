@@ -22,16 +22,16 @@
             min-height: 100vh;
         }
 
-        /* حاوية الصفحة - تم تقليل المسافات لرفع المحتوى لأعلى */
+        /* حاوية الصفحة - تم التعديل لرفع المحتوى لأعلى الشاشة */
         .page-content {
             width: 100%;
             max-width: 520px;
-            margin: 0 auto 160px; /* مسافة من الأسفل لإعطاء الفراغ فوق الشريط */
+            margin: 0 auto 120px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 12px;
-            padding: 5px 12px 0;
+            gap: 10px;
+            padding: 0 12px;
         }
 
         /* --- البطاقة الداكنة العلويّة --- */
@@ -40,15 +40,16 @@
             max-width: 360px;
             background: #17161b;
             border-radius: 26px;
-            padding: 20px 20px 16px;
+            padding: 18px 18px 14px;
             position: relative;
             overflow: hidden;
-            min-height: 220px;
+            min-height: 200px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             border: 1px solid rgba(255, 255, 255, 0.08);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            margin-top: 0; /* إلغاء أي هامش علوي */
         }
 
         /* خلفية بنفسجية ضبابية متحرّكة */
@@ -109,11 +110,11 @@
             direction: ltr;
             text-align: right;
             font-family: 'Inter', 'Cairo', sans-serif;
-            font-size: 34px;
+            font-size: 32px;
             font-weight: 800;
             color: #ffffff;
             letter-spacing: -0.5px;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             position: relative;
             z-index: 2;
         }
@@ -131,7 +132,7 @@
             backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 20px;
-            padding: 6px 14px;
+            padding: 5px 12px;
             font-size: 11px;
             color: #d1d1d6;
             display: flex;
@@ -144,14 +145,14 @@
             display: flex;
             justify-content: flex-start;
             align-items: flex-end;
-            margin-top: 20px;
+            margin-top: 15px;
             position: relative;
             z-index: 2;
         }
 
         .maturity-tag {
             color: #d1d1d6;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 800;
             display: flex;
             align-items: center;
@@ -159,8 +160,8 @@
         }
 
         .lock-icon {
-            width: 14px;
-            height: 14px;
+            width: 13px;
+            height: 13px;
             fill: currentColor;
         }
 
@@ -178,7 +179,7 @@
 
         .menu-item {
             width: 100%;
-            height: 58px;
+            height: 54px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -206,8 +207,8 @@
         }
 
         .item-icon {
-            width: 36px;
-            height: 36px;
+            width: 34px;
+            height: 34px;
             border-radius: 10px;
             display: flex;
             align-items: center;
@@ -230,14 +231,14 @@
         }
 
         .item-text {
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 700;
             color: #111115;
             font-family: 'Cairo', sans-serif;
         }
 
         .item-arrow {
-            font-size: 16px;
+            font-size: 15px;
             color: #111115;
             font-weight: bold;
         }
