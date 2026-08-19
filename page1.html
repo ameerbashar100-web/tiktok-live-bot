@@ -20,23 +20,18 @@
             color: #ffffff;
             font-family: 'Cairo', 'Inter', sans-serif;
             min-height: 100vh;
-            position: relative;
         }
 
         /* حاوية الصفحة */
         .page-content {
             width: 100%;
             max-width: 520px;
-            position: absolute;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
+            margin: 10px auto 120px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 12px;
+            gap: 20px;
             padding: 0 12px;
-            z-index: 10;
         }
 
         /* --- البطاقة الداكنة العلويّة --- */
@@ -45,10 +40,10 @@
             max-width: 360px;
             background: #17161b;
             border-radius: 26px;
-            padding: 18px 18px 14px;
+            padding: 24px 20px 20px;
             position: relative;
             overflow: hidden;
-            min-height: 200px;
+            min-height: 240px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -56,6 +51,7 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
+        /* خلفية بنفسجية ضبابية متحرّكة */
         .moving-purple-glow {
             position: absolute;
             top: -10px;
@@ -113,11 +109,11 @@
             direction: ltr;
             text-align: right;
             font-family: 'Inter', 'Cairo', sans-serif;
-            font-size: 32px;
+            font-size: 34px;
             font-weight: 800;
             color: #ffffff;
             letter-spacing: -0.5px;
-            margin-bottom: 8px;
+            margin-bottom: 14px;
             position: relative;
             z-index: 2;
         }
@@ -135,7 +131,7 @@
             backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 20px;
-            padding: 5px 12px;
+            padding: 6px 14px;
             font-size: 11px;
             color: #d1d1d6;
             display: flex;
@@ -148,14 +144,14 @@
             display: flex;
             justify-content: flex-start;
             align-items: flex-end;
-            margin-top: 15px;
+            margin-top: 30px;
             position: relative;
             z-index: 2;
         }
 
         .maturity-tag {
             color: #d1d1d6;
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 800;
             display: flex;
             align-items: center;
@@ -163,17 +159,17 @@
         }
 
         .lock-icon {
-            width: 13px;
-            height: 13px;
+            width: 14px;
+            height: 14px;
             fill: currentColor;
         }
 
-        /* --- القائمة البيضاء السفليّة --- */
+        /* --- المربع السفلي --- */
         .white-menu-box {
             width: 100%;
             max-width: 360px;
             background: #ffffff;
-            border-radius: 20px;
+            border-radius: 16px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
             overflow: hidden;
             display: flex;
@@ -182,11 +178,11 @@
 
         .menu-item {
             width: 100%;
-            height: 54px;
+            height: 64px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 16px;
+            padding: 0 18px;
             background: transparent;
             border: 0;
             border-bottom: 1px solid #f0f0f5;
@@ -206,13 +202,13 @@
         .item-right {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
         }
 
         .item-icon {
-            width: 34px;
-            height: 34px;
-            border-radius: 10px;
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -228,20 +224,20 @@
         }
 
         .item-icon svg {
-            width: 18px;
-            height: 18px;
+            width: 20px;
+            height: 20px;
             fill: currentColor;
         }
 
         .item-text {
-            font-size: 14px;
+            font-size: 15px;
             font-weight: 700;
             color: #111115;
             font-family: 'Cairo', sans-serif;
         }
 
         .item-arrow {
-            font-size: 15px;
+            font-size: 16px;
             color: #111115;
             font-weight: bold;
         }
@@ -270,13 +266,62 @@
             padding: 22px;
             box-shadow: 0 20px 60px rgba(0,0,0,.65);
             text-align: center;
-            position: relative;
+            max-height: 85vh;
+            display: flex;
+            flex-direction: column;
         }
 
         .modal-title {
             font-size: 20px;
             font-weight: 800;
             margin-bottom: 16px;
+            color: #fff;
+        }
+
+        .modal-body-scroll {
+            overflow-y: auto;
+            text-align: right;
+            padding-left: 5px;
+            padding-right: 5px;
+            color: #d1d1d6;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        /* تنسيق أقسام محتوى UIVERSE داخل النافذة */
+        .uiverse-section {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 12px;
+        }
+
+        .uiverse-section h4 {
+            color: #8a3cf6;
+            font-size: 14px;
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+
+        .uiverse-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .uiverse-list li {
+            margin-bottom: 6px;
+            position: relative;
+            padding-right: 12px;
+        }
+
+        .uiverse-list li::before {
+            content: "•";
+            color: #8a3cf6;
+            position: absolute;
+            right: 0;
+            font-weight: bold;
         }
 
         .modal-actions {
@@ -293,7 +338,6 @@
             font-family: 'Cairo', sans-serif;
             font-weight: 800;
             cursor: pointer;
-            transition: all 0.2s ease;
         }
 
         .close-btn {
@@ -301,75 +345,6 @@
             color: #fff;
         }
 
-        /* --- تنسيقات نموذج السحب (Withdraw Form) --- */
-        .withdraw-form {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            text-align: right;
-        }
-
-        .input-group {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .input-label {
-            font-size: 12px;
-            font-weight: 700;
-            color: #aaaab3;
-        }
-
-        .custom-input {
-            width: 100%;
-            height: 46px;
-            background: #0d0d10;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 12px;
-            padding: 0 14px;
-            color: #ffffff;
-            font-family: 'Inter', 'Cairo', sans-serif;
-            font-size: 13px;
-            outline: none;
-            transition: border-color 0.2s ease;
-        }
-
-        .custom-input:focus {
-            border-color: rgba(255, 255, 255, 0.4);
-        }
-
-        /* زر Next أبيض عند التفعيل ورمادي عند الإيقاف */
-        .next-btn {
-            background: #ffffff;
-            color: #000000;
-        }
-
-        .next-btn:disabled {
-            background: rgba(255, 255, 255, 0.2);
-            color: rgba(255, 255, 255, 0.4);
-            cursor: not-allowed;
-        }
-
-        /* رسالة التنبيه عند عدم توفر الرصيد */
-        .toast-msg {
-            display: none;
-            background: rgba(220, 53, 69, 0.95);
-            color: #ffffff;
-            font-size: 13px;
-            font-weight: 700;
-            padding: 10px 14px;
-            border-radius: 10px;
-            margin-top: 10px;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-5px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* باقي النوافذ */
         .trc20-card {
             background: #0d0d10;
             border: 1px solid rgba(255,255,255,.09);
@@ -456,7 +431,7 @@
             </div>
         </div>
 
-        <!-- القائمة البيضاء السفليّة -->
+        <!-- المربع الأبيض السفلي -->
         <div class="white-menu-box">
             
             <!-- 1. شحن الحساب -->
@@ -492,13 +467,13 @@
                 <span class="item-arrow">❮</span>
             </button>
 
-            <!-- 4. عنوان المحفظة -->
-            <button class="menu-item" onclick="openModal('walletModal')">
+            <!-- 4. حول UIVERSE -->
+            <button class="menu-item" onclick="openModal('uiverseModal')">
                 <div class="item-right">
                     <div class="item-icon">
-                        <svg viewBox="0 0 24 24"><path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
                     </div>
-                    <span class="item-text">عنوان المحفظة</span>
+                    <span class="item-text">حول UIVERSE</span>
                 </div>
                 <span class="item-arrow">❮</span>
             </button>
@@ -507,34 +482,7 @@
 
     </div>
 
-    <!-- نافذة السحب المنبثقة المُحدثة -->
-    <div id="withdrawModal" class="modal" onclick="outsideClose(event, this)">
-        <div class="modal-box">
-            <div class="modal-title">سحب</div>
-            
-            <div class="withdraw-form">
-                <div class="input-group">
-                    <label class="input-label">المبلغ (USDT)</label>
-                    <input type="number" id="usdtAmount" class="custom-input" placeholder="0.00" oninput="validateWithdrawForm()">
-                </div>
-
-                <div class="input-group">
-                    <label class="input-label">عنوان محفظة TRC20</label>
-                    <input type="text" id="trcWallet" class="custom-input" placeholder="أدخل العنوان هنا..." oninput="validateWithdrawForm()">
-                </div>
-            </div>
-
-            <!-- رسالة الخطأ الظاهرة لمدة 3 ثواني -->
-            <div id="withdrawToast" class="toast-msg">رصيد USDT غير متاح</div>
-
-            <div class="modal-actions">
-                <button id="nextBtn" class="next-btn" disabled onclick="handleWithdrawSubmit()">Next</button>
-                <button class="close-btn" onclick="closeModal('withdrawModal')">إغلاق</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- باقي النوافذ المنبثقة -->
+    <!-- النوافذ المنبثقة -->
     <div id="topupModal" class="modal" onclick="outsideClose(event, this)">
         <div class="modal-box">
             <div class="modal-title">شحن الحساب</div>
@@ -550,6 +498,16 @@
         </div>
     </div>
 
+    <div id="withdrawModal" class="modal" onclick="outsideClose(event, this)">
+        <div class="modal-box">
+            <div class="modal-title">سحب</div>
+            <div class="status-text">أدخل تفاصيل السحب الخاصة بك.</div>
+            <div class="modal-actions">
+                <button class="close-btn" onclick="closeModal('withdrawModal')">إغلاق</button>
+            </div>
+        </div>
+    </div>
+
     <div id="hireModal" class="modal" onclick="outsideClose(event, this)">
         <div class="modal-box">
             <div class="modal-title">توظيف الموظفين</div>
@@ -560,12 +518,66 @@
         </div>
     </div>
 
-    <div id="walletModal" class="modal" onclick="outsideClose(event, this)">
+    <!-- نافذة حول UIVERSE الجديدة -->
+    <div id="uiverseModal" class="modal" onclick="outsideClose(event, this)">
         <div class="modal-box">
-            <div class="modal-title">عنوان المحفظة</div>
-            <div class="status-text">عنوان المحفظة المسجل لديك هو TRC20.</div>
+            <div class="modal-title">حول UIVERSE</div>
+            
+            <div class="modal-body-scroll">
+                <p style="margin-bottom: 12px; font-weight: 700; color: #fff;">
+                    ترحب بكم منصة UIVERSE للإعلان والترويج وتوفر لكم مجموعة متكاملة من الباقات والاشتراكات المصممة لتلبية احتياجاتكم التسويقية، وتتوزع هذه الاشتراكات على عدة مستويات مدروسة تشمل: R1, V2, V3, V4, V5.
+                </p>
+
+                <div class="uiverse-section">
+                    <h4>🌐 شبكة السحب المعتمدة</h4>
+                    <p>تدعم المنصة السحب الحصري والآمن عبر شبكة TRC20 الرقمية.</p>
+                    <p style="margin-top: 5px; color: #ffab00;"><b>تأكيد العنوان:</b> يرجى التحقق من إدخال عنوان محفظتك الرقمية المتوافق مع شبكة TRC20 بدقة لتجنب فقدان الأموال.</p>
+                </div>
+
+                <div class="uiverse-section">
+                    <h4>💸 الضريبة والرسوم</h4>
+                    <ul class="uiverse-list">
+                        <li><b>قيمة الرسوم:</b> يتم اقتطاع ضريبة ثابتة بمقدار 1 دولار أمريكي فقط عن كل عملية سحب يتم تنفيذها.</li>
+                        <li><b>آلية الخصم:</b> تُخصم قيمة الضريبة 1 USDT تلقائياً من إجمالي المبلغ المراد سحبه قبل تحويله إلى محفظتك.</li>
+                        <li><b>سرعة التحويل:</b> تتم معالجة طلبات سحب الأرباح وإرسالها إلى محفظتك الرقمية خلال ساعة واحدة فقط من وقت تقديم الطلب.</li>
+                    </ul>
+                </div>
+
+                <div class="uiverse-section">
+                    <h4>⭐ خصائص ومميزات باقة R1</h4>
+                    <ul class="uiverse-list">
+                        <li><b>نوع الباقة:</b> اشتراك تجريبي مخصص للمستخدمين الجدد فقط.</li>
+                        <li><b>فترة سحب الأرباح:</b> يتاح لك سحب العوائد والأرباح يومياً من تاريخ تفعيل الباقة.</li>
+                        <li><b>سياسة التجديد:</b> تستخدم هذه الباقة لمرة واحدة فقط ولا يمكن تجديدها مجدداً بعد انتهائها.</li>
+                        <li><b>مدة الانتهاء:</b> 30 يوم فقط.</li>
+                    </ul>
+                </div>
+
+                <div class="uiverse-section">
+                    <h4>📦 باقات الاشتراك المتاحة</h4>
+                    <ul class="uiverse-list">
+                        <li><b>باقة R1 (المستوى التجريبي):</b> تكلفة الاشتراك هي 20 دولار أمريكي، وهي باقة مخصصة للمستخدمين الجدد تتيح لك سحب العوائد خلال 30 يوماً من تاريخ التفعيل وتستخدم لمرة واحدة فقط ولا يمكن تجديدها.</li>
+                        <li><b>باقة V2:</b> تكلفة الاشتراك هي 100 دولار أمريكي، وصلاحية الباقة ممتدة لمدة 360 يوماً من تاريخ التفعيل.</li>
+                        <li><b>باقة V3:</b> تكلفة الاشتراك هي 260 دولار أمريكي، وصلاحية الباقة ممتدة لمدة 360 يوماً من تاريخ التفعيل.</li>
+                        <li><b>باقة V4:</b> تكلفة الاشتراك هي 450 دولار أمريكي، وصلاحية الباقة ممتدة لمدة 360 يوماً من تاريخ التفعيل.</li>
+                        <li><b>باقة V5:</b> تكلفة الاشتراك هي 750 دولار أمريكي، وصلاحية الباقة ممتدة لمدة 360 يوماً من تاريخ التفعيل.</li>
+                    </ul>
+                </div>
+
+                <div class="uiverse-section">
+                    <h4>🎁 مكافآت استقطاب الأعضاء</h4>
+                    <ul class="uiverse-list">
+                        <li><b>استقطاب عضو لباقة R1:</b> تحصل على مكافأة بقيمة 3 دولارات رقمية (USDT).</li>
+                        <li><b>استقطاب عضو لباقة V2:</b> تحصل على مكافأة بقيمة 12 دولار رقمي (USDT).</li>
+                        <li><b>استقطاب عضو لباقة V3:</b> تحصل على مكافأة بقيمة 30 دولار رقمي (USDT).</li>
+                        <li><b>استقطاب عضو لباقة V4:</b> تحصل على مكافأة بقيمة 55 دولار رقمي (USDT).</li>
+                        <li><b>استقطاب عضو لباقة V5:</b> تحصل على مكافأة بقيمة 95 دولار رقمي (USDT).</li>
+                    </ul>
+                </div>
+            </div>
+
             <div class="modal-actions">
-                <button class="close-btn" onclick="closeModal('walletModal')">إغلاق</button>
+                <button class="close-btn" onclick="closeModal('uiverseModal')">إغلاق</button>
             </div>
         </div>
     </div>
@@ -582,34 +594,4 @@
         }
 
         function outsideClose(event, modal) {
-            if (event.target === modal) closeModal(modal.id);
-        }
-
-        /* التحقق من إدخال الحقول لتفعيل زر Next */
-        function validateWithdrawForm() {
-            const amount = document.getElementById('usdtAmount').value.trim();
-            const wallet = document.getElementById('trcWallet').value.trim();
-            const nextBtn = document.getElementById('nextBtn');
-
-            if (amount !== '' && wallet !== '') {
-                nextBtn.disabled = false;
-            } else {
-                nextBtn.disabled = true;
-            }
-        }
-
-        /* إظهار رسالة عدم توفر الرصيد لمدة 3 ثواني */
-        function handleWithdrawSubmit() {
-            const toast = document.getElementById('withdrawToast');
-            toast.style.display = 'block';
-
-            setTimeout(() => {
-                toast.style.display = 'none';
-            }, 3000);
-        }
-    </script>
-
-    <script src="./bottom-nav.js"></script>
-</body>
-                                       </html>
-                                       
+            if (
