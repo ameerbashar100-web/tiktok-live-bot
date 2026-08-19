@@ -6,7 +6,7 @@
     <title>الصفحة الرئيسية</title>
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Inter:wght@400;600;700;800&display=swap');
 
         * {
             box-sizing: border-box;
@@ -19,31 +19,31 @@
             color: #ffffff;
             font-family: 'Cairo', 'Inter', sans-serif;
             min-height: 100vh;
-            padding-bottom: 110px; /* مساحة لضمان عدم تغطية الشريط السفلي */
+            padding-bottom: 100px; /* مساحة لضمان عدم تغطية الشريط السفلي */
         }
 
-        /* حاوية الصفحة */
+        /* حاوية البطاقة المثبتة */
         .page-content {
             width: 100%;
             max-width: 520px;
-            margin: 10px auto 0;
+            margin: 10px auto 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
             padding: 0 12px;
         }
 
-        /* --- البطاقة الداكنة العلويّة --- */
+        /* --- البطاقة الداكنة --- */
         .card-inner-body {
             width: 100%;
             max-width: 360px;
             background: #17161b;
             border-radius: 26px;
-            padding: 18px 18px 14px;
+            padding: 24px 20px 20px;
             position: relative;
             overflow: hidden;
-            min-height: 200px;
+            min-height: 240px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -51,6 +51,7 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
+        /* خلفية ضبابية متحرّكة */
         .moving-purple-glow {
             position: absolute;
             top: -10px;
@@ -108,11 +109,11 @@
             direction: ltr;
             text-align: right;
             font-family: 'Inter', 'Cairo', sans-serif;
-            font-size: 32px;
+            font-size: 34px;
             font-weight: 800;
             color: #ffffff;
             letter-spacing: -0.5px;
-            margin-bottom: 8px;
+            margin-bottom: 14px;
             position: relative;
             z-index: 2;
         }
@@ -130,7 +131,7 @@
             backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 20px;
-            padding: 5px 12px;
+            padding: 6px 14px;
             font-size: 11px;
             color: #d1d1d6;
             display: flex;
@@ -143,14 +144,14 @@
             display: flex;
             justify-content: flex-start;
             align-items: flex-end;
-            margin-top: 15px;
+            margin-top: 30px;
             position: relative;
             z-index: 2;
         }
 
         .maturity-tag {
             color: #d1d1d6;
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 800;
             display: flex;
             align-items: center;
@@ -158,120 +159,121 @@
         }
 
         .lock-icon {
-            width: 13px;
-            height: 13px;
+            width: 14px;
+            height: 14px;
             fill: currentColor;
         }
 
-        /* --- القائمة البيضاء السفليّة --- */
-        .white-menu-box {
+        /* --- القائمة الأزرار الشبكية --- */
+        .action-grid {
             width: 100%;
             max-width: 360px;
-            background: #ffffff;
-            border-radius: 20px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 9px;
+            margin-top: 18px;
+            position: relative;
+            z-index: 4;
         }
 
-        .menu-item {
+        .list-action {
+            grid-column: span 3;
             width: 100%;
-            height: 54px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 16px;
-            background: transparent;
-            border: 0;
-            border-bottom: 1px solid #f0f0f5;
+            min-height: 56px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.055);
+            color: #fff;
+            padding: 10px 14px;
             cursor: pointer;
-            text-decoration: none;
-            transition: background 0.2s ease;
-        }
-
-        .menu-item:last-child {
-            border-bottom: none;
-        }
-
-        .menu-item:hover {
-            background: #f8f8fb;
-        }
-
-        .item-right {
+            font-family: 'Inter', 'Cairo', sans-serif;
+            font-weight: 800;
+            font-size: 15px;
             display: flex;
             align-items: center;
-            gap: 12px;
+            backdrop-filter: blur(10px);
         }
 
-        .item-icon {
-            width: 34px;
-            height: 34px;
-            border-radius: 10px;
+        .list-icon {
+            width: 32px;
+            height: 32px;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #111115;
-            color: #ffffff;
-            border: 1px solid rgba(0, 0, 0, 0.1);
+            margin-left: 10px;
         }
 
-        .item-icon svg {
-            width: 18px;
-            height: 18px;
-            fill: currentColor;
+        .list-icon svg { width: 28px; height: 28px; }
+
+        .list-label { flex: 1; text-align: right; }
+
+        .list-arrow {
+            font-size: 22px;
+            color: #b8b8c0;
         }
 
-        .item-text {
-            font-size: 14px;
-            font-weight: 700;
-            color: #111115;
-            font-family: 'Cairo', sans-serif;
+        .action-btn {
+            min-height: 72px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.055);
+            color: #fff;
+            padding: 9px 5px;
+            cursor: pointer;
+            font-family: 'Inter', 'Cairo', sans-serif;
+            font-weight: 800;
+            font-size: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            backdrop-filter: blur(10px);
         }
 
-        .item-arrow {
-            font-size: 15px;
-            color: #111115;
-            font-weight: bold;
+        .action-btn img {
+            width: 27px;
+            height: 27px;
+            object-fit: contain;
         }
 
-        /* --- الشريط السفلي الأصلي المعدل --- */
-        .original-bottom-nav {
+        /* --- الشريط السفلي المدمج (UIverse Navigation) --- */
+        .bottom-navbar {
             position: fixed;
-            bottom: 15px;
+            bottom: 12px;
             left: 50%;
             transform: translateX(-50%);
-            width: calc(100% - 32px);
+            width: calc(100% - 24px);
             max-width: 360px;
-            height: 70px;
-            background: #161618;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 28px;
+            height: 64px;
+            background: #111113;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
             display: flex;
             justify-content: space-around;
             align-items: center;
             z-index: 999;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
-            padding: 0 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
         }
 
-        .nav-item {
+        .nav-item-btn {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 4px;
-            color: #888890;
+            justify-content: center;
+            gap: 3px;
+            color: #71717a;
             text-decoration: none;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 700;
             font-family: 'Inter', sans-serif;
-            transition: all 0.2s ease;
             width: 33.33%;
+            height: 100%;
         }
 
-        .nav-item svg {
-            width: 22px;
-            height: 22px;
+        .nav-item-btn svg {
+            width: 20px;
+            height: 20px;
             fill: none;
             stroke: currentColor;
             stroke-width: 2.2;
@@ -279,16 +281,17 @@
             stroke-linejoin: round;
         }
 
-        .nav-item.active {
-            color: #a3ff12; /* اللون الأخضر الفسفوري الأصلي */
+        /* العنصر النشط مع التوهج الأخضر الفسفوري */
+        .nav-item-btn.active {
+            color: #a3ff12;
         }
 
-        .nav-item.active svg {
+        .nav-item-btn.active svg {
             stroke: #a3ff12;
-            filter: drop-shadow(0 0 6px rgba(163, 255, 18, 0.4));
+            filter: drop-shadow(0 0 5px rgba(163, 255, 18, 0.5));
         }
 
-        /* --- النوافذ المنبثقة (Modals) --- */
+        /* المودالات والتغويش */
         .modal {
             position: fixed;
             inset: 0;
@@ -315,22 +318,24 @@
         }
 
         .modal-title { font-size: 20px; font-weight: 800; margin-bottom: 16px; }
+        .field { text-align: right; margin-bottom: 12px; }
+        .field label { display: block; font-size: 12px; font-weight: 800; margin-bottom: 7px; color: #d8d8df; }
+        .field input { width: 100%; height: 48px; border-radius: 13px; border: 1px solid rgba(255,255,255,.1); outline: none; background: #0d0d10; color: #fff; padding: 0 13px; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 700; }
+        .usdt-input { display: flex; align-items: center; gap: 8px; background: #0d0d10; border: 1px solid rgba(255,255,255,.1); border-radius: 13px; padding: 0 11px; }
+        .usdt-input input { border: 0; background: transparent; }
+        .usdt-icon { width: 25px; height: 25px; object-fit: contain; }
         .modal-actions { display: flex; gap: 9px; margin-top: 15px; }
-        .modal-actions button { flex: 1; height: 45px; border-radius: 13px; border: 0; font-family: 'Cairo', sans-serif; font-weight: 800; cursor: pointer; }
+        .modal-actions button { flex: 1; height: 45px; border-radius: 13px; border: 0; font-family: 'Inter', 'Cairo', sans-serif; font-weight: 800; cursor: pointer; }
+        .confirm-btn { background: #fff; color: #090909; }
         .close-btn { background: #29282f; color: #fff; }
-        .withdraw-form { display: flex; flex-direction: column; gap: 12px; text-align: right; }
-        .input-group { display: flex; flex-direction: column; gap: 6px; }
-        .input-label { font-size: 12px; font-weight: 700; color: #aaaab3; }
-        .custom-input { width: 100%; height: 46px; background: #0d0d10; border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 12px; padding: 0 14px; color: #ffffff; outline: none; }
-        .next-btn { background: #ffffff; color: #000000; }
-        .next-btn:disabled { background: rgba(255, 255, 255, 0.2); color: rgba(255, 255, 255, 0.4); cursor: not-allowed; }
-        .toast-msg { display: none; background: rgba(220, 53, 69, 0.95); color: #ffffff; font-size: 13px; font-weight: 700; padding: 10px 14px; border-radius: 10px; margin-top: 10px; }
-        .trc20-card { background: #0d0d10; border: 1px solid rgba(255,255,255,.09); border-radius: 17px; padding: 16px; text-align: left; }
-        .trc20-brand { font-size: 16px; font-weight: 800; margin-bottom: 15px; }
+        .status-text { color: #bdbdc6; font-size: 14px; font-weight: 800; line-height: 1.7; padding: 12px 0; }
+        .trc20-card { background: #0d0d10; border: 1px solid rgba(255,255,255,.09); border-radius: 17px; padding: 16px; text-align: right; }
+        .trc20-brand { display: flex; align-items: center; gap: 10px; font-size: 16px; font-weight: 800; margin-bottom: 15px; }
         .wallet-label { color: #aaaab3; font-size: 11px; font-weight: 800; margin-bottom: 7px; }
-        .wallet-address { word-break: break-all; background: #17171c; border: 1px solid rgba(255,255,255,.08); border-radius: 11px; padding: 12px; font-size: 12px; font-weight: 700; }
+        .wallet-address { word-break: break-all; background: #17171c; border: 1px solid rgba(255,255,255,.08); border-radius: 11px; padding: 12px; font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 700; }
         .copy-wallet { width: 100%; height: 43px; margin-top: 10px; border: 0; border-radius: 11px; background: #fff; color: #090909; font-weight: 800; cursor: pointer; }
-        .status-text { color: #bdbdc6; font-size: 14px; font-weight: 700; padding: 15px 0; }
+        .copy-status { min-height: 18px; margin-top: 6px; text-align: center; color: #bdbdc6; font-size: 11px; font-weight: 800; }
+        .event-image { width: 100%; height: 145px; object-fit: cover; border-radius: 15px; margin-bottom: 13px; }
     </style>
 </head>
 
@@ -338,7 +343,7 @@
 
     <div class="page-content">
 
-        <!-- البطاقة الداكنة (الرصيد) -->
+        <!-- البطاقة الداكنة -->
         <div class="card-inner-body">
             <div class="moving-purple-glow"></div>
             <div class="bg-glow-1"></div>
@@ -362,130 +367,171 @@
             </div>
         </div>
 
-        <!-- القائمة البيضاء السفليّة -->
-        <div class="white-menu-box">
-            <button class="menu-item" onclick="openModal('topupModal')">
-                <div class="item-right">
-                    <div class="item-icon"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></div>
-                    <span class="item-text">شحن الحساب</span>
-                </div>
-                <span class="item-arrow">❮</span>
+        <!-- شبكة الأزرار -->
+        <div class="action-grid">
+            <button class="list-action" onclick="openModal('topupModal')">
+                <span class="list-icon">
+                    <svg viewBox="0 0 64 64">
+                        <circle cx="32" cy="32" r="31" fill="#eb0029"/>
+                        <path fill="#fff" d="M12 14h40v9H39v27h-9V23H12z"/>
+                        <path fill="#fff" d="M22 14h20l-4 9H26z"/>
+                        <path fill="#fff" d="M30 28h9v22h-9z"/>
+                    </svg>
+                </span>
+                <span class="list-label">Top Up Account</span>
+                <span class="list-arrow">‹</span>
             </button>
 
-            <button class="menu-item" onclick="openModal('withdrawModal')">
-                <div class="item-right">
-                    <div class="item-icon"><svg viewBox="0 0 24 24"><path d="M5 13h14v-2H5v2zm0 4h14v-2H5v2zM5 9h14V7H5v2z"/></svg></div>
-                    <span class="item-text">سحب</span>
-                </div>
-                <span class="item-arrow">❮</span>
+            <button class="action-btn" onclick="openModal('withdrawModal')">
+                <img src="withdraw.png" alt="Withdraw"><span>Withdraw</span>
             </button>
-
-            <button class="menu-item" onclick="openModal('hireModal')">
-                <div class="item-right">
-                    <div class="item-icon"><svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
-                    <span class="item-text">توظيف الموظفين</span>
-                </div>
-                <span class="item-arrow">❮</span>
+            <button class="action-btn" onclick="openModal('withdrawHistoryModal')">
+                <img src="withdraw-history.png" alt="Withdraw history"><span>Withdrawal History</span>
             </button>
-
-            <button class="menu-item" onclick="openModal('walletModal')">
-                <div class="item-right">
-                    <div class="item-icon"><svg viewBox="0 0 24 24"><path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg></div>
-                    <span class="item-text">عنوان المحفظة</span>
-                </div>
-                <span class="item-arrow">❮</span>
+            <button class="action-btn" onclick="openModal('purchaseHistoryModal')">
+                <img src="purchase-history.png" alt="Purchase history"><span>Purchase History</span>
+            </button>
+            <button class="action-btn" onclick="openModal('eventModal')">
+                <img src="event.png" alt="Event"><span>Event</span>
+            </button>
+            <button class="action-btn" onclick="openModal('tribeModal')">
+                <img src="tribe.png" alt="Tribe members"><span>Tribe Members</span>
             </button>
         </div>
 
     </div>
 
-    <!-- الشريط السفلي الأصلي المفرغ بدقة (Profile - Shop - Main) -->
-    <div class="original-bottom-nav">
-        <a href="#" class="nav-item">
+    <!-- الشريط السفلي المدمج بالكامل بالستايل الموضح في الصورة -->
+    <div class="bottom-navbar">
+        <a href="#" class="nav-item-btn">
             <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
             <span>Profile</span>
         </a>
-        <a href="#" class="nav-item">
+        <a href="#" class="nav-item-btn">
             <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
             <span>Shop</span>
         </a>
-        <a href="#" class="nav-item active">
-            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/></svg>
+        <a href="#" class="nav-item-btn active">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg>
             <span>Main</span>
         </a>
     </div>
 
     <!-- النوافذ المنبثقة -->
-    <div id="withdrawModal" class="modal" onclick="outsideClose(event, this)">
-        <div class="modal-box">
-            <div class="modal-title">سحب</div>
-            <div class="withdraw-form">
-                <div class="input-group">
-                    <label class="input-label">المبلغ (USDT)</label>
-                    <input type="number" id="usdtAmount" class="custom-input" placeholder="0.00" oninput="validateWithdrawForm()">
-                </div>
-                <div class="input-group">
-                    <label class="input-label">عنوان محفظة TRC20</label>
-                    <input type="text" id="trcWallet" class="custom-input" placeholder="أدخل العنوان هنا..." oninput="validateWithdrawForm()">
-                </div>
-            </div>
-            <div id="withdrawToast" class="toast-msg">رصيد USDT غير متاح</div>
-            <div class="modal-actions">
-                <button id="nextBtn" class="next-btn" disabled onclick="handleWithdrawSubmit()">Next</button>
-                <button class="close-btn" onclick="closeModal('withdrawModal')">إغلاق</button>
-            </div>
-        </div>
-    </div>
-
     <div id="topupModal" class="modal" onclick="outsideClose(event, this)">
         <div class="modal-box">
-            <div class="modal-title">شحن الحساب</div>
+            <div class="modal-title">Top Up Account</div>
             <div class="trc20-card">
-                <div class="trc20-brand"><span>USDT (TRC20)</span></div>
-                <div class="wallet-label">عنوان الإيداع</div>
-                <div class="wallet-address">THJN4XBKxbZNYsw7YAHmNiZSupn3kVEDFP</div>
-                <button class="copy-wallet" onclick="alert('تم نسخ العنوان!')">نسخ العنوان</button>
+                <div class="trc20-brand">
+                    <span>TRC20</span>
+                </div>
+                <div class="wallet-label">USDT Deposit Address</div>
+                <div class="wallet-address" id="depositAddress">THJN4XBKxbZNYsw7YAHmNiZSupn3kVEDFP</div>
+                <button class="copy-wallet" onclick="copyDepositAddress()">Copy Address</button>
+                <div id="copyStatus" class="copy-status"></div>
             </div>
             <div class="modal-actions">
-                <button class="close-btn" onclick="closeModal('topupModal')">إغلاق</button>
+                <button class="close-btn" onclick="closeModal('topupModal')">Close</button>
             </div>
         </div>
     </div>
 
-    <div id="hireModal" class="modal" onclick="outsideClose(event, this)">
+    <div id="withdrawModal" class="modal" onclick="outsideClose(event, this)">
         <div class="modal-box">
-            <div class="modal-title">توظيف الموظفين</div>
-            <div class="status-text">لا يوجد موظفون متاحون حالياً.</div>
+            <div class="modal-title">Withdraw</div>
+            <div class="field">
+                <label>TRC20 Wallet Address</label>
+                <input id="walletAddress" type="text" placeholder="Enter TRC20 address">
+            </div>
+            <div class="field">
+                <label>USDT</label>
+                <div class="usdt-input">
+                    <img class="usdt-icon" src="usdt.png" alt="USDT">
+                    <input id="usdtAmount" type="number" min="0" step="any" placeholder="Enter amount">
+                </div>
+            </div>
             <div class="modal-actions">
-                <button class="close-btn" onclick="closeModal('hireModal')">إغلاق</button>
+                <button class="confirm-btn" onclick="tryWithdraw()">Nix</button>
+                <button class="close-btn" onclick="closeModal('withdrawModal')">Close</button>
             </div>
         </div>
     </div>
 
-    <div id="walletModal" class="modal" onclick="outsideClose(event, this)">
+    <div id="withdrawHistoryModal" class="modal" onclick="outsideClose(event, this)">
         <div class="modal-box">
-            <div class="modal-title">عنوان المحفظة</div>
-            <div class="status-text">عنوان المحفظة المسجل لديك هو TRC20.</div>
-            <div class="modal-actions">
-                <button class="close-btn" onclick="closeModal('walletModal')">إغلاق</button>
-            </div>
+            <div class="modal-title">Withdrawal History (0)</div>
+            <div class="status-text">Activity history is not available.</div>
+            <div class="modal-actions"><button class="close-btn" onclick="closeModal('withdrawHistoryModal')">Close</button></div>
+        </div>
+    </div>
+
+    <div id="purchaseHistoryModal" class="modal" onclick="outsideClose(event, this)">
+        <div class="modal-box">
+            <div class="modal-title">Purchase History (0)</div>
+            <div class="status-text">You have no purchase transactions.</div>
+            <div class="modal-actions"><button class="close-btn" onclick="closeModal('purchaseHistoryModal')">Close</button></div>
+        </div>
+    </div>
+
+    <div id="eventModal" class="modal" onclick="outsideClose(event, this)">
+        <div class="modal-box">
+            <div class="modal-title">Event</div>
+            <img class="event-image" src="event-banner.png" alt="Event">
+            <div class="status-text">Event information will appear here.</div>
+            <div class="modal-actions"><button class="close-btn" onclick="closeModal('eventModal')">Close</button></div>
+        </div>
+    </div>
+
+    <div id="tribeModal" class="modal" onclick="outsideClose(event, this)">
+        <div class="modal-box">
+            <div class="modal-title">Tribe Members</div>
+            <div class="status-text">There are no members now.</div>
+            <div class="modal-actions"><button class="close-btn" onclick="closeModal('tribeModal')">Close</button></div>
         </div>
     </div>
 
     <script>
-        function openModal(id) { document.getElementById(id).classList.add('show'); document.body.style.overflow = 'hidden'; }
-        function closeModal(id) { document.getElementById(id).classList.remove('show'); document.body.style.overflow = ''; }
-        function outsideClose(event, modal) { if (event.target === modal) closeModal(modal.id); }
-        function validateWithdrawForm() {
+        function copyDepositAddress() {
+            const address = document.getElementById('depositAddress').textContent.trim();
+            const status = document.getElementById('copyStatus');
+            navigator.clipboard.writeText(address).then(() => {
+                status.textContent = 'Address copied';
+            }).catch(() => {
+                status.textContent = 'Copy failed';
+            });
+        }
+
+        function openModal(id) {
+            document.getElementById(id).classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('show');
+            document.body.style.overflow = '';
+        }
+
+        function outsideClose(event, modal) {
+            if (event.target === modal) closeModal(modal.id);
+        }
+
+        function tryWithdraw() {
+            const wallet = document.getElementById('walletAddress').value.trim();
             const amount = document.getElementById('usdtAmount').value.trim();
-            const wallet = document.getElementById('trcWallet').value.trim();
-            document.getElementById('nextBtn').disabled = !(amount !== '' && wallet !== '');
+
+            if (!wallet || !amount) {
+                alert('Please enter the TRC20 wallet address and USDT amount.');
+                return;
+            }
+            alert('USDT balance is not available ♈');
         }
-        function handleWithdrawSubmit() {
-            const toast = document.getElementById('withdrawToast');
-            toast.style.display = 'block';
-            setTimeout(() => { toast.style.display = 'none'; }, 3000);
-        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal.show').forEach(m => closeModal(m.id));
+            }
+        });
     </script>
 </body>
-</html>
+                                                                                                   </html>
+                
