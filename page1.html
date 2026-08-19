@@ -23,12 +23,12 @@
             position: relative;
         }
 
-        /* حاوية الصفحة - تم رفعها لأعلى الشاشة مباشرة باستخدام absolute */
+        /* حاوية الصفحة */
         .page-content {
             width: 100%;
             max-width: 520px;
             position: absolute;
-            top: 10px; /* المسافة من قمة الشاشة */
+            top: 10px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
@@ -56,7 +56,6 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
-        /* خلفية بنفسجية ضبابية متحرّكة */
         .moving-purple-glow {
             position: absolute;
             top: -10px;
@@ -271,6 +270,7 @@
             padding: 22px;
             box-shadow: 0 20px 60px rgba(0,0,0,.65);
             text-align: center;
+            position: relative;
         }
 
         .modal-title {
@@ -293,6 +293,7 @@
             font-family: 'Cairo', sans-serif;
             font-weight: 800;
             cursor: pointer;
+            transition: all 0.2s ease;
         }
 
         .close-btn {
@@ -300,6 +301,75 @@
             color: #fff;
         }
 
+        /* --- تنسيقات نموذج السحب (Withdraw Form) --- */
+        .withdraw-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            text-align: right;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .input-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: #aaaab3;
+        }
+
+        .custom-input {
+            width: 100%;
+            height: 46px;
+            background: #0d0d10;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 12px;
+            padding: 0 14px;
+            color: #ffffff;
+            font-family: 'Inter', 'Cairo', sans-serif;
+            font-size: 13px;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        .custom-input:focus {
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* زر Next أبيض عند التفعيل ورمادي عند الإيقاف */
+        .next-btn {
+            background: #ffffff;
+            color: #000000;
+        }
+
+        .next-btn:disabled {
+            background: rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.4);
+            cursor: not-allowed;
+        }
+
+        /* رسالة التنبيه عند عدم توفر الرصيد */
+        .toast-msg {
+            display: none;
+            background: rgba(220, 53, 69, 0.95);
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 10px 14px;
+            border-radius: 10px;
+            margin-top: 10px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* باقي النوافذ */
         .trc20-card {
             background: #0d0d10;
             border: 1px solid rgba(255,255,255,.09);
@@ -437,7 +507,34 @@
 
     </div>
 
-    <!-- النوافذ المنبثقة -->
+    <!-- نافذة السحب المنبثقة المُحدثة -->
+    <div id="withdrawModal" class="modal" onclick="outsideClose(event, this)">
+        <div class="modal-box">
+            <div class="modal-title">سحب</div>
+            
+            <div class="withdraw-form">
+                <div class="input-group">
+                    <label class="input-label">المبلغ (USDT)</label>
+                    <input type="number" id="usdtAmount" class="custom-input" placeholder="0.00" oninput="validateWithdrawForm()">
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">عنوان محفظة TRC20</label>
+                    <input type="text" id="trcWallet" class="custom-input" placeholder="أدخل العنوان هنا..." oninput="validateWithdrawForm()">
+                </div>
+            </div>
+
+            <!-- رسالة الخطأ الظاهرة لمدة 3 ثواني -->
+            <div id="withdrawToast" class="toast-msg">رصيد USDT غير متاح</div>
+
+            <div class="modal-actions">
+                <button id="nextBtn" class="next-btn" disabled onclick="handleWithdrawSubmit()">Next</button>
+                <button class="close-btn" onclick="closeModal('withdrawModal')">إغلاق</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- باقي النوافذ المنبثقة -->
     <div id="topupModal" class="modal" onclick="outsideClose(event, this)">
         <div class="modal-box">
             <div class="modal-title">شحن الحساب</div>
@@ -449,16 +546,6 @@
             </div>
             <div class="modal-actions">
                 <button class="close-btn" onclick="closeModal('topupModal')">إغلاق</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="withdrawModal" class="modal" onclick="outsideClose(event, this)">
-        <div class="modal-box">
-            <div class="modal-title">سحب</div>
-            <div class="status-text">أدخل تفاصيل السحب الخاصة بك.</div>
-            <div class="modal-actions">
-                <button class="close-btn" onclick="closeModal('withdrawModal')">إغلاق</button>
             </div>
         </div>
     </div>
@@ -497,8 +584,32 @@
         function outsideClose(event, modal) {
             if (event.target === modal) closeModal(modal.id);
         }
+
+        /* التحقق من إدخال الحقول لتفعيل زر Next */
+        function validateWithdrawForm() {
+            const amount = document.getElementById('usdtAmount').value.trim();
+            const wallet = document.getElementById('trcWallet').value.trim();
+            const nextBtn = document.getElementById('nextBtn');
+
+            if (amount !== '' && wallet !== '') {
+                nextBtn.disabled = false;
+            } else {
+                nextBtn.disabled = true;
+            }
+        }
+
+        /* إظهار رسالة عدم توفر الرصيد لمدة 3 ثواني */
+        function handleWithdrawSubmit() {
+            const toast = document.getElementById('withdrawToast');
+            toast.style.display = 'block';
+
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 3000);
+        }
     </script>
 
     <script src="./bottom-nav.js"></script>
 </body>
-</html>
+                                       </html>
+                                       
