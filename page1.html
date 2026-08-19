@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>الصفحة الرئيسية</title>
-    <link rel="stylesheet" href="style.css">
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap');
@@ -20,23 +19,19 @@
             color: #ffffff;
             font-family: 'Cairo', 'Inter', sans-serif;
             min-height: 100vh;
-            position: relative;
+            padding-bottom: 90px; /* مساحة للشريط السفلي */
         }
 
-        /* حاوية الصفحة */
+        /* حاوية الصفحة المعدلة لتتوسط الشاشة بشكل مريح */
         .page-content {
             width: 100%;
             max-width: 520px;
-            position: absolute;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
+            margin: 20px auto 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 12px;
-            padding: 0 12px;
-            z-index: 10;
+            gap: 16px;
+            padding: 0 16px;
         }
 
         /* --- البطاقة الداكنة العلويّة --- */
@@ -219,12 +214,6 @@
             background: #111115;
             color: #ffffff;
             border: 1px solid rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s ease, background-color 0.2s ease;
-        }
-
-        .menu-item:hover .item-icon {
-            background: #000000;
-            transform: scale(1.05);
         }
 
         .item-icon svg {
@@ -296,7 +285,6 @@
             font-family: 'Cairo', sans-serif;
             font-weight: 800;
             cursor: pointer;
-            transition: all 0.2s ease;
         }
 
         .close-btn {
@@ -304,7 +292,7 @@
             color: #fff;
         }
 
-        /* --- تنسيق محتوى نافذة "حول UIVERSE" --- */
+        /* --- محتوى نافذة حول UIVERSE --- */
         .info-content {
             overflow-y: auto;
             text-align: right;
@@ -312,14 +300,6 @@
             font-size: 13px;
             line-height: 1.7;
             color: #d1d1d6;
-        }
-
-        .info-content::-webkit-scrollbar {
-            width: 4px;
-        }
-        .info-content::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 4px;
         }
 
         .info-section {
@@ -359,128 +339,47 @@
             font-weight: bold;
         }
 
-        /* --- باقي النماذج --- */
-        .modal-form {
+        /* --- الشريط السفلي المدمج (Bottom Navigation) --- */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: #111115;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
             display: flex;
-            flex-direction: column;
-            gap: 12px;
-            text-align: right;
-        }
-
-        .input-group {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .input-label {
-            font-size: 12px;
-            font-weight: 700;
-            color: #aaaab3;
-        }
-
-        .custom-input {
-            width: 100%;
-            height: 46px;
-            background: #0d0d10;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 12px;
-            padding: 0 14px;
-            color: #ffffff;
-            font-family: 'Inter', 'Cairo', sans-serif;
-            font-size: 13px;
-            outline: none;
-            transition: border-color 0.2s ease;
-        }
-
-        .custom-input:focus {
-            border-color: rgba(255, 255, 255, 0.4);
-        }
-
-        .action-btn-white {
-            background: #ffffff;
-            color: #000000;
-        }
-
-        .action-btn-white:disabled {
-            background: rgba(255, 255, 255, 0.2);
-            color: rgba(255, 255, 255, 0.4);
-            cursor: not-allowed;
-        }
-
-        .toast-msg {
-            display: none;
-            font-size: 13px;
-            font-weight: 700;
-            padding: 10px 14px;
-            border-radius: 10px;
-            margin-top: 10px;
-        }
-
-        .toast-error {
-            background: rgba(220, 53, 69, 0.95);
-            color: #ffffff;
-        }
-
-        .trc20-card {
-            background: #0d0d10;
-            border: 1px solid rgba(255,255,255,.09);
-            border-radius: 17px;
-            padding: 16px;
-            text-align: left;
-        }
-
-        .trc20-brand {
-            display: flex;
+            justify-content: space-around;
             align-items: center;
-            gap: 10px;
-            font-size: 16px;
-            font-weight: 800;
-            margin-bottom: 15px;
+            z-index: 999;
+            padding: 0 10px;
         }
 
-        .wallet-label {
-            color: #aaaab3;
+        .nav-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            color: #71717a;
+            text-decoration: none;
             font-size: 11px;
-            font-weight: 800;
-            margin-bottom: 7px;
-        }
-
-        .wallet-address {
-            word-break: break-all;
-            background: #17171c;
-            border: 1px solid rgba(255,255,255,.08);
-            border-radius: 11px;
-            padding: 12px;
-            color: #fff;
-            font-family: 'Inter', sans-serif;
-            font-size: 12px;
             font-weight: 700;
+            transition: color 0.2s;
         }
 
-        .copy-wallet {
-            width: 100%;
-            height: 43px;
-            margin-top: 10px;
-            border: 0;
-            border-radius: 11px;
-            background: #fff;
-            color: #090909;
-            font-family: 'Cairo', sans-serif;
-            font-weight: 800;
-            cursor: pointer;
+        .nav-link.active, .nav-link:hover {
+            color: #a855f7;
         }
 
-        .status-text {
-            color: #bdbdc6;
-            font-size: 14px;
-            font-weight: 700;
-            padding: 15px 0;
+        .nav-link svg {
+            width: 22px;
+            height: 22px;
+            fill: currentColor;
         }
     </style>
 </head>
 
-<body class="nav-body">
+<body>
 
     <div class="page-content">
 
@@ -511,7 +410,6 @@
         <!-- القائمة البيضاء السفليّة -->
         <div class="white-menu-box">
             
-            <!-- 1. شحن الحساب -->
             <button class="menu-item" onclick="openModal('topupModal')">
                 <div class="item-right">
                     <div class="item-icon">
@@ -522,7 +420,6 @@
                 <span class="item-arrow">❮</span>
             </button>
 
-            <!-- 2. سحب -->
             <button class="menu-item" onclick="openModal('withdrawModal')">
                 <div class="item-right">
                     <div class="item-icon">
@@ -533,7 +430,6 @@
                 <span class="item-arrow">❮</span>
             </button>
 
-            <!-- 3. توظيف الموظفين -->
             <button class="menu-item" onclick="openModal('hireModal')">
                 <div class="item-right">
                     <div class="item-icon">
@@ -544,7 +440,6 @@
                 <span class="item-arrow">❮</span>
             </button>
 
-            <!-- 4. حول UIVERSE (المعدل) -->
             <button class="menu-item" onclick="openModal('aboutModal')">
                 <div class="item-right">
                     <div class="item-icon">
@@ -559,15 +454,34 @@
 
     </div>
 
+    <!-- الشريط السفلي للأيقونات (Bottom Navigation Bar) -->
+    <nav class="bottom-nav">
+        <a href="#" class="nav-link active">
+            <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+            <span>الرئيسية</span>
+        </a>
+        <a href="#" class="nav-link">
+            <svg viewBox="0 0 24 24"><path d="M4 11h5V5H4v6zm0 7h5v-6H4v6zm6 0h5v-6h-5v6zm6 0h5v-6h-5v6zm0-13v6h5V5h-5zm-6 6h5V5h-5v6z"/></svg>
+            <span>الخدمات</span>
+        </a>
+        <a href="#" class="nav-link">
+            <svg viewBox="0 0 24 24"><path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+            <span>المحفظة</span>
+        </a>
+        <a href="#" class="nav-link">
+            <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+            <span>حسابي</span>
+        </a>
+    </nav>
+
     <!-- نافذة حول UIVERSE المنبثقة -->
     <div id="aboutModal" class="modal" onclick="outsideClose(event, this)">
         <div class="modal-box">
             <div class="modal-title">حول UIVERSE</div>
             
             <div class="info-content">
-                
                 <div class="info-section">
-                    <p>تررحب بكم منصة <strong>UIVERSE</strong> للإعلان والترويج وتوفر لكم مجموعة متكاملة من الباقات والاشتراكات المصممة لتلبية احتياجاتكم التسويقية، وتتوزع هذه الاشتراكات على عدة مستويات مدروسة تشمل: (R1 , V2 , V3 , V4 , V5).</p>
+                    <p>ترحب بكم منصة <strong>UIVERSE</strong> للإعلان والترويج وتوفر لكم مجموعة متكاملة من الباقات والاشتراكات المصممة لتلبية احتياجاتكم التسويقية، وتتوزع هذه الاشتراكات على عدة مستويات مدروسة تشمل: (R1 , V2 , V3 , V4 , V5).</p>
                 </div>
 
                 <div class="info-section">
@@ -602,7 +516,6 @@
                         <li><strong>استقطاب عضو لباقة V5:</strong> تحصل على مكافأة بقيمة 95 دولار رقمي (USDT).</li>
                     </ul>
                 </div>
-
             </div>
 
             <div class="modal-actions">
@@ -611,12 +524,20 @@
         </div>
     </div>
 
-    <!-- باقي النوافذ (السحب والشحن وتوظيف) -->
-    <div id="withdrawModal" class="modal" onclick="outsideClose(event, this)">
-        <div class="modal-box">
-            <div class="modal-title">سحب</div>
-            <div class="modal-form">
-                <div class="input-group">
-                    <label class="input-label">المبلغ (USDT)</label>
-                    <input type="number" id="usdtAmount" class="custom-input" placeholder="0.00" oninput="validateWithdrawForm()">
-            
+    <script>
+        function openModal(id) {
+            document.getElementById(id).classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('show');
+            document.body.style.overflow = '';
+        }
+
+        function outsideClose(event, modal) {
+            if (event.target === modal) closeModal(modal.id);
+        }
+    </script>
+</body>
+</html>
