@@ -20,18 +20,23 @@
             color: #ffffff;
             font-family: 'Cairo', 'Inter', sans-serif;
             min-height: 100vh;
+            position: relative;
         }
 
-        /* حاوية الصفحة - ملتصقة بالأعلى تماماً */
+        /* حاوية الصفحة - تم رفعها لأعلى الشاشة مباشرة باستخدام absolute */
         .page-content {
             width: 100%;
             max-width: 520px;
-            margin: 0 auto 120px;
+            position: absolute;
+            top: 10px; /* المسافة من قمة الشاشة */
+            left: 50%;
+            transform: translateX(-50%);
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 12px;
             padding: 0 12px;
+            z-index: 10;
         }
 
         /* --- البطاقة الداكنة العلويّة --- */
@@ -49,7 +54,6 @@
             justify-content: space-between;
             border: 1px solid rgba(255, 255, 255, 0.08);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            margin-top: -30px; /* رفع البطاقة والمربعات لأعلى جداً */
         }
 
         /* خلفية بنفسجية ضبابية متحرّكة */
