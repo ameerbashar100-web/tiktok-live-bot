@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الملف الشخصي</title>
+    <link rel="stylesheet" href="style.css">
+
+<style>
+/* Premium Dark — الأيقونات الأصلية محفوظة */
+html,body{
+  margin:0;
+  min-height:100%;
+  background:#050706;
+}
+body.nav-body{
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* Profile */
+.profile-card{
+  position:relative;
+  overflow:hidden;
+  isolation:isolate;
+  max-width:620px!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  padding:24px!important;
+  border-radius:30px!important;
+  border:1px solid rgba(183,255,60,.20)!important;
+  background:
+    radial-gradient(circle at 15% 5%,rgba(183,255,60,.075),transparent 30%),
+    linear-gradient(145deg,#111710,#080c09 68%,#0d120e)!important;
+  box-shadow:0 25px 65px rgba(0,0,0,.50),inset 0 1px 0 rgba(255,255,255,.045)!important;
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+}
+
+.profile-card::before{
+  content:"";
+  position:absolute;
+  inset:-1px;
+  border-radius:31px;
+  padding:1px;
+  background:linear-gradient(135deg,rgba(183,255,60,.32),transparent 32%,transparent 70%,rgba(183,255,60,.10));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+  mask-composite:exclude;
+  pointer-events:none;
+}
+
+.profile-card::after{
+  content:"";
+  position:absolute;
+  width:190px;height:190px;
+  right:-100px;top:-100px;
+  border-radius:50%;
+  background:rgba(183,255,60,.065);
+  filter:blur(30px);
+  pointer-events:none;
+}
+
+.profile-header{position:relative;z-index:1;}
+
+.user-avatar{
+  width:82px!important;height:82px!important;
+  display:grid!important;place-items:center!important;
+  margin:0 auto 12px!important;
+  border-radius:50%!important;
+  background:radial-gradient(circle,#121a25,#0d1118 70%)!important;
+  border:1px solid rgba(0,145,255,.55)!important;
+  box-shadow:0 0 0 5px rgba(0,145,255,.04),0 0 28px rgba(0,145,255,.20),inset 0 0 22px rgba(0,145,255,.08)!important;
+}
+.user-avatar svg{width:48px;height:48px;fill:#1595ff;filter:drop-shadow(0 0 8px rgba(21,149,255,.3));}
+
+.title{
+  font-size:1.65rem!important;
+  margin:0 0 20px!important;
+  font-weight:800!important;
+  letter-spacing:-.4px!important;
+}
+
+.toggle-blur-btn{
+  z-index:3;
+  display:grid!important;place-items:center!important;
+  width:62px!important;height:50px!important;
+  border-radius:15px!important;
+  background:linear-gradient(145deg,rgba(255,255,255,.08),rgba(255,255,255,.025))!important;
+  border:1px solid rgba(255,255,255,.12)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 8px 24px rgba(0,0,0,.22)!important;
+}
+
+.privacy-icon{
+  width:25px;height:25px;
+  fill:none;
+  stroke:#e8edf5;
+  stroke-width:1.7;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+.user-info-container{
+  position:relative;z-index:1;
+  border-radius:20px!important;
+  background:rgba(3,7,4,.58)!important;
+  border:1px solid rgba(183,255,60,.10)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.025)!important;
+  overflow:hidden;
+}
+
+.info-item{
+  padding:16px 20px!important;
+  border-bottom:1px solid rgba(255,255,255,.07)!important;
+}
+.info-item:last-child{border-bottom:0!important;}
+.info-label{
+  display:block!important;
+  font-size:.82rem!important;
+  font-weight:600!important;
+  letter-spacing:.6px!important;
+  margin-bottom:5px!important;
+}
+.info-value{
+  font-size:1.05rem!important;
+  line-height:1.45!important;
+  font-weight:700!important;
+}
+
+/* الشريط السفلي: إزالة الأبيض فقط، دون لمس SVG أو الأيقونات */
+.custom-nav-bar{
+  background:rgba(14,18,15,.88)!important;
+  background-color:rgba(14,18,15,.88)!important;
+  border:1px solid rgba(183,255,60,.16)!important;
+  box-shadow:0 18px 45px rgba(0,0,0,.55),0 0 25px rgba(183,255,60,.035)!important;
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+}
+
+/* يمنع أي قاعدة خارجية من إعادة اللون الأبيض للخلفية */
+.custom-nav-bar,
+.custom-nav-bar *{
+  -webkit-tap-highlight-color:transparent;
+}
+
+@media (max-width:480px){
+  .profile-card{padding:20px!important;}
+  .user-avatar{width:76px!important;height:76px!important;}
+  .user-avatar svg{width:44px;height:44px;}
+  .title{font-size:1.5rem!important;margin-bottom:16px!important;}
+  .info-item{padding:14px 16px!important;}
+}
+
+/* ===== Profile banner replacement ===== */
+.profile-card{
+  max-width:620px!important;
+  padding:16px!important;
+}
+.profile-header{margin:0!important;}
+.profile-banner{
+  position:relative;
+  width:100%;
+  height:190px;
+  overflow:hidden;
+  border-radius:22px;
+  border:1px solid rgba(190,210,230,.24);
+  background:#0b0e12;
+  box-shadow:0 16px 40px rgba(0,0,0,.38), inset 0 1px 0 rgba(255,255,255,.06);
+}
+.profile-banner-bg{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+}
+.profile-banner-content{
+  position:absolute;
+  z-index:2;
+  left:7%;
+  top:50%;
+  transform:translateY(-50%);
+  width:54%;
+  direction:ltr;
+  text-align:left;
+}
+.profile-name-live{
+  color:#fff;
+  font-size:clamp(1.55rem,5vw,2.15rem);
+  line-height:1.05;
+  font-weight:800;
+  letter-spacing:.2px;
+  text-shadow:0 2px 16px rgba(0,0,0,.65);
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.profile-email-live{
+  margin-top:12px;
+  padding-top:10px;
+  border-top:1px solid rgba(220,230,240,.22);
+  color:#f2f5f8;
+  font-size:clamp(.85rem,3.2vw,1.08rem);
+  line-height:1.35;
+  font-weight:650;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  text-shadow:0 2px 12px rgba(0,0,0,.7);
+}
+@media (max-width:480px){
+  .profile-card{padding:12px!important;}
+  .profile-banner{height:150px;border-radius:18px;}
+  .profile-banner-content{left:6%;width:57%;}
+  .profile-email-live{margin-top:8px;padding-top:7px;}
+}
+
+</style>
+</head>
+<body class="nav-body">
+
+  <div class="profile-card">
+    <button class="toggle-blur-btn" id="toggle-eye" onclick="togglePrivacy()" aria-label="إظهار أو إخفاء البيانات">
+  <svg class="privacy-icon" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M2.2 12s3.5-5.5 9.8-5.5 9.8 5.5 9.8 5.5-3.5 5.5-9.8 5.5S2.2 12 2.2 12Z"></path>
+    <circle cx="12" cy="12" r="3.2"></circle>
+  </svg>
+</button>
+
+    <div class="profile-header">
+      <div class="profile-banner">
+        <img src="./profile-banner.png" alt="" class="profile-banner-bg">
+        <div class="profile-banner-content">
+          <div class="profile-name-live" id="profile-name">جاري التحميل...</div>
+          <div class="profile-email-live" id="profile-email">جاري التحميل...</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="user-info-container" id="info-container" style="display:none">
+      <div class="info-item">
+        <span class="info-label">Name</span>
+        <span class="info-value" id="profile-name-hidden">جاري التحميل...</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">G m a i l ★</span>
+        <span class="info-value" id="profile-email-hidden">جاري التحميل...</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">PASSWORD ★</span>
+        <span class="info-value" id="profile-password">******</span>
+      </div>
+    </div>
+  </div>
+<script>
+    const savedName = localStorage.getItem('user_name') || 'مستخدم جديد';
+    const savedEmail = localStorage.getItem('user_email') || 'لا يوجد إيميل مسجل';
+
+    document.getElementById('profile-name').innerText = savedName;
+    document.getElementById('profile-email').innerText = savedEmail;
+    document.getElementById('profile-name-hidden').innerText = savedName;
+    document.getElementById('profile-email-hidden').innerText = savedEmail;
+
+    function togglePrivacy() {
+      const container = document.getElementById('info-container');
+      const eyeBtn = document.getElementById('toggle-eye');
+      container.classList.toggle('blurred-active');
+      if (container.classList.contains('blurred-active')) {
+        eyeBtn.innerHTML = `<svg class="privacy-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M3 3l18 18"></path>
+            <path d="M10.6 10.6a2 2 0 0 0 2.8 2.8"></path>
+            <path d="M9.2 5.3A10.8 10.8 0 0 1 12 4.9c6.3 0 9.8 7.1 9.8 7.1a17 17 0 0 1-3.1 3.8"></path>
+            <path d="M6.1 6.2C3.7 8.2 2.2 12 2.2 12s3.5 7.1 9.8 7.1c1.7 0 3.2-.4 4.5-1"></path>
+          </svg>`;
+      } else {
+        eyeBtn.innerHTML = `<svg class="privacy-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M2.2 12s3.5-5.5 9.8-5.5 9.8 5.5 9.8 5.5-3.5 5.5-9.8 5.5S2.2 12 2.2 12Z"></path>
+            <circle cx="12" cy="12" r="3.2"></circle>
+          </svg>`;
+      }
+    }
+  </script>
+    <script src="./bottom-nav.js"></script>
+</body>
+</html>
