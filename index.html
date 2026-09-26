@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Messages</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;min-height:100%;background:#fff;color:#202124;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Arial,sans-serif}
+body{overflow-x:hidden}
+.app{width:566px;max-width:566px;min-height:100vh;margin:0 auto;background:#fff;padding-bottom:86px;position:relative}
+.header{height:150px;position:relative;display:flex;justify-content:center;align-items:flex-end;padding-bottom:22px}
+.title{font-size:28px;font-weight:700;line-height:1;margin:0;letter-spacing:-.5px}
+.plus-circle{position:absolute;right:25px;bottom:20px;width:30px;height:30px;border:2px solid #111;border-radius:50%;background:#fff;padding:0;font-size:27px;font-weight:300;line-height:24px;color:#111}
+.search{height:50px;margin:0 22px 17px;border-radius:8px;background:#f7f6fa;display:flex;align-items:center;justify-content:center;padding:0 14px}
+.search svg{width:22px;height:22px;stroke:#bdbdc4;stroke-width:2.3;fill:none;margin-right:8px;flex:none}
+.search input{border:0;outline:0;background:transparent;width:100%;height:100%;font-size:18px;color:#333;text-align:left;flex:0 0 auto;width:82px}
+.search input::placeholder{color:#bdbdc4}
+.tabs{height:54px;border-bottom:1px solid #ddd;display:flex;align-items:center;padding:0 22px;gap:29px}
+.tab{height:54px;border:0;background:transparent;padding:0;position:relative;font-size:20px;color:#222}
+.tab.active:after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:#18a790}
+.count{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;margin-left:5px;border-radius:50%;background:#3ab899;color:#fff;font-size:15px;vertical-align:middle}
+.tab.plus{font-size:32px;line-height:1;margin-left:2px}
+.list{width:100%}
+.row{height:73px;display:flex;align-items:center;padding:0 22px;gap:18px;position:relative;cursor:pointer}
+.avatarBox{width:43px;height:43px;flex:0 0 43px;position:relative}
+.avatar{width:43px;height:43px;border-radius:50%;display:block;object-fit:cover}
+.fallback{width:43px;height:43px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:21px;font-weight:600}
+.a1{background:linear-gradient(135deg,#dfe84b,#37a978)}
+.a2{background:linear-gradient(135deg,#d9d4cd,#8c7968)}
+.a3{background:linear-gradient(135deg,#2b211c,#655042)}
+.a4{background:radial-gradient(circle,#fff 0 12%,#50c8b5 13% 24%,#e0ffff 25% 35%,#54cfc1 36% 55%,#baf5ec 56%)}
+.info{min-width:0;flex:1}
+.name{font-size:17px;line-height:20px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:2px}
+.preview{font-size:14px;line-height:17px;color:#aaa;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pinned{color:#965267;font-weight:600}
+.time{font-size:13px;color:#aaa;white-space:nowrap;margin-left:4px}
+.badge{position:absolute;right:-7px;top:-5px;min-width:25px;height:24px;padding:0 6px;border-radius:13px;background:#e84562;color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;line-height:24px;z-index:3;white-space:nowrap}
+.bottom{position:fixed;z-index:20;left:50%;bottom:0;transform:translateX(-50%);width:100%;max-width:566px;height:78px;border-top:1px solid #ddd;background:#fff;display:flex;align-items:center;justify-content:space-around}
+.bottom button{width:33.333%;height:78px;border:0;background:transparent;position:relative;display:flex;align-items:center;justify-content:center}
+.bottom svg{width:34px;height:34px;fill:none;stroke:#aaa;stroke-width:1.6}
+.bottom .active svg{stroke:#18aa92}
+.msg-badge{position:absolute;top:8px;right:31%;background:#e84562;color:#fff;border-radius:16px;padding:4px 9px;font-size:13px;line-height:18px}
+#filePicker{display:none}
+@media(max-width:565px){
+ .app{width:100%;max-width:100%}.bottom{width:100%}.search{margin-left:22px;margin-right:22px}
+ .tabs{padding-left:20px;gap:23px}
+ .row{padding-left:18px;padding-right:18px;gap:14px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="header">
+    <h1 class="title">Messages</h1>
+    <button class="plus-circle" aria-label="new message">+</button>
+  </header>
+
+  <div class="search">
+    <svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.8"/><path d="M16 16l5 5"/></svg>
+    <input id="search" placeholder="Search" autocomplete="off">
+  </div>
+
+  <div class="tabs">
+    <button class="tab active">All <span class="count">4</span></button>
+    <button class="tab">Unread <span class="count">4</span></button>
+    <button class="tab plus">+</button>
+  </div>
+
+  <main class="list" id="list"></main>
+
+  <nav class="bottom">
+    <button class="active" aria-label="Messages">
+      <svg viewBox="0 0 48 48"><path d="M8 12h32a4 4 0 0 1 4 4v18a4 4 0 0 1-4 4H22l-9 7v-7H8a4 4 0 0 1-4-4V16a4 4 0 0 1 4-4Z"/><circle cx="16" cy="25" r="2" fill="currentColor" stroke="none"/><circle cx="24" cy="25" r="2" fill="currentColor" stroke="none"/><circle cx="32" cy="25" r="2" fill="currentColor" stroke="none"/></svg>
+      <span class="msg-badge">1.2K</span>
+    </button>
+    <button aria-label="Contacts">
+      <svg viewBox="0 0 48 48"><rect x="10" y="7" width="28" height="34" rx="2"/><circle cx="24" cy="18" r="5"/><path d="M16 33c2-5 14-5 16 0M6 13v22M42 13v22"/></svg>
+    </button>
+    <button aria-label="Profile">
+      <svg viewBox="0 0 48 48"><circle cx="24" cy="14" r="7.5"/><path d="M11 41c1-9 6-14 13-14s12 5 13 14"/></svg>
+    </button>
+  </nav>
+</div>
+
+<input id="filePicker" type="file" accept="image/*">
+
+<script>
+const chats=[
+ {name:"My Favorites",preview:"Sigue siendo un placer de ser parte de esta organ...",time:"10/13",badge:"1.2K",cls:"a1",key:"g1"},
+ {name:"Server Operator:tp666888",preview:"Feedback and Suggestions",time:"09:43",badge:"9",cls:"a2",key:"g2"},
+ {name:"USA2 Oak Crypto (California) Signal Trading",preview:"[Arthur Brooks (California) pinned message] Susan: B...",time:"09:43",badge:"29",cls:"a3",key:"g3"},
+ {name:"Grupo Marycarmen",preview:"[NinaUSA2 (California) pinned message] Cecy: Gracias...",time:"09:18",badge:"1",cls:"a4",key:"g4"}
+];
+const list=document.getElementById("list");
+const search=document.getElementById("search");
+const picker=document.getElementById("filePicker");
+let selectedIndex=0;
+
+function stored(key){try{return localStorage.getItem("bonchat_"+key)||""}catch(e){return""}}
+function render(){
+ const q=search.value.trim().toLowerCase();
+ list.innerHTML="";
+ chats.forEach((c,i)=>{
+   if(q && !(c.name+" "+c.preview).toLowerCase().includes(q)) return;
+   const row=document.createElement("div");
+   row.className="row";
+   const saved=stored(c.key);
+   row.innerHTML=`
+    <div class="avatarBox">
+      ${saved?`<img class="avatar" src="${saved}" alt="">`:`<div class="fallback ${c.cls}">${i===0?"USA2":i===1?"◆":i===2?"◇":"◎"}</div>`}
+      <div class="badge">${c.badge}</div>
+    </div>
+    <div class="info">
+      <div class="name">${c.name}</div>
+      <div class="preview ${i<3?"pinned":""}">${c.preview}</div>
+    </div>
+    <div class="time">${c.time}</div>`;
+   row.querySelector(".avatarBox").onclick=(e)=>{
+     e.stopPropagation();
+     selectedIndex=i;
+     picker.value="";
+     picker.click();
+   };
+   list.appendChild(row);
+ });
+}
+picker.onchange=()=>{
+ const file=picker.files&&picker.files[0];
+ if(!file)return;
+ const reader=new FileReader();
+ reader.onload=()=>{
+   try{localStorage.setItem("bonchat_"+chats[selectedIndex].key,reader.result)}catch(e){}
+   render();
+ };
+ reader.readAsDataURL(file);
+};
+search.addEventListener("input",render);
+render();
+</script>
+</body>
+</html>
