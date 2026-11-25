@@ -1,0 +1,146 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background: #000;
+  color: #fff;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.app {
+  position: relative;
+  width: 100%;
+  max-width: 430px;
+  height: 100vh;
+  background: #000;
+  overflow: hidden;
+}
+
+.content {
+  width: 100%;
+  height: 100%;
+  background: #000;
+}
+
+.bottom-nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 80px;
+  background: #000;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  align-items: center;
+  justify-items: center;
+  z-index: 10;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  color: #666;
+  text-decoration: none;
+  transition: color 0.3s ease, transform 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+
+.nav-item i {
+  font-size: 32px;
+  line-height: 1;
+}
+
+.nav-item:focus, .nav-item:focus-visible {
+  outline: none;
+  background: transparent;
+}
+
+.nav-item:hover {
+  color: #aaa;
+  transform: translateY(-2px);
+}
+
+.active-item {
+  color: #fff;
+}
+
+.active-item i {
+  font-size: 36px;
+}
+
+.page {
+  min-height: 100vh;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  padding-bottom: 90px;
+}
+
+.page-shell {
+  width: min(90vw, 430px);
+  text-align: center;
+  padding: 30px 20px;
+}
+
+.page-shell h1 {
+  font-size: 32px;
+  margin-bottom: 30px;
+}
+
+.card-box {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 18px;
+  padding: 40px 20px;
+  margin-bottom: 25px;
+}
+
+.card-box i {
+  font-size: 70px;
+  margin-bottom: 18px;
+  color: #fff;
+}
+
+.card-box p {
+  font-size: 18px;
+  color: #ddd;
+}
+
+.wallet-page .card-box i { color: #ffffff; }
+.futures-page .card-box i { color: #ffffff; }
+.trading-page .card-box i { color: #ffffff; }
+.markets-page .card-box i { color: #ffffff; }
+.home-page .card-box i { color: #ffffff; }
+
+@media (max-width: 380px) {
+  .nav-item i {
+    font-size: 28px;
+  }
+
+  .active-item i {
+    font-size: 32px;
+  }
+
+  .page-shell h1 {
+    font-size: 28px;
+  }
+}
