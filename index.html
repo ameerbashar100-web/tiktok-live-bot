@@ -1,0 +1,536 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b0c0e">
+<meta name="color-scheme" content="dark">
+<title>OPTeS - تسجيل الدخول</title>
+<link rel="icon" href="data:image/png;base64,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">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<style>
+:root{
+  --bg:#0b0c0e;
+  --bg-glow:#17191c;
+  --line:#2b2e33;
+  --line-strong:#3d4147;
+  --text:#f3f3f1;
+  --muted:#a1a5ab;
+  --accent:#9db8ff;
+  --danger-bg:#2a1718;
+  --danger-line:#5a2b2d;
+  --danger-text:#ffb4ab;
+  --radius:16px;
+  --font:"IBM Plex Sans Arabic","Noto Sans Arabic",Tahoma,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+html{background:var(--bg)}
+html,body{margin:0;min-height:100%}
+body{
+  min-height:100vh;
+  min-height:100dvh;
+  background:
+    radial-gradient(110% 60% at 50% 18%,var(--bg-glow) 0%,var(--bg) 70%),
+    var(--bg);
+  background-attachment:fixed;
+  color:var(--text);
+  font-family:var(--font);
+  display:flex;
+  justify-content:center;
+  overflow-x:hidden;
+  padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
+}
+
+.screen{
+  width:min(100%,440px);
+  min-height:100vh;
+  min-height:100dvh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:28px 24px 36px;
+}
+
+/* ---------- الشعار المتحرك ---------- */
+.orb{
+  position:relative;
+  width:min(80vw,300px,40vh);
+  aspect-ratio:1;
+  margin:0 auto;
+}
+.orb canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+#blobs{filter:url(#goo)}
+
+.wordmark{
+  margin:-20px 0 34px;
+  text-align:center;
+  direction:ltr;
+}
+.wordmark .name{
+  display:block;
+  font-size:22px;
+  font-weight:500;
+  letter-spacing:.46em;
+  padding-left:.46em; /* يعوّض المسافة الأخيرة ليبقى الاسم في المنتصف */
+  line-height:1.2;
+}
+.wordmark .tag{
+  display:block;
+  margin-top:10px;
+  font-size:10.5px;
+  letter-spacing:.32em;
+  padding-left:.32em;
+  color:var(--muted);
+  opacity:.85;
+}
+
+/* ---------- النصوص ---------- */
+.head{text-align:center;margin-bottom:30px}
+h1{
+  margin:0 0 12px;
+  font-size:clamp(24px,6.6vw,30px);
+  font-weight:700;
+  line-height:1.3;
+  letter-spacing:0;
+}
+.sub{
+  margin:0 auto;
+  max-width:34ch;
+  color:var(--muted);
+  font-size:16px;
+  line-height:1.9;
+}
+
+/* ---------- الأزرار ---------- */
+.actions{display:grid;gap:12px}
+.btn{
+  appearance:none;
+  width:100%;
+  min-height:56px;
+  padding:0 20px;
+  border-radius:var(--radius);
+  font:inherit;
+  font-size:17px;
+  font-weight:600;
+  display:flex;align-items:center;justify-content:center;gap:12px;
+  cursor:pointer;
+  text-decoration:none;
+  -webkit-tap-highlight-color:transparent;
+  transition:background-color .15s,border-color .15s,transform .1s;
+}
+.btn:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.btn:active{transform:scale(.985)}
+.btn svg{width:22px;height:22px;flex:none}
+
+.btn-primary{
+  background:#f3f3f1;
+  color:#17181a;
+  border:1px solid #f3f3f1;
+}
+.btn-primary:hover{background:#fff}
+.btn-primary[aria-busy="true"]{pointer-events:none;opacity:.75}
+.btn-primary[aria-busy="true"] .g-icon{display:none}
+.spinner{
+  display:none;
+  width:20px;height:20px;flex:none;
+  border:2.5px solid #c9cacd;border-top-color:#17181a;
+  border-radius:50%;
+}
+.btn-primary[aria-busy="true"] .spinner{display:block;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){
+  .btn-primary[aria-busy="true"] .spinner{animation-duration:1.6s}
+}
+
+.btn-ghost{
+  background:transparent;
+  color:var(--text);
+  border:1px solid var(--line-strong);
+}
+.btn-ghost:hover{background:#18191c;border-color:#565b62}
+
+.divider{
+  display:flex;align-items:center;gap:14px;
+  margin:4px 0;
+  color:var(--muted);font-size:14px;
+}
+.divider::before,.divider::after{content:"";flex:1;height:1px;background:var(--line)}
+
+/* ---------- رسالة الخطأ ---------- */
+.status{
+  margin:20px 0 0;
+  padding:14px 16px;
+  display:flex;gap:10px;align-items:flex-start;
+  background:var(--danger-bg);
+  border:1px solid var(--danger-line);
+  border-radius:12px;
+  color:var(--danger-text);
+  font-size:15px;line-height:1.7;
+}
+.status[hidden]{display:none}
+.status svg{width:20px;height:20px;flex:none;margin-top:2px}
+
+.foot{
+  margin:28px 0 0;
+  text-align:center;
+  color:var(--muted);
+  font-size:14px;line-height:1.8;
+}
+
+@media (max-height:700px){
+  .wordmark{margin-bottom:22px}
+  .head{margin-bottom:22px}
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <filter id="goo" color-interpolation-filters="sRGB">
+    <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="b"/>
+    <feColorMatrix in="b" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -9"/>
+  </filter>
+</svg>
+
+<main class="screen" id="login">
+
+  <div class="orb" aria-hidden="true">
+    <canvas id="blobs"></canvas>
+    <canvas id="glass"></canvas>
+  </div>
+  <div class="wordmark" aria-hidden="true">
+    <span class="name">OPTES</span>
+    <span class="tag">THOUGHT → POSSIBILITY</span>
+  </div>
+
+  <header class="head">
+    <h1>تسجيل الدخول إلى أوبتس</h1>
+    <p class="sub">ادخل بحسابك لتبقى بياناتك ومشترياتك محفوظة ومتزامنة على كل أجهزتك.</p>
+  </header>
+
+  <div class="actions">
+    <button class="btn btn-primary" id="googleButton" type="button">
+      <svg class="g-icon" viewBox="0 0 48 48" aria-hidden="true">
+        <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+        <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+        <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+        <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+      </svg>
+      <span class="spinner" aria-hidden="true"></span>
+      <span>المتابعة بحساب Google</span>
+    </button>
+
+    <div class="divider" aria-hidden="true">أو</div>
+
+    <a class="btn btn-ghost" href="#" id="browserLogin" role="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/>
+      </svg>
+      <span>تسجيل الدخول عبر المتصفح</span>
+    </a>
+  </div>
+
+  <p class="status" id="status" role="alert" hidden>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5"/><circle cx="12" cy="16.5" r=".6" fill="currentColor"/>
+    </svg>
+    <span id="statusText"></span>
+  </p>
+
+  <p class="foot">نستخدم حساب Google لتسجيل دخولك فقط.</p>
+
+  <div id="googleButtonHost" style="position:absolute;left:-10000px;top:-10000px"></div>
+</main>
+
+<script>
+/* ===== الشعار المتحرك: كرة زجاجية بوجه من الأرقام يتفكك ويتجمّع ===== */
+(function () {
+  var blobsCv = document.getElementById('blobs');
+  var glassCv = document.getElementById('glass');
+  if (!blobsCv || !glassCv || !blobsCv.getContext) return;
+  var bx = blobsCv.getContext('2d');
+  var gx = glassCv.getContext('2d');
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var CYCLE = 13;          // مدة الدورة بالثواني
+  var S = 300, R = 100, DPR = 1;
+
+  /* ---- شكل الوجه (كثافة 0..1 داخل كرة نصف قطرها 1) ---- */
+  function density(u, v) {
+    var d = 0;
+    var hx = u / 0.29;
+    var hy = (v + 0.2) / (v > -0.2 ? 0.4 : 0.36);
+    d = Math.max(d, 1 - (hx * hx + hy * hy));
+    if (v > 0.1 && v < 0.3) d = Math.max(d, (1 - Math.abs(u) / 0.15) * 0.75);
+    if (v >= 0.22 && v < 0.68) {
+      var t = (v - 0.22) / 0.46;
+      var hw = 0.16 + 0.3 * Math.pow(t, 0.6);
+      d = Math.max(d, (1 - Math.abs(u) / hw) * (1 - 0.5 * Math.pow(t, 3)) * 0.9);
+    }
+    return d;
+  }
+
+  function rnd() { return Math.random(); }
+  function digit() { return String.fromCharCode(48 + Math.floor(rnd() * 10)); }
+
+  var P = [];
+  (function build() {
+    var dx = 0.052, dy = 0.058, row = 0;
+    for (var v = -0.58; v < 0.68; v += dy, row++) {
+      for (var u = -0.46; u < 0.46; u += dx) {
+        var uu = u + (row % 2 ? dx / 2 : 0);
+        var d = density(uu, v);
+        if (d < 0.06) continue;
+        var ny = (v + 0.58) / 1.26;              // 0 أعلى .. 1 أسفل
+        var rx = Math.max(-0.5, Math.min(0.5, uu * 0.9 + (rnd() - 0.5) * 0.5));
+        var fs = 6.0 + (1 - ny) * 1.4 + rnd() * 0.5;
+        P.push({
+          hx: uu, hy: v, ch: digit(),
+          a: Math.min(1, 0.28 + d * 1.1) * (0.55 + rnd() * 0.45),
+          ph: rnd() * 6.28,
+          fs: fs, fd: 0.8 + rnd() * 0.6,
+          rs: 9.4 + ny * 0.9 + rnd() * 0.5, rd: 1.0 + rnd() * 0.5,
+          rx: rx, ry: 0.6 + rnd() * 0.07 - Math.abs(rx) * 0.1
+        });
+      }
+    }
+  })();
+
+  function pos(p, t) {
+    if (t < p.fs) return [p.hx, p.hy, 1];
+    if (t < p.fs + p.fd) {
+      var e = (t - p.fs) / p.fd;
+      return [p.hx + (p.rx - p.hx) * e * e * (3 - 2 * e), p.hy + (p.ry - p.hy) * e * e, 1 - 0.35 * e];
+    }
+    if (t < p.rs) {
+      return [p.rx + Math.sin(t * 3 + p.ph) * 0.004, p.ry + Math.cos(t * 2.3 + p.ph) * 0.003, 0.65];
+    }
+    if (t < p.rs + p.rd) {
+      var f = (t - p.rs) / p.rd;
+      var k = f < 0.5 ? 4 * f * f * f : 1 - Math.pow(-2 * f + 2, 3) / 2;
+      var sway = Math.sin(f * Math.PI) * 0.06 * Math.sin(p.ph * 3);
+      return [p.rx + (p.hx - p.rx) * k + sway, p.ry + (p.hy - p.ry) * k, 0.65 + 0.35 * k];
+    }
+    return [p.hx, p.hy, 1];
+  }
+
+  /* ---- الفقاعات الجانبية التي تلتحم بالكرة ---- */
+  var SAT = [
+    { r: 0.38, d: 0.92, a0: -2.35, w: 0.16 },
+    { r: 0.24, d: 1.04, a0: 0.25, w: -0.13 },
+    { r: 0.16, d: 1.0, a0: -0.85, w: 0.21 }
+  ];
+  function satPos(s, i, time) {
+    var a = s.a0 + s.w * time;
+    var d = s.d + 0.06 * Math.sin(time * 0.7 + i * 2);
+    return [S / 2 + Math.cos(a) * d * R, S / 2 + Math.sin(a) * d * R, s.r * R * (1 + 0.05 * Math.sin(time * 0.9 + i))];
+  }
+
+  function resize() {
+    S = blobsCv.clientWidth || 300;
+    DPR = Math.min(window.devicePixelRatio || 1, 2.5);
+    R = S * 0.34;
+    [blobsCv, glassCv].forEach(function (c) { c.width = c.height = Math.round(S * DPR); });
+    bx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    gx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  }
+
+  function spec(ctx, x, y, r, alpha) {
+    var g = ctx.createRadialGradient(x, y, 0, x, y, r);
+    g.addColorStop(0, 'rgba(255,255,255,' + alpha + ')');
+    g.addColorStop(0.35, 'rgba(255,255,255,' + alpha * 0.35 + ')');
+    g.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.fillStyle = g;
+    ctx.beginPath(); ctx.arc(x, y, r, 0, 6.2832); ctx.fill();
+  }
+
+  function render(t, time) {
+    var c = S / 2, k = S / 300;
+    var rr = R * (1 + 0.012 * Math.sin(time * 0.8));
+
+    /* الطبقة 1: الأجسام الممتلئة (يلحمها مرشّح goo) */
+    bx.clearRect(0, 0, S, S);
+    var g1 = bx.createRadialGradient(c - rr * 0.35, c - rr * 0.4, rr * 0.05, c, c, rr);
+    g1.addColorStop(0, '#2f3236');
+    g1.addColorStop(1, '#1a1c1f');
+    bx.fillStyle = g1;
+    bx.beginPath(); bx.arc(c, c, rr, 0, 6.2832); bx.fill();
+    var sp = SAT.map(function (s, i) { return satPos(s, i, time); });
+    sp.forEach(function (s) {
+      var g = bx.createRadialGradient(s[0] - s[2] * 0.3, s[1] - s[2] * 0.35, s[2] * 0.05, s[0], s[1], s[2]);
+      g.addColorStop(0, '#3a3d42');
+      g.addColorStop(1, '#202225');
+      bx.fillStyle = g;
+      bx.beginPath(); bx.arc(s[0], s[1], s[2], 0, 6.2832); bx.fill();
+    });
+
+    /* الطبقة 2: الأرقام والحواف واللمعان */
+    gx.clearRect(0, 0, S, S);
+
+    gx.save();
+    gx.beginPath(); gx.arc(c, c, rr * 0.97, 0, 6.2832); gx.clip();
+    gx.font = (R * 0.058).toFixed(2) + 'px ui-monospace,Menlo,Consolas,"Courier New",monospace';
+    gx.textAlign = 'center';
+    gx.textBaseline = 'middle';
+    for (var i = 0; i < P.length; i++) {
+      var p = P[i];
+      if (Math.random() < 0.004) p.ch = digit();
+      var q = pos(p, t);
+      var a = p.a * q[2] * (0.88 + 0.12 * Math.sin(time * 2 + p.ph));
+      gx.fillStyle = 'rgba(236,236,236,' + a.toFixed(3) + ')';
+      gx.fillText(p.ch, c + q[0] * R, c + q[1] * R);
+    }
+    gx.restore();
+
+    /* حافة الكرة الرئيسية (حلقتان) */
+    var rim = gx.createLinearGradient(c - rr, c - rr, c + rr, c + rr);
+    rim.addColorStop(0, 'rgba(255,255,255,.78)');
+    rim.addColorStop(0.45, 'rgba(255,255,255,.12)');
+    rim.addColorStop(0.75, 'rgba(255,255,255,.24)');
+    rim.addColorStop(1, 'rgba(255,255,255,.55)');
+    gx.strokeStyle = rim;
+    gx.lineWidth = 2.2 * k;
+    gx.beginPath(); gx.arc(c, c, rr, 0, 6.2832); gx.stroke();
+    gx.strokeStyle = 'rgba(255,255,255,.09)';
+    gx.lineWidth = 1 * k;
+    gx.beginPath(); gx.arc(c, c, rr * 0.93, 0, 6.2832); gx.stroke();
+
+    /* انعكاس قوسي ولمعة داخل الكرة */
+    gx.strokeStyle = 'rgba(255,255,255,.28)';
+    gx.lineWidth = 3 * k;
+    gx.lineCap = 'round';
+    gx.beginPath(); gx.arc(c, c, rr * 0.86, Math.PI * 1.08, Math.PI * 1.4); gx.stroke();
+    spec(gx, c - rr * 0.4, c - rr * 0.42, rr * 0.15, 0.95);
+
+    /* حواف ولمعات الفقاعات الجانبية */
+    sp.forEach(function (s) {
+      var g = gx.createLinearGradient(s[0] - s[2], s[1] - s[2], s[0] + s[2], s[1] + s[2]);
+      g.addColorStop(0, 'rgba(255,255,255,.55)');
+      g.addColorStop(0.5, 'rgba(255,255,255,.08)');
+      g.addColorStop(1, 'rgba(255,255,255,.3)');
+      gx.strokeStyle = g;
+      gx.lineWidth = 1.4 * k;
+      gx.beginPath(); gx.arc(s[0], s[1], s[2], 0, 6.2832); gx.stroke();
+      spec(gx, s[0] - s[2] * 0.38, s[1] - s[2] * 0.4, s[2] * 0.3, 0.8);
+    });
+  }
+
+  resize();
+  if (window.ResizeObserver) {
+    new ResizeObserver(function () { resize(); if (reduce) render(3, 3); }).observe(blobsCv);
+  } else {
+    window.addEventListener('resize', function () { resize(); if (reduce) render(3, 3); });
+  }
+
+  if (reduce) { render(3, 3); return; }   // صورة ثابتة لمن يفضّل تقليل الحركة
+
+  var start = performance.now(), raf = 0;
+  function frame(now) {
+    var time = (now - start) / 1000;
+    render(time % CYCLE, time);
+    raf = requestAnimationFrame(frame);
+  }
+  raf = requestAnimationFrame(frame);
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) { cancelAnimationFrame(raf); }
+    else { raf = requestAnimationFrame(frame); }
+  });
+})();
+</script>
+
+<script>
+const GOOGLE_CLIENT_ID = '864322797605-1gtnb9uilmbm4a2uakrgha5u6jccpb0t.apps.googleusercontent.com';
+const statusBox = document.getElementById('status');
+const statusText = document.getElementById('statusText');
+const googleBtn = document.getElementById('googleButton');
+let busyTimer;
+
+function setBusy(on) {
+  googleBtn.setAttribute('aria-busy', on ? 'true' : 'false');
+  clearTimeout(busyTimer);
+  if (on) busyTimer = setTimeout(() => setBusy(false), 4000);
+}
+
+function showError(message) {
+  setBusy(false);
+  statusText.textContent = message;
+  statusBox.hidden = false;
+}
+
+function hideError() {
+  statusBox.hidden = true;
+}
+
+// فك تشفير رمز Google (JWT) لقراءة بيانات الحساب مثل البريد
+function parseJwt(token) {
+  const base64 = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/');
+  const json = decodeURIComponent(
+    atob(base64).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join('')
+  );
+  return JSON.parse(json);
+}
+
+function handleGoogleCredential(response) {
+  if (response && response.credential) {
+    // حفظ البريد لعرضه في الصفحة الرئيسية؛ التحقق الآمن من الرمز يحتاج خادماً.
+    try {
+      const user = parseJwt(response.credential);
+      localStorage.setItem('optes_user_email', user.email || '');
+      localStorage.setItem('optes_user_name', user.name || '');
+    } catch (e) {}
+    try { sessionStorage.setItem('optes_google_credential_received', 'true'); } catch (e) {}
+    window.location.replace(new URL('home.html', window.location.href).href);
+  } else {
+    showError('لم يتم اختيار حساب Google. حاول مرة أخرى.');
+  }
+}
+
+function startGoogle() {
+  hideError();
+  if (!window.google || !google.accounts || !google.accounts.id) {
+    showError('خدمة Google لم تُحمّل بعد. تأكد من الاتصال بالإنترنت ثم أعد المحاولة.');
+    return;
+  }
+  setBusy(true);
+  const host = document.getElementById('googleButtonHost');
+  host.innerHTML = '';
+  google.accounts.id.renderButton(host, {
+    type: 'standard',
+    theme: 'filled_black',
+    size: 'large',
+    text: 'continue_with',
+    shape: 'pill',
+    width: 320
+  });
+  const renderedButton = host.querySelector('[role="button"]');
+  if (renderedButton) renderedButton.click();
+}
+
+googleBtn.addEventListener('click', startGoogle);
+document.getElementById('browserLogin').addEventListener('click', event => {
+  event.preventDefault();
+  startGoogle();
+});
+
+window.addEventListener('load', () => {
+  const waitForGoogle = () => {
+    if (window.google && google.accounts && google.accounts.id) {
+      google.accounts.id.initialize({
+        client_id: GOOGLE_CLIENT_ID,
+        callback: handleGoogleCredential,
+        auto_select: false,
+        cancel_on_tap_outside: true
+      });
+    } else {
+      setTimeout(waitForGoogle, 250);
+    }
+  };
+  waitForGoogle();
+});
+</script>
+</body>
+</html>

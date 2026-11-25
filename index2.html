@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trading App</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      background: #000;
+      color: #fff;
+      font-family: 'Cairo', sans-serif;
+      overflow: hidden;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .phone-container {
+      width: 100%;
+      max-width: 430px;
+      height: 100vh;
+      background: #000;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .content {
+      width: 100%;
+      height: calc(100vh - 120px);
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      overflow: hidden;
+    }
+
+    .page-title {
+      font-size: 34px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: #f2f2f2;
+      text-shadow: 0 0 1px rgba(255,255,255,0.2);
+    }
+
+    .bottom-nav {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      max-width: 430px;
+      height: 110px;
+      background: rgba(0, 0, 0, 0.95);
+      border-top: 1px solid rgba(255,255,255,0.08);
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      align-items: flex-start;
+      padding: 10px 12px 12px;
+      gap: 6px;
+      z-index: 100;
+    }
+
+    .nav-item {
+      -webkit-tap-highlight-color: transparent;
+      outline: none;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      text-decoration: none;
+      color: rgba(255,255,255,0.72);
+      background: transparent;
+      border: none;
+      border-radius: 16px;
+      padding: 10px 6px 8px;
+      min-height: 70px;
+      transition: all 0.18s ease;
+      transform: translateY(0);
+      cursor: pointer;
+      font-family: 'Cairo', sans-serif;
+    }
+
+    .nav-item i {
+      font-size: 24px;
+      line-height: 1;
+      transition: transform 0.18s ease, color 0.18s ease;
+    }
+
+    .nav-item span {
+      font-size: 11px;
+      line-height: 1.2;
+      font-weight: 500;
+      letter-spacing: 0.2px;
+      white-space: nowrap;
+    }
+
+    .nav-item:focus, .nav-item:focus-visible {
+      outline: none;
+      background: transparent;
+    }
+
+    .nav-item:hover {
+      transform: translateY(-1px);
+    }
+
+    .nav-item:active {
+      transform: translateY(0) scale(0.98);
+    }
+
+    .nav-item.active {
+      background: transparent;
+      color: #fff;
+    }
+
+    .nav-item.active i {
+      transform: scale(1.04);
+      color: #fff;
+    }
+
+    .nav-item.home-badge {
+      position: relative;
+    }
+
+    .badge-count {
+      position: absolute;
+      top: 2px;
+      right: 12px;
+      background: #ff3f66;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 10px;
+      min-width: 24px;
+      text-align: center;
+      line-height: 1.4;
+      display: block;
+    }
+
+    @media (max-width: 380px) {
+      .nav-item i { font-size: 22px; }
+      .nav-item span { font-size: 10px; }
+      .page-title { font-size: 28px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="phone-container">
+    <div class="content">
+      <h1 class="page-title">الصفحة الرئيسية</h1>
+    </div>
+
+    <nav class="bottom-nav" aria-label="Bottom navigation">
+      <a class="nav-item" href="wallet.html" aria-label="الرصيد">
+        <i class="fa-solid fa-wallet"></i>
+        <span>الرصيد</span>
+      </a>
+
+      <a class="nav-item" href="futures.html" aria-label="العقود الآجلة">
+        <i class="fa-solid fa-chart-line"></i>
+        <span>العقود الآجلة</span>
+      </a>
+
+      <a class="nav-item active" href="trading.html" aria-label="التداول">
+        <i class="fa-solid fa-arrows-rotate"></i>
+        <span>التداول</span>
+      </a>
+
+      <a class="nav-item" href="markets.html" aria-label="الأسواق">
+        <i class="fa-solid fa-chart-column"></i>
+        <span>الأسواق</span>
+      </a>
+
+      <a class="nav-item home-badge" href="home.html" aria-label="الصفحة الرئيسية">
+        <span class="badge-count">99+</span>
+        <i class="fa-solid fa-house"></i>
+        <span>الرئيسية</span>
+      </a>
+    </nav>
+  </div>
+</body>
+</html>
